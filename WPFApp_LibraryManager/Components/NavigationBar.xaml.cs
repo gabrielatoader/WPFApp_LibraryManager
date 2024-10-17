@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFApp_LibraryManager.Views;
+using WPFApp_LibraryManager.Pages;
 using WPFApp_LibraryManager.Components;
 
 namespace WPFApp_LibraryManager.Components
@@ -38,7 +38,7 @@ namespace WPFApp_LibraryManager.Components
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            contentControl.Content = new BooksView();
+            contentControl.Content = new BooksPage();
         }
 
         private void Authors_Btn_Click(object sender, RoutedEventArgs e)
@@ -46,7 +46,7 @@ namespace WPFApp_LibraryManager.Components
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            contentControl.Content = new AuthorsVIew();
+            contentControl.Content = new AuthorsPage();
         }
 
         private void Publishers_Btn_Click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace WPFApp_LibraryManager.Components
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            contentControl.Content = new PublishersView();
+            contentControl.Content = new PublishersPage();
         }
 
         private void Home_Btn_Click(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace WPFApp_LibraryManager.Components
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            contentControl.Content = new HomeView();
+            contentControl.Content = new HomePage();
         }
     }
 }

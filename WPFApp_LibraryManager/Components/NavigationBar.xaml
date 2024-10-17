@@ -22,6 +22,6 @@
         <Button Grid.Column="1" Grid.Row="0" x:Name="Books_Btn" Content="BOOKS" Background="Transparent" Click="Books_Btn_Click"/>
         <Button Grid.Column="2" Grid.Row="0" x:Name="Authors_Btn" Content="AUTHORS" Background="Transparent" Click="Authors_Btn_Click"/>
         <Button Grid.Column="3" Grid.Row="0" x:Name="Publishers_Btn" Content="PUBLISHERS" Background="Transparent" Click="Publishers_Btn_Click"/>
-        <Button Grid.Column="5" Grid.Row="0" x:Name="Exit_Btn" Content="EXIT MANAGER" Background="Transparent" Click="Exit_Btn_Click"/>
+        <Button Grid.Column="5" Grid.Row="0" x:Name="Exit_Btn" Content="EXIT MANAGER" Background="Transparent" Click="Exit_Btn_Click" />
     </Grid>
 </UserControl>
