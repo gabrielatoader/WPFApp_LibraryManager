@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using WPFApp_LibraryManager.Components;
-using WPFApp_LibraryManager.Views;
+using WPFApp_LibraryManager.Pages;
 
 namespace WPFApp_LibraryManager
 {
@@ -15,7 +15,7 @@ namespace WPFApp_LibraryManager
         {
             InitializeComponent();
             Navigation_CC.Content = new NavigationBar();
-            Content_CC.Content = new BooksView();
+            Content_CC.Content = new BooksPage();
         }
     }
 }

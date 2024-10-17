@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp_LibraryManager.Views
+namespace WPFApp_LibraryManager.Pages
 {
     /// <summary>
-    /// Interaction logic for AuthorsVIew.xaml
+    /// Interaction logic for AuthorsPage.xaml
     /// </summary>
-    public partial class AuthorsVIew : UserControl
+    public partial class AuthorsPage : UserControl
     {
-        public AuthorsVIew()
+        public AuthorsPage()
         {
             InitializeComponent();
         }

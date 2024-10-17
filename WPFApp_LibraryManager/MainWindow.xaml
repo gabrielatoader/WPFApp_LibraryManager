@@ -15,22 +15,22 @@
         WindowStyle="None">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
         <!--// Set Application Background Colors //-->
         <!--// Navigation Bar //-->
         <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Fill="#9BA6AA" />
         <!--// Work Surface //-->
-        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="3" Fill="#EBEBE9" />
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="3"/>
 
         <!--//Navigation Bar Grid//-->
         <ContentControl Grid.Column="1" Grid.Row="0" x:Name="Navigation_CC"/>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp_LibraryManager.Views
+namespace WPFApp_LibraryManager.Pages
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class HomePage : UserControl
     {
-        public HomeView()
+        public HomePage()
         {
             InitializeComponent();
         }

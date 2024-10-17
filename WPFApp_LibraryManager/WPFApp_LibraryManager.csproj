@@ -56,32 +56,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Components\BooksView_BookDetails.xaml.cs">
-      <DependentUpon>BooksView_BookDetails.xaml</DependentUpon>
+    <Compile Include="Models\Author.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookDetails.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Publisher.cs" />
+    <Compile Include="Pages\AuthorsPage.xaml.cs">
+      <DependentUpon>AuthorsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\BooksView_Instructions.xaml.cs">
-      <DependentUpon>BooksView_Instructions.xaml</DependentUpon>
+    <Compile Include="Pages\PublishersPage.xaml.cs">
+      <DependentUpon>PublishersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\DbContext.cs" />
-    <Compile Include="Views\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PublishersView.xaml.cs">
-      <DependentUpon>PublishersView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Components\BooksView_BookDetails.xaml">
+    <Page Include="Pages\AuthorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\BooksView_Instructions.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AuthorsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BooksView.xaml">
+    <Page Include="Pages\BooksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -93,11 +87,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\AuthorsView.xaml.cs">
-      <DependentUpon>AuthorsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BooksView.xaml.cs">
-      <DependentUpon>BooksView.xaml</DependentUpon>
+    <Compile Include="Pages\BooksPage.xaml.cs">
+      <DependentUpon>BooksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -107,11 +98,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeView.xaml">
+    <Page Include="Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PublishersView.xaml">
+    <Page Include="Pages\PublishersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
