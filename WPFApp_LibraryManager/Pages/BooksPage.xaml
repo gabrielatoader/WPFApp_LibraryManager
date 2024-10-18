@@ -9,25 +9,24 @@
              d:DesignWidth="1920">
     <Grid x:Name="BooksView_Grd">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.15*"/>
+            <ColumnDefinition Width="2.11*"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <!--Book Collection Label -->
-            <RowDefinition Height="1*"/>
+
+            <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
-            <!--search area-->
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+
             <RowDefinition Height="30"/>
-            <!--book list area-->
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="30"/>
-            <!--add button area-->
-            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Library Collection" FontSize="30pt" FontWeight="Bold"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Library Collection" FontSize="20pt" FontWeight="Bold"/>
+        <!--<TextBox x:Name="SqlTest" Text="SqlTest" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Height="50"/>-->
 
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -62,6 +61,7 @@
             <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" x:Name="Search_Btn" Content="SEARCH" Height="30"/>
             <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" x:Name="Clear_Btn" Content="CLEAR" Click="Clear_Btn_Click" Height="30"/>
         </Grid>
+
         <DataGrid Grid.Row="4" Grid.Column="0" x:Name="BookList_Dtg" CanUserAddRows="False" SelectionUnit="FullRow" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" AlternatingRowBackground="Snow" SelectionChanged="BookList_Dtg_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BookList_Dtg_Title" Header="Book Title" Binding="{Binding Path=Title}" Width="275" CanUserResize="True"/>
@@ -70,15 +70,18 @@
                 <DataGridTextColumn x:Name="BookList_Dtg_Category" Header="Category" Binding="{Binding Path=CategoryName}" Width="98" CanUserResize="True"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="6" Grid.Column="0" x:Name="AddBook_Btn" Content="Add New Book" Height="30"/>
+        <Button Grid.Row="6" Grid.Column="0" x:Name="AddBook_Btn" Content="Add New Book" Height="30" IsEnabled="True"/>
 
-        <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="7" x:Name="Instructions_Lbl" Visibility="Visible" HorizontalAlignment="Center" FontSize="30" TextWrapping="WrapWithOverflow"
-                 Text="Use the search box and filters to find a specific book, then hit 'SEARCH'. Click on a book for details. Use the 'CLEAR' button to reset everything."/>
-        <Grid Grid.Row="3" Grid.RowSpan="4" Grid.Column="2" x:Name="BookDetails_Grd" Visibility="Hidden">
+        <ListBox Grid.Row="2" Grid.Column="2" x:Name="Instructions_Lbl" FontSize="16" IsEnabled="False" Height="110">
+            <ListBoxItem Content="Use the search box and filters to find specific books."/>
+            <ListBoxItem Content="Hit 'SEARCH' to start, 'CLEAR' to reset."/>
+            <ListBoxItem Content="Click on a book for details."/>
+            <ListBoxItem Content="Click 'Add New Book' to insert a book."/>
+        </ListBox>
+        <Grid Grid.Row="4" Grid.Column="2" x:Name="BookDetails_Grd" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="TitleLabelRow"/>
@@ -98,27 +101,33 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="Title_Lbl" Content="Title:" FontWeight="Bold"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="SelectedBook_Title_Txt"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="SelectedBook_Title_Txt" IsEnabled="False"/>
 
-            <Image Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" x:Name="SelectedBook_Cover_img" Source="https://dzinejs.lv/wp-content/plugins/lightbox/images/No-image-found.jpg"/>
+            <Image Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" x:Name="SelectedBook_Cover_img" Source="../Images/CoverPlaceholder.png" HorizontalAlignment="Left" Margin="0,10,0,0"/>
 
-            <Label Grid.Row="2" Grid.Column="2" x:Name="Author_Lbl" Content="Author" FontWeight="Bold"/>
-            <TextBox Grid.Row="3" Grid.Column="2" x:Name="SelectedBook_Author_Cbo" Text="Author cbx"/>
+            <Label Grid.Row="2" Grid.Column="1" x:Name="Author_Lbl" Content="Author" FontWeight="Bold"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="SelectedBook_Author_Cbo" Text="Author cbx" IsEnabled="False"/>
 
-            <Label Grid.Row="4" Grid.Column="2" x:Name="ISBN_Lbl" Content="ISBN" FontWeight="Bold"/>
-            <TextBox Grid.Row="5" Grid.Column="2" x:Name="SelectedBook_ISBN_Txt" Text="ISBN textbox"/>
+            <Label Grid.Row="4" Grid.Column="1" x:Name="ISBN_Lbl" Content="ISBN" FontWeight="Bold"/>
+            <TextBox Grid.Row="5" Grid.Column="1" x:Name="SelectedBook_ISBN_Txt" Text="ISBN textbox" IsEnabled="False"/>
 
-            <Label Grid.Row="6" Grid.Column="2" x:Name="Publisher_Lbl" Content="Publisher" FontWeight="Bold"/>
-            <TextBox Grid.Row="7" Grid.Column="2" x:Name="SelectedBook_Publisher_Cbo" Text="Publisher cbo"/>
+            <Label Grid.Row="6" Grid.Column="1" x:Name="Publisher_Lbl" Content="Publisher" FontWeight="Bold"/>
+            <TextBox Grid.Row="7" Grid.Column="1" x:Name="SelectedBook_Publisher_Cbo" Text="Publisher cbo" IsEnabled="False"/>
 
-            <Label Grid.Row="8" Grid.Column="2" x:Name="PublishedYear_Lbl" Content="Year" FontWeight="Bold"/>
-            <TextBox Grid.Row="9" Grid.Column="2" x:Name="SelectedBook_Published_Year_Txt" Text="Year textbox"/>
+            <Label Grid.Row="8" Grid.Column="1" x:Name="PublishedYear_Lbl" Content="Year" FontWeight="Bold"/>
+            <TextBox Grid.Row="9" Grid.Column="1" x:Name="SelectedBook_Published_Year_Txt" Text="Year textbox" IsEnabled="False"/>
 
-            <Label Grid.Row="10" Grid.Column="2" x:Name="Category_Lbl" Content="Category" FontWeight="Bold"/>
-            <TextBox Grid.Row="11" Grid.Column="2" x:Name="SelectedBook_Category_Cbo" Text="Category cbx"/>
-
-            <Button Grid.Row="13" Grid.Column="0" x:Name="Edit_Btn" Content="EDIT" Height="30"/>
-            <Button Grid.Row="13" Grid.Column="2" x:Name="Delete_Btn" Content="DELETE" Height="30"/>
+            <Label Grid.Row="10" Grid.Column="1" x:Name="Category_Lbl" Content="Category" FontWeight="Bold"/>
+            <TextBox Grid.Row="11" Grid.Column="1" x:Name="SelectedBook_Category_Cbo" Text="Category cbx" IsEnabled="False"/>
+        </Grid>
+        <Grid Grid.Row="6" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" x:Name="Edit_Btn" Content="EDIT" Height="30" IsEnabled="False" Click="Edit_Btn_Click"/>
+            <Button Grid.Row="0" Grid.Column="2" x:Name="Delete_Btn" Content="DELETE" Height="30" IsEnabled="False"/>
         </Grid>
     </Grid>
 </UserControl>
