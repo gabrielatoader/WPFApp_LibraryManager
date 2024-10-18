@@ -67,10 +67,13 @@
     <Compile Include="Pages\PublishersPage.xaml.cs">
       <DependentUpon>PublishersPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\AuthorService.cs" />
     <Compile Include="Services\DbContext.cs" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\SqlQueryEnums.cs" />
+    <Compile Include="Utils\SqlQueries.cs" />
     <Page Include="Pages\AuthorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Styles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CoverPlaceholder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
