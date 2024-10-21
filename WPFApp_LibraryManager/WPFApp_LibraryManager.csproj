@@ -58,7 +58,6 @@
     </ApplicationDefinition>
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BookQueryFilter.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Pages\AuthorsPage.xaml.cs">
