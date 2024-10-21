@@ -17,24 +17,24 @@ namespace WPFApp_LibraryManager.Services
             List<Author> authorList = new List<Author>();
 
             Author header = new Author();
+
             header.Id = 0;
             header.FullName = "- AUTHOR -";
             authorList.Add(header);
 
-            DataTable authorsTable = DbContext.GetResultTable(SqlQueries.AuthorsQuery);
+            DataTable authorsTable = DbContext.GetResultTable(SqlQueries.AllAuthorsQuery);
 
             foreach (DataRow authorRow in authorsTable.Rows)
-                {
-                    Author author = new Author();
+            {
+                Author author = new Author();
 
-                    author.Id = (int)authorRow["Id"];
-                    author.FullName = (string)authorRow["AuthorFullName"];
+                author.Id = (int)authorRow["AuthorId"];
+                author.FullName = (string)authorRow["AuthorFullName"];
 
-                    authorList.Add(author);
-                }
-
-                return authorList;
+                authorList.Add(author);
             }
+
+            return authorList;
         }
     }
 }

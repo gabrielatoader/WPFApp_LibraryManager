@@ -36,6 +36,57 @@ namespace WPFApp_LibraryManager.Services
 
                 return resultsTable;
             }
+        }  
+        
+        public static DataTable GetResultTableFilteredByAuthor(string query, int authorId)
+        {
+            SqlCommand cmd = new SqlCommand(query, DbContext.GetSqlConnection());
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@AuthorId", authorId);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            using (sqlDataAdapter)
+            {
+                DataTable resultsTable = new DataTable();
+
+                sqlDataAdapter.Fill(resultsTable);
+
+                return resultsTable;
+            }
+        }
+
+        public static DataTable GetResultTableFilteredByPublisher(string query, int publisherId)
+        {
+            SqlCommand cmd = new SqlCommand(query, DbContext.GetSqlConnection());
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PublisherId", publisherId);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            using (sqlDataAdapter)
+            {
+                DataTable resultsTable = new DataTable();
+
+                sqlDataAdapter.Fill(resultsTable);
+
+                return resultsTable;
+            }
+        }
+        
+        public static DataTable GetResultTableFilteredByCategory(string query, int categoryId)
+        {
+            SqlCommand cmd = new SqlCommand(query, DbContext.GetSqlConnection());
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            using (sqlDataAdapter)
+            {
+                DataTable resultsTable = new DataTable();
+
+                sqlDataAdapter.Fill(resultsTable);
+
+                return resultsTable;
+            }
         }
 
         public static DataRow GetResultRow(string query)

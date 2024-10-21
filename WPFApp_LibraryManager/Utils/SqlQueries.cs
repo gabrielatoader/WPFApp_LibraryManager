@@ -8,7 +8,7 @@ namespace WPFApp_LibraryManager.Utils
 {
     public static class SqlQueries
     {
-        public const string BookDetailsQuery = @"SELECT 
+        public const string AllBooksQuery = @"SELECT 
 	                            b.Id as BookId, 
 	                            ISBN, 
 	                            Title, 
@@ -26,11 +26,11 @@ namespace WPFApp_LibraryManager.Utils
 		                            ON b.Publisher_Id = p.Id 
 	                            JOIN Authors a 
 		                            ON b.Author_Id = a.Id
-	                            JOIN Category c
+	                            JOIN Categories c
 		                            ON b.Category_Id = c.Id";
 
-		public const string AuthorsQuery = @"SELECT 
-                                Id, 
+		public const string AllAuthorsQuery = @"SELECT 
+                                Id AS AuthorId, 
                                 FirstName, 
                                 MiddleName, 
                                 LastName, 
@@ -38,16 +38,35 @@ namespace WPFApp_LibraryManager.Utils
                             FROM 
                                 Authors";
 
-		public const string CategoriesQuery = @"SELECT 
-                                Id, 
-                                Name AS CategoryName
+		public const string AllCategoriesQuery = @"SELECT 
+                                Id AS CategoryId,
+								Name AS CategoryName
                             FROM 
                                 Categories";
 
-		public const string PublishersQuery = @"SELECT 
-                                Id, 
+		public const string AllPublishersQuery = @"SELECT 
+                                Id AS PublisherId,
                                 Name AS PublisherName
                             FROM 
                                 Publishers";
+
+		public const string BooksFilteredByAuthorQuery = AllBooksQuery + " WHERE " + WhereClause_FilerByAuthor;
+		public const string BooksFilteredByCategoryQuery = AllBooksQuery + " WHERE " + WhereClause_FilerByCategory;
+        public const string BooksFilteredByPublisherQuery = AllBooksQuery + " WHERE " + WhereClause_FilerByPublisher;
+
+
+        public const string WhereClause_AuthorNameContainsString = @"WHERE FirstName LIKE '%@SearchString%' 
+																	OR 
+																	MiddleName LIKE '%@SearchString%' 
+																	OR 
+																	LastName LIKE '%@SearchString%'";
+		public const string WhereClause_TitleContainsString = "WHERE Title LIKE '%@SearchString%'";
+		public const string WhereClause_CategoryNameContainsString = "WHERE CategoryName LIKE '%@SearchString%'";
+		public const string WhereClause_ISBNContainsString = "WHERE ISBN LIKE '%@SearchString%'";
+		public const string WhereClause_PublisherNameContainsString = "WHERE PublisherName LIKE '%@SearchString%'";
+
+		public const string WhereClause_FilerByAuthor = "Author_Id = @AuthorId";
+        public const string WhereClause_FilerByCategory = " Category_Id = @CategoryId";
+        public const string WhereClause_FilerByPublisher = "Publisher_Id = @PublisherId";
     }
 }

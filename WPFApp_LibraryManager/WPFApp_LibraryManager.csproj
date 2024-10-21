@@ -58,7 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BookDetails.cs" />
+    <Compile Include="Models\BookQueryFilter.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Pages\AuthorsPage.xaml.cs">
@@ -68,10 +68,14 @@
       <DependentUpon>PublishersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AuthorService.cs" />
+    <Compile Include="Services\BookService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\DbContext.cs" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\PublisherService.cs" />
+    <Compile Include="Services\Test_DBService.cs" />
     <Compile Include="Utils\SqlQueryEnums.cs" />
     <Compile Include="Utils\SqlQueries.cs" />
     <Page Include="Pages\AuthorsPage.xaml">
