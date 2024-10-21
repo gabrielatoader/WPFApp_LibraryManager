@@ -104,7 +104,7 @@ namespace WPFApp_LibraryManager.Pages
                 SelectedBook_ISBN_Txt.Text = selectedRow.ISBN;
 
                 BindAuthorsToCbo(SelectedBook_Author_Cbo, selectedRow.AuthorId);
-                SelectedBook_Category_Cbo.Text = selectedRow.CategoryName;
+                BindCategoriesToCbo(SelectedBook_Category_Cbo, selectedRow.CategoryId);
                 BindPublishersToCbo(SelectedBook_Publisher_Cbo, selectedRow.PublisherId);
                 SelectedBook_Published_Year_Txt.Text = selectedRow.PublishedYear.ToString();
 
