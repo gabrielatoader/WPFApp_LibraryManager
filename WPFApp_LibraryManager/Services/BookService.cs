@@ -69,6 +69,11 @@ namespace WPFApp_LibraryManager.Services
 
             return bookList;
         }
+
+        public void InsertNewBookInDb(Book book) 
+        { 
+            DbContext.InsertBookInDb(SqlQueries.InsertNewBookQuery,  book);
+        }
         
     }
 }

@@ -103,5 +103,26 @@ namespace WPFApp_LibraryManager.Services
             }
         }
 
+        public static void InsertBookInDb(string query, Book book) 
+        {
+            
+                _sqlConnection.Open();
+
+                SqlCommand cmd = new SqlCommand(query, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@Title", book.Title);
+                cmd.Parameters.AddWithValue("@ISBN", book.ISBN);
+                cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
+                cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
+                cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
+                cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+                cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
+
+                cmd.ExecuteNonQuery();
+
+                _sqlConnection.Close();
+
+        }
     }
 }

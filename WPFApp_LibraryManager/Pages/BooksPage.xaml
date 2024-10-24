@@ -70,7 +70,7 @@
                 <DataGridTextColumn x:Name="BookList_Dtg_Category" Header="Category" Binding="{Binding Path=CategoryName}" Width="98" CanUserResize="True"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="6" Grid.Column="0" x:Name="AddBook_Btn" Content="Add New Book" Height="30" IsEnabled="True"/>
+        <Button Grid.Row="6" Grid.Column="0" x:Name="AddBook_Btn" Content="Add New Book" Height="30" IsEnabled="True" VerticalAlignment="Top" Click="AddBook_Btn_Click"/>
 
         <ListBox Grid.Row="2" Grid.Column="2" x:Name="Instructions_Lbl" FontSize="16" IsEnabled="False" Height="110">
             <ListBoxItem Content="Use the search box and filters to find specific books."/>
@@ -89,20 +89,24 @@
                 <RowDefinition x:Name="AuthorLabelRow"/>
                 <RowDefinition x:Name="AuthorValueRow"/>
                 <RowDefinition x:Name="ISBNLabelRow"/>
+                
                 <RowDefinition x:Name="ISBNValueRow"/>
                 <RowDefinition x:Name="PublisherLabelRow"/>
                 <RowDefinition x:Name="PublisherValueRow"/>
                 <RowDefinition x:Name="PublishedYearLabelRow"/>
                 <RowDefinition x:Name="PublishedYearValueRow"/>
+                
                 <RowDefinition x:Name="CategoryLabelRow"/>
                 <RowDefinition x:Name="CategoryValueRow"/>
+                <RowDefinition x:Name="CoverURLLabelRow"/>
+                <RowDefinition x:Name="CoverURLValueRow"/>
                 <RowDefinition x:Name="ButtonsRow"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="Title_Lbl" Content="Title:" FontWeight="Bold"/>
             <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="SelectedBook_Title_Txt" IsEnabled="False"/>
 
-            <Image Grid.Row="2" Grid.Column="1" Grid.RowSpan="10" x:Name="SelectedBook_Cover_img" Source="../Images/CoverPlaceholder.png" HorizontalAlignment="Left" Margin="10,10,0,0"/>
+            <Image Grid.Row="2" Grid.Column="1" Grid.RowSpan="12" x:Name="SelectedBook_Cover_img" Source="../Images/CoverPlaceholder.png" HorizontalAlignment="Left" Margin="10,10,0,0"/>
 
             <Label Grid.Row="2" Grid.Column="0" x:Name="Author_Lbl" Content="Author" FontWeight="Bold"/>
             <ComboBox Grid.Row="3" Grid.Column="0" x:Name="SelectedBook_Author_Cbo" IsEnabled="False"/>
@@ -119,8 +123,11 @@
             <Label Grid.Row="10" Grid.Column="0" x:Name="Category_Lbl" Content="Category" FontWeight="Bold"/>
             <ComboBox Grid.Row="11" Grid.Column="0" x:Name="SelectedBook_Category_Cbo" IsEnabled="False"/>
 
-            <Button Grid.Row="12" Grid.Column="0" x:Name="Save_Btn" Content="SAVE" Height="30" IsEnabled="False" Click="Save_Btn_Click"/>
-            <Button Grid.Row="12" Grid.Column="1" x:Name="Cancel_Btn" Content="CANCEL" Height="30" IsEnabled="False" Click="Cancel_Btn_Click" Margin="10,0,0,0"/>
+            <Label Grid.Row="12" Grid.Column="0" x:Name="CoverURL_Lbl" Content="Cover URL" FontWeight="Bold"/>
+            <TextBox Grid.Row="13" Grid.Column="0" x:Name="SelectedBook_CoverURL_Txt" IsEnabled="False"/>
+
+            <Button Grid.Row="15" Grid.Column="0" x:Name="Save_Btn" Content="SAVE" Height="25" IsEnabled="False" Click="Save_Btn_Click"/>
+            <Button Grid.Row="15" Grid.Column="1" x:Name="Cancel_Btn" Content="CANCEL" Height="25" IsEnabled="False" Click="Cancel_Btn_Click" Margin="10,0,0,0"/>
         </Grid>
         <Grid Grid.Row="6" Grid.Column="2">
             <Grid.ColumnDefinitions>
