@@ -9,7 +9,7 @@ namespace WPFApp_LibraryManager
         public MainWindow()
         {
             InitializeComponent();
-            Navigation_CC.Content = new NavigationBar();
+            NavigationBar_CC.Content = new NavigationBar();
             Content_CC.Content = new BooksPage();
         }
     }
