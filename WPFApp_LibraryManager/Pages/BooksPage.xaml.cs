@@ -1,25 +1,14 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-using System.Windows.Controls;
-using System.Configuration;
-using WPFApp_LibraryManager.Components;
-using WPFApp_LibraryManager.Services;
-using System.Windows;
+﻿using System;
 using System.Collections.Generic;
-using WPFApp_LibraryManager.Models;
-using System;
-using System.Windows.Documents;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
-using System.Linq;
 using System.Windows.Media.Imaging;
-using WPFApp_LibraryManager.Utils;
-using Microsoft.Win32;
+using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
-    /// <summary>
-    /// Interaction logic for BooksPage.xaml
-    /// </summary>
     public partial class BooksPage : UserControl
     {
         private AuthorService _authorService;
@@ -35,59 +24,50 @@ namespace WPFApp_LibraryManager.Pages
             _publisherService = new PublisherService();
             _bookService = new BookService();
             _categoryService = new CategoryService();
-            Test_DBService test_DBService = new Test_DBService();
-            SqlTest.Text = test_DBService.TestSqlQuery();
-            DisableBookDetails();
+
+            // bind data to book collection display and search areas
             BindBooksToGrid(_bookService.GetAllBooksList());
             BindAuthorsToCbo(AuthorFilter_Cbo, 0);
             BindPublishersToCbo(PublisherFilter_Cbo, 0);
             BindCategoriesToCbo(CategoryFilter_Cbo, 0);
-            BindAuthorsToCbo(SelectedBook_Author_Cbo, 0);
-            BindCategoriesToCbo(SelectedBook_Category_Cbo, 0);
-            BindPublishersToCbo(SelectedBook_Publisher_Cbo, 0);
+            
+            // bind data to active book display area
+            BindAuthorsToCbo(TargetBook_Author_Cbo, 0);
+            BindCategoriesToCbo(TargetBook_Category_Cbo, 0);
+            BindPublishersToCbo(TargetBook_Publisher_Cbo, 0);
+            DisableBookDetails();
         }
-
         public void BindAuthorsToCbo(ComboBox cbo, int selectedIndex)
         {
-
             List<Author> authorList = _authorService.GetAuthors();
 
             cbo.ItemsSource = authorList;
             cbo.DisplayMemberPath = "FullName";
             cbo.SelectedValuePath = "Id";
             cbo.SelectedIndex = selectedIndex;
-
         }
-
         public void BindPublishersToCbo(ComboBox cbo, int selectedIndex)
         {
-
             List<Publisher> publisherList = _publisherService.GetPublishers();
 
             cbo.ItemsSource = publisherList;
             cbo.DisplayMemberPath = "Name";
             cbo.SelectedValuePath = "Id";
             cbo.SelectedIndex = selectedIndex;
-
         }
-
         public void BindCategoriesToCbo(ComboBox cbo, int selectedIndex)
         {
-
             List<Category> categoryList = _categoryService.GetCategories();
 
             cbo.ItemsSource = categoryList;
             cbo.DisplayMemberPath = "Name";
             cbo.SelectedValuePath = "Id";
             cbo.SelectedIndex = selectedIndex;
-
         }
-
         public void BindBooksToGrid(List<Book> bookList)
         {
             BookList_Dtg.ItemsSource = bookList;
         }
-
         private void Clear_Btn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             _isUpdateRequest = false;
@@ -102,27 +82,25 @@ namespace WPFApp_LibraryManager.Pages
             Cancel_Btn.IsEnabled = false;
             AddBook_Btn.IsEnabled = true;
         }
-
         private void BookList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _isUpdateRequest = true;
 
             DataGrid dataGrid = (DataGrid)sender;
             var selectedRow = dataGrid.SelectedItem as Book;
+
             if (selectedRow != null)
             {
-                SelectedBook_Title_Txt.Text = selectedRow.Title;
-                SelectedBook_ISBN_Txt.Text = selectedRow.ISBN;
-
-                BindAuthorsToCbo(SelectedBook_Author_Cbo, selectedRow.AuthorId);
-                BindCategoriesToCbo(SelectedBook_Category_Cbo, selectedRow.CategoryId);
-                BindPublishersToCbo(SelectedBook_Publisher_Cbo, selectedRow.PublisherId);
-                SelectedBook_Published_Year_Txt.Text = selectedRow.PublishedYear.ToString();
-                SelectedBook_CoverURL_Txt.Text= selectedRow.CoverURL;
-
+                TargetBook_Title_Txt.Text = selectedRow.Title;
+                TargetBook_ISBN_Txt.Text = selectedRow.ISBN;
+                TargetBook_PublishedYear_Txt.Text = selectedRow.PublishedYear.ToString();
+                TargetBook_CoverURL_Txt.Text = selectedRow.CoverURL;
+                BindAuthorsToCbo(TargetBook_Author_Cbo, selectedRow.AuthorId);
+                BindCategoriesToCbo(TargetBook_Category_Cbo, selectedRow.CategoryId);
+                BindPublishersToCbo(TargetBook_Publisher_Cbo, selectedRow.PublisherId);
+                
                 ImageSourceConverter coverConverter = new ImageSourceConverter();
-
-                SelectedBook_Cover_img.Source = (ImageSource)coverConverter.ConvertFromString(selectedRow.CoverURL);
+                TargetBook_Cover_img.Source = (ImageSource)coverConverter.ConvertFromString(selectedRow.CoverURL);
 
                 Edit_Btn.IsEnabled = true;
                 Delete_Btn.IsEnabled = true;
@@ -130,7 +108,6 @@ namespace WPFApp_LibraryManager.Pages
                 Cancel_Btn.IsEnabled = false;
             }
         }
-
         private void AuthorFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AuthorFilter_Cbo.SelectedIndex > 0)
@@ -138,7 +115,6 @@ namespace WPFApp_LibraryManager.Pages
                 BindBooksToGrid(_bookService.GetFilteredBooksByAuthor(AuthorFilter_Cbo.SelectedIndex));
             }
         }
-
         private void PublisherFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PublisherFilter_Cbo.SelectedIndex > 0)
@@ -146,7 +122,6 @@ namespace WPFApp_LibraryManager.Pages
                 BindBooksToGrid(_bookService.GetFilteredBooksByPublisher(PublisherFilter_Cbo.SelectedIndex));
             }
         }
-
         private void CategoryFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CategoryFilter_Cbo.SelectedIndex > 0)
@@ -154,7 +129,6 @@ namespace WPFApp_LibraryManager.Pages
                 BindBooksToGrid(_bookService.GetFilteredBooksByCategory(CategoryFilter_Cbo.SelectedIndex));
             }
         }
-
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
         {
             EnableBookDetails();
@@ -163,49 +137,45 @@ namespace WPFApp_LibraryManager.Pages
             Cancel_Btn.IsEnabled = true;
             Save_Btn.IsEnabled = true;
         }
-
         private void EnableBookDetails()
         {
-            SelectedBook_Title_Txt.IsEnabled = true;
-            SelectedBook_ISBN_Txt.IsEnabled = true;
-            SelectedBook_Author_Cbo.IsEnabled = true;
-            SelectedBook_Category_Cbo.IsEnabled = true;
-            SelectedBook_Publisher_Cbo.IsEnabled = true;
-            SelectedBook_Published_Year_Txt.IsEnabled = true;
-            SelectedBook_CoverURL_Txt.IsEnabled = true;
-            SelectedBook_Cover_img.IsEnabled = true;
+            TargetBook_Title_Txt.IsEnabled = true;
+            TargetBook_ISBN_Txt.IsEnabled = true;
+            TargetBook_Author_Cbo.IsEnabled = true;
+            TargetBook_Category_Cbo.IsEnabled = true;
+            TargetBook_Publisher_Cbo.IsEnabled = true;
+            TargetBook_PublishedYear_Txt.IsEnabled = true;
+            TargetBook_CoverURL_Txt.IsEnabled = true;
+            TargetBook_Cover_img.IsEnabled = true;
         }
         private void DisableBookDetails()
         {
-            SelectedBook_Title_Txt.IsEnabled = false;
-            SelectedBook_ISBN_Txt.IsEnabled = false;
-            SelectedBook_Author_Cbo.IsEnabled = false;
-            SelectedBook_Category_Cbo.IsEnabled = false;
-            SelectedBook_Publisher_Cbo.IsEnabled = false;
-            SelectedBook_Published_Year_Txt.IsEnabled = false;
-            SelectedBook_CoverURL_Txt.IsEnabled = false;
-            SelectedBook_Cover_img.IsEnabled = false;
+            TargetBook_Title_Txt.IsEnabled = false;
+            TargetBook_ISBN_Txt.IsEnabled = false;
+            TargetBook_Author_Cbo.IsEnabled = false;
+            TargetBook_Category_Cbo.IsEnabled = false;
+            TargetBook_Publisher_Cbo.IsEnabled = false;
+            TargetBook_PublishedYear_Txt.IsEnabled = false;
+            TargetBook_CoverURL_Txt.IsEnabled = false;
+            TargetBook_Cover_img.IsEnabled = false;
         }
-
         private void ClearBookDetails()
         {
-            SelectedBook_Title_Txt.Text = string.Empty;
-            SelectedBook_ISBN_Txt.Text = string.Empty;
-            SelectedBook_Author_Cbo.Text = string.Empty;
-            SelectedBook_Category_Cbo.Text = string.Empty;
-            SelectedBook_Publisher_Cbo.Text = string.Empty;
-            SelectedBook_Published_Year_Txt.Text = string.Empty;
-            SelectedBook_CoverURL_Txt.Text = string.Empty;
-            SelectedBook_Cover_img.Source = new BitmapImage(new Uri(@"../Images/CoverPlaceholder.png", UriKind.Relative));
+            TargetBook_Title_Txt.Text = string.Empty;
+            TargetBook_ISBN_Txt.Text = string.Empty;
+            TargetBook_Author_Cbo.Text = string.Empty;
+            TargetBook_Category_Cbo.Text = string.Empty;
+            TargetBook_Publisher_Cbo.Text = string.Empty;
+            TargetBook_PublishedYear_Txt.Text = string.Empty;
+            TargetBook_CoverURL_Txt.Text = string.Empty;
+            TargetBook_Cover_img.Source = new BitmapImage(new Uri(@"../Images/CoverPlaceholder.png", UriKind.Relative));
         }
-
         private void ClearFilters()
         {
             AuthorFilter_Cbo.SelectedIndex = 0;
             PublisherFilter_Cbo.SelectedIndex = 0;
             CategoryFilter_Cbo.SelectedIndex = 0;
         }
-
         private void ClearSearch()
         {
             Title_Chk.IsChecked = false;
@@ -215,12 +185,10 @@ namespace WPFApp_LibraryManager.Pages
             Category_Chk.IsChecked = false;
             Search_Txt.Text = string.Empty;
         }
-
         private void ClearDataGrid()
         {
             BindBooksToGrid(_bookService.GetAllBooksList());
         }
-
         private void Cancel_Btn_Click(object sender, RoutedEventArgs e)
         {
             DisableBookDetails();
@@ -230,16 +198,12 @@ namespace WPFApp_LibraryManager.Pages
             Edit_Btn.IsEnabled = true;
             AddBook_Btn.IsEnabled = true;
         }
-
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
         {
             //ToDo: delete from table(s)
-
         }
-
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //ToDo: update table(s)
             DisableBookDetails();
             Save_Btn.IsEnabled = false;
             Cancel_Btn.IsEnabled = false;
@@ -249,23 +213,22 @@ namespace WPFApp_LibraryManager.Pages
 
             if (_isUpdateRequest == true)
             {
-                //update existing book
+                //ToDo: update existing book
             }
             else
             {
                 //add new book
-
                 Book newBook = new Book();
-                newBook.Title = SelectedBook_Title_Txt.Text;
-                newBook.ISBN = SelectedBook_ISBN_Txt.Text;
-                newBook.AuthorName = SelectedBook_Author_Cbo.Text;
-                newBook.AuthorId = SelectedBook_Author_Cbo.SelectedIndex;
-                newBook.CategoryName = SelectedBook_Category_Cbo.Text;
-                newBook.CategoryId = SelectedBook_Category_Cbo.SelectedIndex;
-                newBook.PublisherName = SelectedBook_Publisher_Cbo.Text;
-                newBook.PublisherId = SelectedBook_Publisher_Cbo.SelectedIndex;
-                newBook.PublishedYear = Convert.ToInt32(SelectedBook_Published_Year_Txt.Text);
-                newBook.CoverURL = SelectedBook_CoverURL_Txt.Text;
+                newBook.Title = TargetBook_Title_Txt.Text;
+                newBook.ISBN = TargetBook_ISBN_Txt.Text;
+                newBook.AuthorName = TargetBook_Author_Cbo.Text;
+                newBook.AuthorId = TargetBook_Author_Cbo.SelectedIndex;
+                newBook.CategoryName = TargetBook_Category_Cbo.Text;
+                newBook.CategoryId = TargetBook_Category_Cbo.SelectedIndex;
+                newBook.PublisherName = TargetBook_Publisher_Cbo.Text;
+                newBook.PublisherId = TargetBook_Publisher_Cbo.SelectedIndex;
+                newBook.PublishedYear = Convert.ToInt32(TargetBook_PublishedYear_Txt.Text);
+                newBook.CoverURL = TargetBook_CoverURL_Txt.Text;
 
                 _bookService.InsertNewBookInDb(newBook);
 
@@ -279,9 +242,7 @@ namespace WPFApp_LibraryManager.Pages
                 AddBook_Btn.IsEnabled = true;
                 ClearDataGrid();
             }
-
         }
-
         private void AddBook_Btn_Click(object sender, RoutedEventArgs e)
         {
             _isUpdateRequest = false;

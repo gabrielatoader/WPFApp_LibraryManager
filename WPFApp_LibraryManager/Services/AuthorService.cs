@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
 
@@ -17,7 +12,6 @@ namespace WPFApp_LibraryManager.Services
             List<Author> authorList = new List<Author>();
 
             Author header = new Author();
-
             header.Id = 0;
             header.FullName = "- AUTHOR -";
             authorList.Add(header);
@@ -27,7 +21,6 @@ namespace WPFApp_LibraryManager.Services
             foreach (DataRow authorRow in authorsTable.Rows)
             {
                 Author author = new Author();
-
                 author.Id = (int)authorRow["AuthorId"];
                 author.FullName = (string)authorRow["AuthorFullName"];
 

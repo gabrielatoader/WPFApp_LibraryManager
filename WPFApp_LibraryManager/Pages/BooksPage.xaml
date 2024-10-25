@@ -14,21 +14,26 @@
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-
             <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="150"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
-
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <!--<Label Grid.Row="0" Grid.Column="0" Content="Library Collection" FontSize="20pt" FontWeight="Bold"/>-->
-        <TextBox x:Name="SqlTest" Text="SqlTest" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Height="50"/>
-
-        <Grid Grid.Row="2" Grid.Column="0">
+        <TextBox x:Name="SqlTest" 
+                 Grid.Column="0" 
+                 Grid.Row="0" 
+                 FontWeight="Bold" 
+                 Height="50"
+                 Text="SqlTest"
+                 />
+        <Grid Grid.Column="0" 
+              Grid.Row="2"
+              >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -46,39 +51,150 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Content="Filter by ..." FontWeight="Bold"/>
-            <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AuthorFilter_Cbo" SelectionChanged="AuthorFilter_Cbo_SelectionChanged"/>
-            <ComboBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="PublisherFilter_Cbo" SelectedIndex="0" SelectionChanged="PublisherFilter_Cbo_SelectionChanged"/>
-            <ComboBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" x:Name="CategoryFilter_Cbo" SelectedIndex="0" SelectionChanged="CategoryFilter_Cbo_SelectionChanged"/>
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Content="Search for ..." FontWeight="Bold"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" x:Name="Search_Txt"/>
-            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Content="Search in ..." FontWeight="Bold"/>
-            <CheckBox Grid.Row="4" Grid.Column="1" x:Name="Title_Chk" VerticalAlignment="Center">Title</CheckBox>
-            <CheckBox Grid.Row="4" Grid.Column="2" x:Name="Author_Chk" VerticalAlignment="Center">Author</CheckBox>
-            <CheckBox Grid.Row="4" Grid.Column="3" x:Name="Publisher_Chk" VerticalAlignment="Center">Publisher</CheckBox>
-            <CheckBox Grid.Row="4" Grid.Column="4" x:Name="ISBN_Chk" VerticalAlignment="Center">ISBN</CheckBox>
-            <CheckBox Grid.Row="4" Grid.Column="5" x:Name="Category_Chk" VerticalAlignment="Center">Category</CheckBox>
-            <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" x:Name="Search_Btn" Content="SEARCH" Height="30"/>
-            <Button Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" x:Name="Clear_Btn" Content="CLEAR" Click="Clear_Btn_Click" Height="30"/>
+            <Label x:Name="FilterBy_Lbl"
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="6" 
+                   Grid.Row="0" 
+                   Content="Filter by ..." 
+                   FontWeight="Bold"
+                   />
+            <ComboBox x:Name="AuthorFilter_Cbo" 
+                      Grid.Column="0" 
+                      Grid.ColumnSpan="2" 
+                      Grid.Row="1" 
+                      SelectionChanged="AuthorFilter_Cbo_SelectionChanged"
+                      />
+            <ComboBox x:Name="PublisherFilter_Cbo" 
+                      Grid.Column="2" 
+                      Grid.ColumnSpan="2" 
+                      Grid.Row="1" 
+                      SelectedIndex="0" 
+                      SelectionChanged="PublisherFilter_Cbo_SelectionChanged"
+                      />
+            <ComboBox x:Name="CategoryFilter_Cbo" 
+                      Grid.Column="4" 
+                      Grid.ColumnSpan="2" 
+                      Grid.Row="1" 
+                      SelectedIndex="0" 
+                      SelectionChanged="CategoryFilter_Cbo_SelectionChanged"
+                      />
+            <Label x:Name="SearchFor_Lbl"
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="6" 
+                   Grid.Row="2" 
+                   Content="Search for ..." 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="Search_Txt"
+                Grid.Column="0" 
+                Grid.ColumnSpan="6" 
+                Grid.Row="3" 
+                />
+            <Label x:Name="SearchIn_Lbl"
+                Grid.Column="0" 
+                Grid.ColumnSpan="6" 
+                Grid.Row="4" 
+                Content="Search in ..." 
+                FontWeight="Bold"
+                />
+            <CheckBox x:Name="Title_Chk"
+                      Grid.Column="1" 
+                      Grid.Row="4" 
+                      VerticalAlignment="Center">Title</CheckBox>
+            <CheckBox x:Name="Author_Chk" 
+                      Grid.Column="2" 
+                      Grid.Row="4" 
+                      VerticalAlignment="Center">Author</CheckBox>
+            <CheckBox x:Name="Publisher_Chk" 
+                      Grid.Column="3" 
+                      Grid.Row="4" 
+                      VerticalAlignment="Center">Publisher</CheckBox>
+            <CheckBox x:Name="ISBN_Chk" 
+                      Grid.Column="4" 
+                      Grid.Row="4" 
+                      VerticalAlignment="Center">ISBN</CheckBox>
+            <CheckBox x:Name="Category_Chk" 
+                      Grid.Column="5"
+                      Grid.Row="4" 
+                      VerticalAlignment="Center">Category</CheckBox>
+            <Button x:Name="Search_Btn" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="3" 
+                    Grid.Row="5" 
+                    Content="SEARCH" 
+                    Height="30"
+                    />
+            <Button x:Name="Clear_Btn" 
+                    Grid.Column="3" 
+                    Grid.ColumnSpan="3"
+                    Grid.Row="5" 
+                    Click="Clear_Btn_Click" Height="30"
+                    Content="CLEAR"
+                    />
         </Grid>
-
-        <DataGrid Grid.Row="4" Grid.Column="0" x:Name="BookList_Dtg" CanUserAddRows="False" SelectionUnit="FullRow" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" AlternatingRowBackground="Snow" SelectionChanged="BookList_Dtg_SelectionChanged">
+        <DataGrid x:Name="BookList_Dtg" 
+                  Grid.Column="0" 
+                  Grid.Row="4" 
+                  AlternatingRowBackground="Snow" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False" 
+                  SelectionChanged="BookList_Dtg_SelectionChanged"
+                  SelectionUnit="FullRow" 
+                  VerticalScrollBarVisibility="Auto" 
+                  >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="BookList_Dtg_Title" Header="Book Title" Binding="{Binding Path=Title}" Width="275" CanUserResize="True"/>
-                <DataGridTextColumn x:Name="BookList_Dtg_ISBN" Header="ISBN" Binding="{Binding Path=ISBN}" Width="75" CanUserResize="True"/>
-                <DataGridTextColumn x:Name="BookList_Dtg_Author" Header="Author" Binding="{Binding Path=AuthorName}" Width="100" CanUserResize="True"/>
-                <DataGridTextColumn x:Name="BookList_Dtg_Category" Header="Category" Binding="{Binding Path=CategoryName}" Width="98" CanUserResize="True"/>
+                <DataGridTextColumn x:Name="BookList_Dtg_Title"
+                                    Binding="{Binding Path=Title}" 
+                                    CanUserResize="True"
+                                    Header="Book Title" 
+                                    Width="275" 
+                                    />
+                <DataGridTextColumn x:Name="BookList_Dtg_ISBN" 
+                                    Binding="{Binding Path=ISBN}"
+                                    CanUserResize="True"
+                                    Header="ISBN" 
+                                    Width="75" 
+                                    />
+                <DataGridTextColumn x:Name="BookList_Dtg_Author" 
+                                    Binding="{Binding Path=AuthorName}" 
+                                    CanUserResize="True"
+                                    Header="Author" 
+                                    Width="100" 
+                                    />
+                <DataGridTextColumn x:Name="BookList_Dtg_Category" 
+                                    CanUserResize="True"
+                                    Binding="{Binding Path=CategoryName}" 
+                                    Header="Category" 
+                                    Width="98" 
+                                    />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="6" Grid.Column="0" x:Name="AddBook_Btn" Content="Add New Book" Height="30" IsEnabled="True" VerticalAlignment="Top" Click="AddBook_Btn_Click"/>
-
-        <ListBox Grid.Row="2" Grid.Column="2" x:Name="Instructions_Lbl" FontSize="16" IsEnabled="False" Height="110">
+        <Button x:Name="AddBook_Btn"
+                Grid.Column="0" 
+                Grid.Row="6" 
+                Click="AddBook_Btn_Click"
+                Content="Add New Book" 
+                Height="30" 
+                IsEnabled="True" 
+                VerticalAlignment="Top" 
+                />
+        <ListBox x:Name="Instructions_Lbl"
+                 Grid.Column="2" 
+                 Grid.Row="2" 
+                 FontSize="16" 
+                 Height="110"
+                 IsEnabled="False" 
+                 >
             <ListBoxItem Content="Use the search box and filters to find specific books."/>
             <ListBoxItem Content="Hit 'SEARCH' to start, 'CLEAR' to reset."/>
             <ListBoxItem Content="Click on a book for details."/>
             <ListBoxItem Content="Click 'Add New Book' to insert a book."/>
         </ListBox>
-        <Grid Grid.Row="4" Grid.Column="2" x:Name="BookDetails_Grd" VerticalAlignment="Stretch">
+        <Grid x:Name="BookDetails_Grd" 
+              Grid.Column="2" 
+              Grid.Row="4" 
+              VerticalAlignment="Stretch"
+              >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -89,13 +205,13 @@
                 <RowDefinition x:Name="AuthorLabelRow"/>
                 <RowDefinition x:Name="AuthorValueRow"/>
                 <RowDefinition x:Name="ISBNLabelRow"/>
-                
+
                 <RowDefinition x:Name="ISBNValueRow"/>
                 <RowDefinition x:Name="PublisherLabelRow"/>
                 <RowDefinition x:Name="PublisherValueRow"/>
                 <RowDefinition x:Name="PublishedYearLabelRow"/>
                 <RowDefinition x:Name="PublishedYearValueRow"/>
-                
+
                 <RowDefinition x:Name="CategoryLabelRow"/>
                 <RowDefinition x:Name="CategoryValueRow"/>
                 <RowDefinition x:Name="CoverURLLabelRow"/>
@@ -103,39 +219,137 @@
                 <RowDefinition x:Name="ButtonsRow"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="Title_Lbl" Content="Title:" FontWeight="Bold"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="SelectedBook_Title_Txt" IsEnabled="False"/>
-
-            <Image Grid.Row="2" Grid.Column="1" Grid.RowSpan="12" x:Name="SelectedBook_Cover_img" Source="../Images/CoverPlaceholder.png" HorizontalAlignment="Left" Margin="10,10,0,0"/>
-
-            <Label Grid.Row="2" Grid.Column="0" x:Name="Author_Lbl" Content="Author" FontWeight="Bold"/>
-            <ComboBox Grid.Row="3" Grid.Column="0" x:Name="SelectedBook_Author_Cbo" IsEnabled="False"/>
-
-            <Label Grid.Row="4" Grid.Column="0" x:Name="ISBN_Lbl" Content="ISBN" FontWeight="Bold"/>
-            <TextBox Grid.Row="5" Grid.Column="0" x:Name="SelectedBook_ISBN_Txt" Text="ISBN textbox" IsEnabled="False"/>
-
-            <Label Grid.Row="6" Grid.Column="0" x:Name="Publisher_Lbl" Content="Publisher" FontWeight="Bold"/>
-            <ComboBox Grid.Row="7" Grid.Column="0" x:Name="SelectedBook_Publisher_Cbo" IsEnabled="False"/>
-
-            <Label Grid.Row="8" Grid.Column="0" x:Name="PublishedYear_Lbl" Content="Year" FontWeight="Bold"/>
-            <TextBox Grid.Row="9" Grid.Column="0" x:Name="SelectedBook_Published_Year_Txt" Text="Year textbox" IsEnabled="False"/>
-
-            <Label Grid.Row="10" Grid.Column="0" x:Name="Category_Lbl" Content="Category" FontWeight="Bold"/>
-            <ComboBox Grid.Row="11" Grid.Column="0" x:Name="SelectedBook_Category_Cbo" IsEnabled="False"/>
-
-            <Label Grid.Row="12" Grid.Column="0" x:Name="CoverURL_Lbl" Content="Cover URL" FontWeight="Bold"/>
-            <TextBox Grid.Row="13" Grid.Column="0" x:Name="SelectedBook_CoverURL_Txt" IsEnabled="False"/>
-
-            <Button Grid.Row="15" Grid.Column="0" x:Name="Save_Btn" Content="SAVE" Height="25" IsEnabled="False" Click="Save_Btn_Click"/>
-            <Button Grid.Row="15" Grid.Column="1" x:Name="Cancel_Btn" Content="CANCEL" Height="25" IsEnabled="False" Click="Cancel_Btn_Click" Margin="10,0,0,0"/>
+            <Label x:Name="Title_Lbl" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="3" 
+                   Grid.Row="0" 
+                   Content="Title:" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetBook_Title_Txt" 
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="3" 
+                     Grid.Row="1" 
+                     IsEnabled="False"
+                     />
+            <Image x:Name="TargetBook_Cover_img" 
+                   Grid.Column="1" 
+                   Grid.Row="2" 
+                   Grid.RowSpan="12" 
+                   HorizontalAlignment="Left" 
+                   Margin="10,10,0,0"
+                   Source="../Images/CoverPlaceholder.png" 
+                   />
+            <Label x:Name="TargetBook_Author_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="2" 
+                   Content="Author" 
+                   FontWeight="Bold"
+                   />
+            <ComboBox x:Name="TargetBook_Author_Cbo" 
+                      Grid.Column="0" 
+                      Grid.Row="3" 
+                      IsEnabled="False"
+                      />
+            <Label x:Name="TargetBook_ISBN_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="4" 
+                   Content="ISBN" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetBook_ISBN_Txt" 
+                     Grid.Column="0" 
+                     Grid.Row="5" 
+                     IsEnabled="False"
+                     Text="ISBN textbox" 
+                     />
+            <Label x:Name="TargetBook_Publisher_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="6" 
+                   Content="Publisher" 
+                   FontWeight="Bold"
+                   />
+            <ComboBox x:Name="TargetBook_Publisher_Cbo" 
+                      Grid.Column="0" 
+                      Grid.Row="7" 
+                      IsEnabled="False"
+                      />
+            <Label x:Name="TargetBook_PublishedYear_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="8" 
+                   Content="Year" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetBook_PublishedYear_Txt" 
+                     Grid.Column="0" 
+                     Grid.Row="9" 
+                     IsEnabled="False"
+                     Text="Year textbox" 
+                     />
+            <Label x:Name="TargetBook_Category_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="10" 
+                   Content="Category" 
+                   FontWeight="Bold"
+                   />
+            <ComboBox x:Name="TargetBook_Category_Cbo" 
+                      Grid.Column="0" 
+                      Grid.Row="11" 
+                      IsEnabled="False"
+                      />
+            <Label x:Name="TargetBook_CoverURL_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="12" 
+                   Content="Cover URL" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetBook_CoverURL_Txt" 
+                     Grid.Column="0" 
+                     Grid.Row="13" 
+                     IsEnabled="False"
+                     />
+            <Button x:Name="Save_Btn" 
+                    Grid.Column="0" 
+                    Grid.Row="15" 
+                    Click="Save_Btn_Click"
+                    Content="SAVE" 
+                    Height="25" 
+                    IsEnabled="False" 
+                    />
+            <Button x:Name="Cancel_Btn" 
+                Grid.Column="1" 
+                Grid.Row="15" 
+                Click="Cancel_Btn_Click" 
+                Content="CANCEL" 
+                Height="25" 
+                IsEnabled="False" 
+                Margin="10,0,0,0"
+                />
         </Grid>
-        <Grid Grid.Row="6" Grid.Column="2">
+        <Grid Grid.Column="2"
+              Grid.Row="6" 
+              >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" x:Name="Edit_Btn" Content="EDIT" Height="30" IsEnabled="False" Click="Edit_Btn_Click"/>
-            <Button Grid.Row="0" Grid.Column="1" x:Name="Delete_Btn" Content="DELETE" Height="30" IsEnabled="False" Click="Delete_Btn_Click" Margin="10,0,0,0"/>
+            <Button x:Name="Edit_Btn" 
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Click="Edit_Btn_Click"
+                    Content="EDIT" 
+                    Height="30" 
+                    IsEnabled="False" 
+                    />
+            <Button x:Name="Delete_Btn" 
+                    Grid.Column="1" 
+                    Grid.Row="0" 
+                    Click="Delete_Btn_Click" 
+                    Content="DELETE" 
+                    Height="30" 
+                    IsEnabled="False" 
+                    Margin="10,0,0,0"
+                    />
         </Grid>
     </Grid>
 </UserControl>

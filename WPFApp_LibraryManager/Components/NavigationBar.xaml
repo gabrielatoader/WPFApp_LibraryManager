@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFApp_LibraryManager.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800">
     <Grid x:Name="NavigationGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -18,10 +19,41 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" x:Name="Home_Btn" Content="HOME" Background="Transparent" Click="Home_Btn_Click"/>
-        <Button Grid.Column="1" Grid.Row="0" x:Name="Books_Btn" Content="BOOKS" Background="Transparent" Click="Books_Btn_Click"/>
-        <Button Grid.Column="2" Grid.Row="0" x:Name="Authors_Btn" Content="AUTHORS" Background="Transparent" Click="Authors_Btn_Click"/>
-        <Button Grid.Column="3" Grid.Row="0" x:Name="Publishers_Btn" Content="PUBLISHERS" Background="Transparent" Click="Publishers_Btn_Click"/>
-        <Button Grid.Column="5" Grid.Row="0" x:Name="Exit_Btn" Content="EXIT MANAGER" Background="Transparent" Click="Exit_Btn_Click" />
+
+        <Button x:Name="Home_Btn" 
+                Grid.Column="0" 
+                Grid.Row="0" 
+                Background="Transparent" 
+                Click="Home_Btn_Click"
+                Content="HOME" 
+                />
+        <Button x:Name="Books_Btn" 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                Background="Transparent" 
+                Click="Books_Btn_Click"
+                Content="BOOKS" 
+                />
+        <Button x:Name="Authors_Btn" 
+                Grid.Column="2" 
+                Grid.Row="0" 
+                Background="Transparent" 
+                Click="Authors_Btn_Click"
+                Content="AUTHORS" 
+                />
+        <Button x:Name="Publishers_Btn" 
+                Grid.Column="3" 
+                Grid.Row="0" 
+                Background="Transparent" 
+                Click="Publishers_Btn_Click"
+                Content="PUBLISHERS" 
+                />
+        <Button x:Name="Exit_Btn" 
+                Grid.Column="5" 
+                Grid.Row="0" 
+                Background="Transparent" 
+                Click="Exit_Btn_Click" 
+                Content="EXIT MANAGER" 
+                />
     </Grid>
 </UserControl>

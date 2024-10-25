@@ -1,14 +1,9 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows;
+﻿using System.Windows;
 using WPFApp_LibraryManager.Components;
 using WPFApp_LibraryManager.Pages;
 
 namespace WPFApp_LibraryManager
 {
-   
-
     public partial class MainWindow : Window
     {
         public MainWindow()
