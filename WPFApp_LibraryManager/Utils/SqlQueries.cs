@@ -68,5 +68,9 @@ namespace WPFApp_LibraryManager.Utils
 		public const string WhereClause_FilerByAuthor = "Author_Id = @AuthorId";
         public const string WhereClause_FilerByCategory = " Category_Id = @CategoryId";
         public const string WhereClause_FilerByPublisher = "Publisher_Id = @PublisherId";
+
+
+        public const string InsertNewBookQuery = @"INSERT INTO Books (Title, ISBN, Author_Id, Publisher_Id, Published_Year, Category_Id, Cover_URL)
+																VALUES(@Title, @ISBN, @AuthorId, @PublisherId, @PublishedYear, @CategoryId, @CoverURL)";
     }
 }
