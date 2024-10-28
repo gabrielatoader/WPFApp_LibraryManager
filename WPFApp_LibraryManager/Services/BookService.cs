@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
 
@@ -18,7 +13,7 @@ namespace WPFApp_LibraryManager.Services
             
             return ConvertBookDataTableToBooList(booksTable);
         }
-
+        
         public List<Book> GetFilteredBooksByAuthor(int authorId)
         {
             DataTable booksTable = DbContext.GetResultTableFilteredByAuthor(SqlQueries.BooksFilteredByAuthorQuery, authorId);
@@ -42,7 +37,7 @@ namespace WPFApp_LibraryManager.Services
             return ConvertBookDataTableToBooList(booksTable);
 
         }
-        
+
         private List<Book> ConvertBookDataTableToBooList(DataTable booksTable)
         {
             List<Book> bookList = new List<Book>();
@@ -50,7 +45,6 @@ namespace WPFApp_LibraryManager.Services
             foreach (DataRow bookRow in booksTable.Rows)
             {
                 Book book = new Book();
-
                 book.BookId = (int)bookRow["BookId"];
                 book.Title = (string)bookRow["Title"];
                 book.ISBN = (string)bookRow["ISBN"];
@@ -64,7 +58,6 @@ namespace WPFApp_LibraryManager.Services
                 book.CoverURL = (string)bookRow["CoverURL"];
 
                 bookList.Add(book);
-
             }
 
             return bookList;
@@ -73,7 +66,6 @@ namespace WPFApp_LibraryManager.Services
         public void InsertNewBookInDb(Book book) 
         { 
             DbContext.InsertBookInDb(SqlQueries.InsertNewBookQuery,  book);
-        }
-        
+        }        
     }
 }

@@ -25,17 +25,25 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-
-        <!--// Set Application Background Colors //-->
-        <!--// Navigation Bar //-->
-        <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Fill="#9BA6AA" />
-        <!--// Work Surface //-->
-        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="3"/>
-
-        <!--//Navigation Bar Grid//-->
-        <ContentControl Grid.Column="1" Grid.Row="0" x:Name="Navigation_CC"/>
-
-        <ContentControl Grid.Column="1" Grid.Row="2" x:Name="Content_CC"/>
-
+        <Rectangle x:Name="NavigationBarBackground_Rect" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="4" 
+                   Grid.Row="0" 
+                   Fill="#9BA6AA" 
+                   />
+        <Rectangle x:Name="ContentBackground_Rect" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="4" 
+                   Grid.Row="1" 
+                   Grid.RowSpan="3"
+                   />
+        <ContentControl x:Name="NavigationBar_CC" 
+                        Grid.Column="1" 
+                        Grid.Row="0"
+                        />
+        <ContentControl x:Name="Content_CC" 
+                        Grid.Column="1" 
+                        Grid.Row="2"
+                        />
     </Grid>
 </Window>

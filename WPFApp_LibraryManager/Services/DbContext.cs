@@ -1,29 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Services
 {
     public static class DbContext
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["WPFApp_LibraryManager.Properties.Settings.LibraryManagerDBConnectionString"].ConnectionString;
-        // ToDo: make private after you create all other services
-        
         private static SqlConnection _sqlConnection = new SqlConnection(connectionString);
         
-        //ToDo: remove after making private
-        public static SqlConnection GetSqlConnection()
-        {
-            return new SqlConnection(connectionString);
-        }
-
         public static DataTable GetResultTable(string query)
         {
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, _sqlConnection);
@@ -36,11 +22,11 @@ namespace WPFApp_LibraryManager.Services
 
                 return resultsTable;
             }
-        }  
-        
+        }
+
         public static DataTable GetResultTableFilteredByAuthor(string query, int authorId)
         {
-            SqlCommand cmd = new SqlCommand(query, DbContext.GetSqlConnection());
+            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@AuthorId", authorId);
 
@@ -57,7 +43,7 @@ namespace WPFApp_LibraryManager.Services
 
         public static DataTable GetResultTableFilteredByPublisher(string query, int publisherId)
         {
-            SqlCommand cmd = new SqlCommand(query, DbContext.GetSqlConnection());
+            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@PublisherId", publisherId);
 
@@ -71,14 +57,15 @@ namespace WPFApp_LibraryManager.Services
                 return resultsTable;
             }
         }
-        
+
         public static DataTable GetResultTableFilteredByCategory(string query, int categoryId)
         {
-            SqlCommand cmd = new SqlCommand(query, DbContext.GetSqlConnection());
+            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@CategoryId", categoryId);
 
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
             using (sqlDataAdapter)
             {
                 DataTable resultsTable = new DataTable();
@@ -89,40 +76,23 @@ namespace WPFApp_LibraryManager.Services
             }
         }
 
-        public static DataRow GetResultRow(string query)
+        public static void InsertBookInDb(string query, Book book)
         {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, _sqlConnection);
+            _sqlConnection.Open();
 
-            using (sqlDataAdapter)
-            {
-                DataTable resultsTable = new DataTable();
+            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@Title", book.Title);
+            cmd.Parameters.AddWithValue("@ISBN", book.ISBN);
+            cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
+            cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
+            cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
+            cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+            cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
 
-                sqlDataAdapter.Fill(resultsTable);
+            cmd.ExecuteNonQuery();
 
-                return resultsTable.Rows[0];
-            }
-        }
-
-        public static void InsertBookInDb(string query, Book book) 
-        {
-            
-                _sqlConnection.Open();
-
-                SqlCommand cmd = new SqlCommand(query, _sqlConnection);
-                cmd.CommandType = CommandType.Text;
-
-                cmd.Parameters.AddWithValue("@Title", book.Title);
-                cmd.Parameters.AddWithValue("@ISBN", book.ISBN);
-                cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
-                cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
-                cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
-                cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
-                cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
-
-                cmd.ExecuteNonQuery();
-
-                _sqlConnection.Close();
-
+            _sqlConnection.Close();
         }
     }
 }

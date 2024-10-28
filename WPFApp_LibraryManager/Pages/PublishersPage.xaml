@@ -8,6 +8,11 @@
              d:DesignHeight="1080" 
              d:DesignWidth="1920">
     <Grid>
-        <Label Content="Publishers Page" FontSize="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="PublishersPagePlaceholder_Lbl"
+               Content="Publishers Page" 
+               FontSize="100" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
+               />
     </Grid>
 </UserControl>
