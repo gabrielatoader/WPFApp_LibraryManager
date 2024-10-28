@@ -35,8 +35,6 @@ namespace WPFApp_LibraryManager.Pages
             _publisherService = new PublisherService();
             _bookService = new BookService();
             _categoryService = new CategoryService();
-            Test_DBService test_DBService = new Test_DBService();
-            SqlTest.Text = test_DBService.TestSqlQuery();
             DisableBookDetails();
             BindBooksToGrid(_bookService.GetAllBooksList());
             BindAuthorsToCbo(AuthorFilter_Cbo, 0);
