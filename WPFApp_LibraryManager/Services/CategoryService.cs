@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Services
 {
-    public class CategoryService
+    public class CategoryService : ICategoryService
     {
         public List<Category> GetCategories()
         {

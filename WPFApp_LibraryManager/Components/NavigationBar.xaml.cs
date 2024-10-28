@@ -1,13 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Pages;
 
 namespace WPFApp_LibraryManager.Components
 {
     public partial class NavigationBar : UserControl
     {
-        public NavigationBar()
+        private IAuthorService _authorService;
+        private IBookService _bookService;
+        private ICategoryService _categoryService;
+        private IPublisherService _publisherService;
+
+        public NavigationBar(IAuthorService authorService, IBookService bookService, ICategoryService categoryService, IPublisherService publisherService)
         {
+            _authorService = authorService;
+            _publisherService = publisherService;
+            _bookService = bookService;
+            _categoryService = categoryService;
+
             InitializeComponent();
         }
 
@@ -21,7 +32,7 @@ namespace WPFApp_LibraryManager.Components
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            contentControl.Content = new BooksPage();
+            contentControl.Content = new BooksPage(_authorService, _bookService, _categoryService, _publisherService);
         }
 
         private void Authors_Btn_Click(object sender, RoutedEventArgs e)

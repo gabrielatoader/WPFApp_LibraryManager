@@ -4,27 +4,28 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
     public partial class BooksPage : UserControl
     {
-        private AuthorService _authorService;
-        private PublisherService _publisherService;
-        private BookService _bookService;
-        private CategoryService _categoryService;
+        private IAuthorService _authorService;
+        private IPublisherService _publisherService;
+        private IBookService _bookService;
+        private ICategoryService _categoryService;
         private bool _isUpdateRequest = false;
 
-        public BooksPage()
+        public BooksPage(IAuthorService authorService, IBookService bookService, ICategoryService categoryService, IPublisherService publisherService)
         {
-            InitializeComponent();
-            _authorService = new AuthorService();
-            _publisherService = new PublisherService();
-            _bookService = new BookService();
-            _categoryService = new CategoryService();
+            _authorService = authorService;
+            _publisherService = publisherService;
+            _bookService = bookService;
+            _categoryService = categoryService;
 
+            InitializeComponent();
+            
             // bind data to book collection display and search areas
             BindBooksToGrid(_bookService.GetAllBooksList());
             BindAuthorsToCbo(AuthorFilter_Cbo, 0);
