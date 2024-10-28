@@ -35,6 +35,7 @@ namespace WPFApp_LibraryManager.Pages
             BindAuthorsToCbo(TargetBook_Author_Cbo, 0);
             BindCategoriesToCbo(TargetBook_Category_Cbo, 0);
             BindPublishersToCbo(TargetBook_Publisher_Cbo, 0);
+
             DisableBookDetails();
         }
 
