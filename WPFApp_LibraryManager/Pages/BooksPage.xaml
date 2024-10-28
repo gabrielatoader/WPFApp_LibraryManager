@@ -260,8 +260,7 @@
             <TextBox x:Name="TargetBook_ISBN_Txt" 
                      Grid.Column="0" 
                      Grid.Row="5" 
-                     IsEnabled="False"
-                     Text="ISBN textbox" 
+                     IsEnabled="False" 
                      />
             <Label x:Name="TargetBook_Publisher_Lbl" 
                    Grid.Column="0" 
@@ -283,8 +282,7 @@
             <TextBox x:Name="TargetBook_PublishedYear_Txt" 
                      Grid.Column="0" 
                      Grid.Row="9" 
-                     IsEnabled="False"
-                     Text="Year textbox" 
+                     IsEnabled="False" 
                      />
             <Label x:Name="TargetBook_Category_Lbl" 
                    Grid.Column="0" 
