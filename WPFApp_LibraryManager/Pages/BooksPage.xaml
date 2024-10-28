@@ -25,8 +25,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <!--<Label Grid.Row="0" Grid.Column="0" Content="Library Collection" FontSize="20pt" FontWeight="Bold"/>-->
-        <TextBox x:Name="SqlTest" Text="SqlTest" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Height="50"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Library Collection" FontSize="20pt" FontWeight="Bold"/>
 
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
