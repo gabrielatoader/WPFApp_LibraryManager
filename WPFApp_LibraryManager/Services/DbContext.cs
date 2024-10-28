@@ -23,6 +23,7 @@ namespace WPFApp_LibraryManager.Services
                 return resultsTable;
             }
         }
+
         public static DataTable GetResultTableFilteredByAuthor(string query, int authorId)
         {
             SqlCommand cmd = new SqlCommand(query, _sqlConnection);
@@ -56,6 +57,7 @@ namespace WPFApp_LibraryManager.Services
                 return resultsTable;
             }
         }
+
         public static DataTable GetResultTableFilteredByCategory(string query, int categoryId)
         {
             SqlCommand cmd = new SqlCommand(query, _sqlConnection);
@@ -73,6 +75,7 @@ namespace WPFApp_LibraryManager.Services
                 return resultsTable;
             }
         }
+
         public static void InsertBookInDb(string query, Book book)
         {
             _sqlConnection.Open();

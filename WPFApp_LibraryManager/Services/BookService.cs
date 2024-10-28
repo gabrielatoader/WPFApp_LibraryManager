@@ -13,7 +13,7 @@ namespace WPFApp_LibraryManager.Services
             
             return ConvertBookDataTableToBooList(booksTable);
         }
-
+        
         public List<Book> GetFilteredBooksByAuthor(int authorId)
         {
             DataTable booksTable = DbContext.GetResultTableFilteredByAuthor(SqlQueries.BooksFilteredByAuthorQuery, authorId);
@@ -37,6 +37,7 @@ namespace WPFApp_LibraryManager.Services
             return ConvertBookDataTableToBooList(booksTable);
 
         }
+
         private List<Book> ConvertBookDataTableToBooList(DataTable booksTable)
         {
             List<Book> bookList = new List<Book>();
@@ -57,11 +58,11 @@ namespace WPFApp_LibraryManager.Services
                 book.CoverURL = (string)bookRow["CoverURL"];
 
                 bookList.Add(book);
-
             }
 
             return bookList;
         }
+
         public void InsertNewBookInDb(Book book) 
         { 
             DbContext.InsertBookInDb(SqlQueries.InsertNewBookQuery,  book);
