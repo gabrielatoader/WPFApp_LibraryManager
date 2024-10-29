@@ -2,12 +2,19 @@
 using System.Data;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Repositories;
 using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Services
 {
     public class CategoryService : ICategoryService
     {
+        private ICategoryRepository _categoryRepository;
+
+        public CategoryService(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
         public List<Category> GetCategories()
         {
             List<Category> categoryList = new List<Category>();
@@ -17,16 +24,7 @@ namespace WPFApp_LibraryManager.Services
             header.Name = "- CATEGORY -";
             categoryList.Add(header);
 
-            DataTable categoriesTable = DbContext.GetResultTable(SqlQueries.AllCategoriesQuery);
-
-            foreach (DataRow categoryRow in categoriesTable.Rows)
-            {
-                Category category = new Category();
-                category.Id = (int)categoryRow["CategoryId"];
-                category.Name = (string)categoryRow["CategoryName"];
-
-                categoryList.Add(category);
-            }
+            categoryList.AddRange(_categoryRepository.GetCategoryList());
 
             return categoryList;
         }

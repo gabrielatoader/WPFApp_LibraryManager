@@ -3,8 +3,8 @@ using WPFApp_LibraryManager.Models;
 
 namespace WPFApp_LibraryManager.Interfaces
 {
-    public interface IAuthorRepository
+    public interface ICategoryRepository
     {
-        List<Author> GetAuthorList();
+        List<Category> GetCategoryList();
     }
 }

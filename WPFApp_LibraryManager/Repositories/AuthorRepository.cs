@@ -17,20 +17,6 @@ namespace WPFApp_LibraryManager.Repositories
         {
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["WPFApp_LibraryManager.Properties.Settings.LibraryManagerDBConnectionString"].ConnectionString);
         }
-
-        private DataTable GetResultTable(string query)
-        {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, _sqlConnection);
-
-            using (sqlDataAdapter)
-            {
-                DataTable resultsTable = new DataTable();
-
-                sqlDataAdapter.Fill(resultsTable);
-
-                return resultsTable;
-            }
-        }
         
         public List<Author> GetAuthorList()
         {
@@ -48,6 +34,20 @@ namespace WPFApp_LibraryManager.Repositories
             }
 
             return authorList;
+        }
+
+        private DataTable GetResultTable(string query)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, _sqlConnection);
+
+            using (sqlDataAdapter)
+            {
+                DataTable resultsTable = new DataTable();
+
+                sqlDataAdapter.Fill(resultsTable);
+
+                return resultsTable;
+            }
         }
     }
 }

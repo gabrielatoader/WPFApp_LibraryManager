@@ -173,6 +173,7 @@
     <Compile Include="Interfaces\IAuthorRepository.cs" />
     <Compile Include="Interfaces\IAuthorService.cs" />
     <Compile Include="Interfaces\IBookService.cs" />
+    <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IPublisherService.cs" />
     <Compile Include="Models\Author.cs" />
