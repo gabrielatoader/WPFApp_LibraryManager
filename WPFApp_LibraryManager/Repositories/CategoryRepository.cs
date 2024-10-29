@@ -1,22 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : BaseRepository, ICategoryRepository
     {
-        private readonly SqlConnection _sqlConnection;
-
-        public CategoryRepository()
-        {
-            _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["WPFApp_LibraryManager.Properties.Settings.LibraryManagerDBConnectionString"].ConnectionString);
-        }
-
         public List<Category> GetCategoryList()
         {
             List<Category> categoryList = new List<Category>();
@@ -33,20 +24,6 @@ namespace WPFApp_LibraryManager.Repositories
             }
 
             return categoryList;
-        }
-        
-        private DataTable GetResultTable(string query)
-        {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, _sqlConnection);
-
-            using (sqlDataAdapter)
-            {
-                DataTable resultsTable = new DataTable();
-
-                sqlDataAdapter.Fill(resultsTable);
-
-                return resultsTable;
-            }
         }
     }
 }

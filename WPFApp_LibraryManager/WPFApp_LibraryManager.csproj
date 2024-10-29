@@ -189,6 +189,7 @@
       <DependentUpon>PublishersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AuthorRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\PublisherRepository.cs" />

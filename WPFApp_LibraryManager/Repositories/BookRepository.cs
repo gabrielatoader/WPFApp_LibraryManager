@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using WPFApp_LibraryManager.Interfaces;
@@ -8,15 +7,8 @@ using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Repositories
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository : BaseRepository, IBookRepository
     {
-        private readonly SqlConnection _sqlConnection;
-
-        public BookRepository()
-        {
-            _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["WPFApp_LibraryManager.Properties.Settings.LibraryManagerDBConnectionString"].ConnectionString);
-        }
-
         public List<Book> GetAllBooksList()
         {
             DataTable booksTable = GetResultTable(SqlQueries.AllBooksQuery);
@@ -147,20 +139,6 @@ namespace WPFApp_LibraryManager.Repositories
             }
 
             return bookList;
-        }
-        
-        private DataTable GetResultTable(string query)
-        {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, _sqlConnection);
-
-            using (sqlDataAdapter)
-            {
-                DataTable resultsTable = new DataTable();
-
-                sqlDataAdapter.Fill(resultsTable);
-
-                return resultsTable;
-            }
         }
     }
 }
