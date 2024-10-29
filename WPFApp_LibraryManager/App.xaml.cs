@@ -23,6 +23,7 @@ namespace WPFApp_LibraryManager
                     services.AddTransient<IPublisherService, PublisherService>();
                     services.AddTransient<IAuthorRepository, AuthorRepository>();
                     services.AddTransient<ICategoryRepository, CategoryRepository>();
+                    services.AddTransient<IPublisherRepository, PublisherRepository>();
 
                 })
                 .Build();

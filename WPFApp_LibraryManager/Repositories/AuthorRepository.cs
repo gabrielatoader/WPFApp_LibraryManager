@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Documents;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
