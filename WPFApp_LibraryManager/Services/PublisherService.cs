@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Services
 {
     public class PublisherService : IPublisherService
     {
+        private IPublisherRepository _publisherRepository;
+
+        public PublisherService(IPublisherRepository publisherRepository)
+        {
+            _publisherRepository = publisherRepository;
+        }
+        
         public List<Publisher> GetPublishers()
         {
             List<Publisher> publisherList = new List<Publisher>();
@@ -17,16 +22,7 @@ namespace WPFApp_LibraryManager.Services
             header.Name = "- PUBLISHER -";
             publisherList.Add(header);
 
-            DataTable publishersTable = DbContext.GetResultTable(SqlQueries.AllPublishersQuery);
-
-            foreach (DataRow publisherRow in publishersTable.Rows)
-            {
-                Publisher publisher = new Publisher();
-                publisher.Id = (int)publisherRow["PublisherId"];
-                publisher.Name = (string)publisherRow["PublisherName"];
-
-                publisherList.Add(publisher);
-            }
+            publisherList.AddRange(_publisherRepository.GetPublisherList());
 
             return publisherList;
         }

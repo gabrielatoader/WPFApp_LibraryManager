@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WPFApp_LibraryManager.Interfaces;
+using WPFApp_LibraryManager.Repositories;
 using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager
@@ -20,6 +21,10 @@ namespace WPFApp_LibraryManager
                     services.AddTransient<IBookService, BookService>();
                     services.AddTransient<ICategoryService, CategoryService>();
                     services.AddTransient<IPublisherService, PublisherService>();
+                    services.AddTransient<IAuthorRepository, AuthorRepository>();
+                    services.AddTransient<IBookRepository, BookRepository>();
+                    services.AddTransient<ICategoryRepository, CategoryRepository>();
+                    services.AddTransient<IPublisherRepository, PublisherRepository>();
                 })
                 .Build();
         }

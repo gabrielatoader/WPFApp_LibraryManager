@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Services
 {
     public class AuthorService : IAuthorService
     {
+        private IAuthorRepository _authorRepository;
+
+        public AuthorService(IAuthorRepository authorRepository)
+        {
+            _authorRepository = authorRepository;
+        }
+
         public List<Author> GetAuthors()
         {
             List<Author> authorList = new List<Author>();
@@ -17,16 +22,7 @@ namespace WPFApp_LibraryManager.Services
             header.FullName = "- AUTHOR -";
             authorList.Add(header);
 
-            DataTable authorsTable = DbContext.GetResultTable(SqlQueries.AllAuthorsQuery);
-
-            foreach (DataRow authorRow in authorsTable.Rows)
-            {
-                Author author = new Author();
-                author.Id = (int)authorRow["AuthorId"];
-                author.FullName = (string)authorRow["AuthorFullName"];
-
-                authorList.Add(author);
-            }
+            authorList.AddRange(_authorRepository.GetAuthorList());
 
             return authorList;
         }
