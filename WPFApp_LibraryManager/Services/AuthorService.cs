@@ -12,6 +12,7 @@ namespace WPFApp_LibraryManager.Services
         {
             _authorRepository = authorRepository;
         }
+
         public List<Author> GetAuthors()
         {
             List<Author> authorList = new List<Author>();

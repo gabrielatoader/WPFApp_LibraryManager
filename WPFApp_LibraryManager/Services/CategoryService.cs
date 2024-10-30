@@ -12,6 +12,7 @@ namespace WPFApp_LibraryManager.Services
         {
             _categoryRepository = categoryRepository;
         }
+
         public List<Category> GetCategories()
         {
             List<Category> categoryList = new List<Category>();
