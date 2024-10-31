@@ -77,5 +77,16 @@
 			@"INSERT INTO 
 				Books (Title, ISBN, Author_Id, Publisher_Id, Published_Year, Category_Id, Cover_URL)
 				VALUES (@Title, @ISBN, @AuthorId, @PublisherId, @PublishedYear, @CategoryId, @CoverURL)";
+
+		public const string UpdateBookQuery =
+			@"UPDATE Books
+			SET Title = @Title, 
+				ISBN =  @ISBN,
+				Author_Id = @AuthorId,
+				Publisher_Id = @PublisherId,
+				Published_Year = @PublishedYear,
+				Category_Id = @CategoryId,
+				Cover_URL = @CoverURL
+			WHERE Id = @BookId";
     }
 }

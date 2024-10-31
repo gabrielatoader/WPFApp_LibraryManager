@@ -33,9 +33,14 @@ namespace WPFApp_LibraryManager.Services
             return _bookRepository.GetFilteredBooksByCategory(categoryId);
         }
         
-        public void InsertNewBookInDb(Book book) 
+        public void InsertNewBook(Book book) 
         {
-            _bookRepository.InsertNewBookInDb(book);
-        }        
+            _bookRepository.InsertNewBook(book);
+        }
+
+        public void UpdateBook(Book book) 
+        { 
+            _bookRepository.UpdateBook(book);
+        }
     }
 }
