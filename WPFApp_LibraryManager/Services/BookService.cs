@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 
@@ -7,10 +8,12 @@ namespace WPFApp_LibraryManager.Services
     public class BookService : IBookService
     {
         private IBookRepository _bookRepository;
+        private IBookValidator _bookValidator;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, IBookValidator bookValidator)
         {
             _bookRepository = bookRepository;
+            _bookValidator = bookValidator;
         }
         
         public List<Book> GetAllBooksList()
@@ -33,14 +36,32 @@ namespace WPFApp_LibraryManager.Services
             return _bookRepository.GetFilteredBooksByCategory(categoryId);
         }
         
-        public void InsertNewBook(Book book) 
+        public bool InsertNewBook(Book book) 
         {
-            _bookRepository.InsertNewBook(book);
+            if (_bookValidator.IsValidBook(book))
+            {
+                _bookRepository.InsertNewBook(book);
+
+                MessageBox.Show("Book added successfully!");
+
+                return true;
+            }
+
+            return false;
         }
 
-        public void UpdateBook(Book book) 
-        { 
-            _bookRepository.UpdateBook(book);
+        public bool UpdateBook(Book book) 
+        {
+            if (_bookValidator.IsValidBook(book))
+            {
+                _bookRepository.UpdateBook(book);
+                
+                MessageBox.Show("Book updated successfully!");
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
