@@ -110,12 +110,37 @@ namespace WPFApp_LibraryManager.Repositories
 
             _sqlConnection.Close();
         }
-        
-        public void InsertNewBookInDb(Book book)
+
+        public void InsertNewBook(Book book)
         {
             InsertBookInDb(SqlQueries.InsertNewBookQuery, book);
         }
+        
+        public void UpdateBook(Book book)
+        {
+            UpdatebookInDb(SqlQueries.UpdateBookQuery, book);
+        }
+        
+        public void UpdatebookInDb(string query, Book book)
+        {
+            _sqlConnection.Open();
 
+            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@BookId", book.BookId);
+            cmd.Parameters.AddWithValue("@Title", book.Title);
+            cmd.Parameters.AddWithValue("@ISBN", book.ISBN);
+            cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
+            cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
+            cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
+            cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+            cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
+
+            cmd.ExecuteNonQuery();
+
+            _sqlConnection.Close();
+        }
+        
         private List<Book> ConvertBookDataTableToBooList(DataTable booksTable)
         {
             List<Book> bookList = new List<Book>();

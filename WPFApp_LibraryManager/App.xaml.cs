@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Repositories;
 using WPFApp_LibraryManager.Services;
+using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager
 {
@@ -19,6 +20,7 @@ namespace WPFApp_LibraryManager
                     services.AddSingleton<MainWindow>();
                     services.AddTransient<IAuthorService, AuthorService>();
                     services.AddTransient<IBookService, BookService>();
+                    services.AddTransient<IBookValidator, BookValidator>();
                     services.AddTransient<ICategoryService, CategoryService>();
                     services.AddTransient<IPublisherService, PublisherService>();
                     services.AddTransient<IAuthorRepository, AuthorRepository>();

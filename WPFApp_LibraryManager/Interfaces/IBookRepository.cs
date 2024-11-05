@@ -13,6 +13,8 @@ namespace WPFApp_LibraryManager.Interfaces
 
         List<Book> GetFilteredBooksByCategory(int categoryId);
         
-        void InsertNewBookInDb(Book book);
+        void InsertNewBook(Book book);
+
+        void UpdateBook(Book book);
     }
 }
