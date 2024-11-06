@@ -186,6 +186,9 @@
     <Compile Include="Pages\AuthorsPage.xaml.cs">
       <DependentUpon>AuthorsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CategoriesPage.xaml.cs">
+      <DependentUpon>CategoriesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PublishersPage.xaml.cs">
       <DependentUpon>PublishersPage.xaml</DependentUpon>
     </Compile>
@@ -227,6 +230,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Components\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
