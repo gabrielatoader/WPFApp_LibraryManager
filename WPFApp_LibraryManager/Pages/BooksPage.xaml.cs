@@ -61,7 +61,7 @@ namespace WPFApp_LibraryManager.Pages
 
         public void BindCategoriesToCbo(ComboBox cbo, int selectedIndex)
         {
-            List<Category> categoryList = _categoryService.GetCategories();
+            List<Category> categoryList = _categoryService.GetCategoryListWithListHeader();
 
             cbo.ItemsSource = categoryList;
             cbo.DisplayMemberPath = "Name";

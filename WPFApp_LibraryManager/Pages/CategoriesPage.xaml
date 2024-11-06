@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
@@ -55,18 +55,20 @@
             <TextBox x:Name="Search_Txt"
                      Grid.Column="0" 
                      Grid.ColumnSpan="3" 
-                     Grid.Row="1" 
+                     Grid.Row="1"
                      />
             <Button x:Name="Search_Btn" 
                     Grid.Column="0"
                     Grid.Row="2" 
-                    Content="SEARCH" 
+                    Click="Search_Btn_Click"
+                    Content="SEARCH"
                     Height="30"
                     />
             <Button x:Name="Clear_Btn" 
                     Grid.Column="2" 
                     Grid.Row="2" 
-                    Click="Clear_Btn_Click" Height="30"
+                    Click="Clear_Btn_Click" 
+                    Height="30"
                     Content="CLEAR"
                     />
         </Grid>
@@ -88,10 +90,16 @@
                                     Width="75" 
                                     />
                 <DataGridTextColumn x:Name="CategoryList_Dtg_Name" 
+                                    Binding="{Binding Path=Name}" 
                                     CanUserResize="True"
-                                    Binding="{Binding Path=CategoryName}" 
                                     Header="Category Name" 
-                                    Width="98" 
+                                    Width="100" 
+                                    />
+                <DataGridTextColumn x:Name="CategoryList_Dtg_Description" 
+                                    Binding="{Binding Path=Description}" 
+                                    CanUserResize="True"
+                                    Header="Category Description" 
+                                    Width="390"
                                     />
             </DataGrid.Columns>
         </DataGrid>
@@ -104,18 +112,14 @@
                 IsEnabled="True" 
                 VerticalAlignment="Top" 
                 />
-        <ListBox x:Name="Instructions_Lbl"
+        <ListBox x:Name="SearchInstructions_Lbl"
                  Grid.Column="2" 
                  Grid.Row="2" 
                  FontSize="16" 
-                 Height="110"
                  IsEnabled="False" 
                  >
             <ListBoxItem Content="Use the search box to find specific categories."/>
             <ListBoxItem Content="Hit 'SEARCH' to start, 'CLEAR' to reset."/>
-            <ListBoxItem Content="Click 'Add New Category' to insert a category."/>
-            <ListBoxItem Content="Click on a category for additional options."/>
-            <ListBoxItem Content="Click 'Delete' to remove a category."/>
         </ListBox>
         <Grid x:Name="CategoryDetails_Grd" 
               Grid.Column="2" 
@@ -127,53 +131,77 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="CategoryNameLabelRow"/>
-                <RowDefinition x:Name="CategoryNameValueRow"/>
-                <RowDefinition x:Name="CategoryDescriptionLabelRow"/>
-                <RowDefinition x:Name="CategoryDescriptionValueRow"/>
-                <RowDefinition x:Name="ButtonsRow"/>
+                <RowDefinition x:Name="InstructionsRow" 
+                               Height="1.5*"/>
+                <RowDefinition x:Name="CategoryNameLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="CategoryNameValueRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="CategoryDescriptionLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="CategoryDescriptionValueRow" 
+                               Height="3.5*"/>
+                <RowDefinition x:Name="ButtonsRow" 
+                               Height="0.5*"/>
             </Grid.RowDefinitions>
 
+            <ListBox x:Name="Instructions_Lbl"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="0" 
+                     FontSize="16"
+                     Height="100"
+                     IsEnabled="False"
+                     VerticalAlignment="Top"
+                     >
+                <ListBoxItem Content="Click on a category for additional options."/>
+                <ListBoxItem Content="Click 'Edit' to modify a category."/>
+                <ListBoxItem Content="Click 'Delete' to remove a category."/>
+            </ListBox>
             <Label x:Name="TargetCategory_Name_Lbl" 
                    Grid.Column="0" 
                    Grid.ColumnSpan="3" 
-                   Grid.Row="0" 
+                   Grid.Row="1" 
                    Content="Name:" 
                    FontWeight="Bold"
                    />
             <TextBox x:Name="TargetCategory_Name_Txt" 
                      Grid.Column="0" 
                      Grid.ColumnSpan="3" 
-                     Grid.Row="1" 
+                     Grid.Row="2" 
                      IsEnabled="False"
                      />
             <Label x:Name="TargetCategory_Description_Lbl" 
                    Grid.Column="0" 
-                   Grid.Row="2" 
+                   Grid.Row="3" 
                    Content="Description:" 
                    FontWeight="Bold"
                    />
             <TextBox x:Name="TargetCategory_Description_Txt" 
-                     Grid.Column="0" 
-                     Grid.Row="3" 
-                     IsEnabled="False" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="4" 
+                     IsEnabled="False"
+                     TextWrapping="Wrap"
                      />
             <Button x:Name="Save_Btn" 
                     Grid.Column="0" 
-                    Grid.Row="4" 
+                    Grid.Row="5" 
                     Click="Save_Btn_Click"
                     Content="SAVE" 
                     Height="25" 
-                    IsEnabled="False" 
+                    IsEnabled="False"
+                    VerticalAlignment="Bottom"
                     />
             <Button x:Name="Cancel_Btn" 
                     Grid.Column="1" 
-                    Grid.Row="4" 
+                    Grid.Row="5" 
                     Click="Cancel_Btn_Click" 
                     Content="CANCEL" 
                     Height="25" 
                     IsEnabled="False" 
                     Margin="10,0,0,0"
+                    VerticalAlignment="Bottom"
                     />
         </Grid>
         <Grid Grid.Column="2"

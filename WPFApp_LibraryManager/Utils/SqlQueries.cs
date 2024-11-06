@@ -37,7 +37,8 @@
 		public const string AllCategoriesQuery = 
 			@"SELECT 
 				Id AS CategoryId,
-				Name AS CategoryName
+				Name AS CategoryName,
+				Description AS CategoryDescription
 			FROM 
 				Categories";
 
@@ -88,5 +89,32 @@
 				Category_Id = @CategoryId,
 				Cover_URL = @CoverURL
 			WHERE Id = @BookId";
+
+        public const string InsertCategoryQuery =
+            @"INSERT INTO 
+				Categories (Name, Description)
+				VALUES (@CategoryName, @CategoryDescription)";
+
+        public const string UpdateCategoryQuery =
+            @"UPDATE Categories
+			SET Name = @CategoryName, 
+				Description =  @CategoryDescription
+			WHERE Id = @CategoryId";
+
+        public const string DeleteCategoryQuery =
+            @"DELETE FROM Categories
+			WHERE Id = @CategoryId";
+
+		public const string FilteredCategoryQuery =
+			@"SELECT
+				Id AS CategoryId, 
+				Name AS CategoryName, 
+				Description AS CategoryDescription
+			FROM 
+				Categories
+			WHERE
+				@SearchString IS NULL OR
+				Name LIKE '%' + @SearchString + '%' OR
+				Description  LIKE '%' + @SearchString + '%'";
     }
 }

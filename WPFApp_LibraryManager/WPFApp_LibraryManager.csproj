@@ -177,6 +177,7 @@
     <Compile Include="Interfaces\IBookValidator.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\ICategoryValidator.cs" />
     <Compile Include="Interfaces\IPublisherRepository.cs" />
     <Compile Include="Interfaces\IPublisherService.cs" />
     <Compile Include="Models\Author.cs" />
@@ -205,6 +206,7 @@
     </Compile>
     <Compile Include="Services\PublisherService.cs" />
     <Compile Include="Utils\BookValidator.cs" />
+    <Compile Include="Utils\CategoryValidator.cs" />
     <Compile Include="Utils\SqlQueries.cs" />
     <Page Include="Pages\AuthorsPage.xaml">
       <SubType>Designer</SubType>
