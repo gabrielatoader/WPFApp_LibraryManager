@@ -88,5 +88,9 @@
 				Category_Id = @CategoryId,
 				Cover_URL = @CoverURL
 			WHERE Id = @BookId";
+
+		public const string DeleteBookQuery =
+			@"DELETE FROM Books
+			WHERE Id = @BookId";
     }
 }

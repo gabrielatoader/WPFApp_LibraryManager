@@ -232,7 +232,16 @@ namespace WPFApp_LibraryManager.Pages
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //ToDo: delete from table(s)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Book activeBook = (Book)BookList_Dtg.SelectedItem;
+
+                _bookService.DeleteBook(activeBook);
+
+                Clear_Btn_Click(sender, e);
+            }
         }
 
         private void Save_Btn_Click(object sender, RoutedEventArgs e)

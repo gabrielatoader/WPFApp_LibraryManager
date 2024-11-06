@@ -63,5 +63,12 @@ namespace WPFApp_LibraryManager.Services
 
             return false;
         }
+
+        public void DeleteBook(Book book)
+        {
+            _bookRepository.DeleteBook(book);
+            
+            MessageBox.Show("Book deleted successfully!");
+        }
     }
 }
