@@ -90,6 +90,22 @@
                 Cover_URL = @CoverURL
             WHERE Id = @BookId";
 
+        public const string DeleteBookQuery =
+            @"DELETE FROM Books
+            WHERE Id = @BookId";
+
+        public const string FilteredCategoryQuery =
+            @"SELECT
+                Id AS CategoryId, 
+                Name AS CategoryName, 
+                Description AS CategoryDescription
+            FROM 
+                Categories
+            WHERE
+                @SearchString IS NULL OR
+                Name LIKE '%' + @SearchString + '%' OR
+                Description  LIKE '%' + @SearchString + '%'";
+
         public const string InsertCategoryQuery =
             @"INSERT INTO 
                 Categories (Name, Description)
@@ -104,17 +120,5 @@
         public const string DeleteCategoryQuery =
             @"DELETE FROM Categories
             WHERE Id = @CategoryId";
-
-        public const string FilteredCategoryQuery =
-            @"SELECT
-                Id AS CategoryId, 
-                Name AS CategoryName, 
-                Description AS CategoryDescription
-            FROM 
-                Categories
-            WHERE
-                @SearchString IS NULL OR
-                Name LIKE '%' + @SearchString + '%' OR
-                Description  LIKE '%' + @SearchString + '%'";
     }
 }
