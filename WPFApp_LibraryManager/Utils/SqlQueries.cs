@@ -1,32 +1,32 @@
 ﻿namespace WPFApp_LibraryManager.Utils
 {
-	public static class SqlQueries
+    public static class SqlQueries
     {
-		public const string AllBooksQuery = 
-			@"SELECT
-				b.Id as BookId, 
-	            ISBN, 
-	            Title, 
-	            Author_Id AS AuthorId, 
-	            CONCAT_WS(' ', [FirstName], [MiddleName], [LastName]) AS AuthorFullName,  
-	            Publisher_Id AS PublisherId, 
-	            p.Name AS PublisherName, 
-	            Published_Year as PublishedYear, 
-	            Category_Id AS CategoryId, 
-	            c.Name AS CategoryName, 
-	            Cover_URL AS CoverURL
+        public const string AllBooksQuery = 
+            @"SELECT
+                b.Id as BookId, 
+                ISBN, 
+                Title, 
+                Author_Id AS AuthorId, 
+                CONCAT_WS(' ', [FirstName], [MiddleName], [LastName]) AS AuthorFullName,  
+                Publisher_Id AS PublisherId, 
+                p.Name AS PublisherName, 
+                Published_Year as PublishedYear, 
+                Category_Id AS CategoryId, 
+                c.Name AS CategoryName, 
+                Cover_URL AS CoverURL
             FROM 
-	            Books b 
-	            JOIN Publishers p 
-		            ON b.Publisher_Id = p.Id 
-	            JOIN Authors a 
-		            ON b.Author_Id = a.Id
-	            JOIN Categories c
-		            ON b.Category_Id = c.Id";
+                Books b 
+                JOIN Publishers p 
+                    ON b.Publisher_Id = p.Id 
+                JOIN Authors a 
+                    ON b.Author_Id = a.Id
+                JOIN Categories c
+                    ON b.Category_Id = c.Id";
 
-		public const string AllAuthorsQuery = 
-			@"SELECT
-				Id AS AuthorId, 
+        public const string AllAuthorsQuery = 
+            @"SELECT
+                Id AS AuthorId, 
                 FirstName, 
                 MiddleName, 
                 LastName, 
@@ -34,34 +34,35 @@
             FROM 
                 Authors";
 
-		public const string AllCategoriesQuery = 
-			@"SELECT 
-				Id AS CategoryId,
-				Name AS CategoryName
-			FROM 
-				Categories";
+        public const string AllCategoriesQuery = 
+            @"SELECT 
+                Id AS CategoryId,
+                Name AS CategoryName,
+                Description AS CategoryDescription
+            FROM 
+                Categories";
 
-		public const string AllPublishersQuery = 
-			@"SELECT 
+        public const string AllPublishersQuery = 
+            @"SELECT 
                 Id AS PublisherId,
                 Name AS PublisherName
             FROM 
                 Publishers";
 
-		public const string WhereClause_AuthorNameContainsString = 
-			@"WHERE FirstName LIKE '%@SearchString%'
-				OR MiddleName LIKE '%@SearchString%' 
-				OR LastName LIKE '%@SearchString%'";
+        public const string WhereClause_AuthorNameContainsString = 
+            @"WHERE FirstName LIKE '%@SearchString%'
+                OR MiddleName LIKE '%@SearchString%' 
+                OR LastName LIKE '%@SearchString%'";
 
-		public const string WhereClause_TitleContainsString = "WHERE Title LIKE '%@SearchString%'";
+        public const string WhereClause_TitleContainsString = "WHERE Title LIKE '%@SearchString%'";
 
-		public const string WhereClause_CategoryNameContainsString = "WHERE CategoryName LIKE '%@SearchString%'";
+        public const string WhereClause_CategoryNameContainsString = "WHERE CategoryName LIKE '%@SearchString%'";
 
-		public const string WhereClause_ISBNContainsString = "WHERE ISBN LIKE '%@SearchString%'";
+        public const string WhereClause_ISBNContainsString = "WHERE ISBN LIKE '%@SearchString%'";
 
-		public const string WhereClause_PublisherNameContainsString = "WHERE PublisherName LIKE '%@SearchString%'";
+        public const string WhereClause_PublisherNameContainsString = "WHERE PublisherName LIKE '%@SearchString%'";
 
-		public const string WhereClause_FilerByAuthor = "Author_Id = @AuthorId";
+        public const string WhereClause_FilerByAuthor = "Author_Id = @AuthorId";
 
         public const string WhereClause_FilerByCategory = "Category_Id = @CategoryId";
 
@@ -74,23 +75,50 @@
         public const string BooksFilteredByPublisherQuery = AllBooksQuery + " WHERE " + WhereClause_FilerByPublisher;
 
         public const string InsertNewBookQuery = 
-			@"INSERT INTO 
-				Books (Title, ISBN, Author_Id, Publisher_Id, Published_Year, Category_Id, Cover_URL)
-				VALUES (@Title, @ISBN, @AuthorId, @PublisherId, @PublishedYear, @CategoryId, @CoverURL)";
+            @"INSERT INTO 
+                Books (Title, ISBN, Author_Id, Publisher_Id, Published_Year, Category_Id, Cover_URL)
+                VALUES (@Title, @ISBN, @AuthorId, @PublisherId, @PublishedYear, @CategoryId, @CoverURL)";
 
-		public const string UpdateBookQuery =
-			@"UPDATE Books
-			SET Title = @Title, 
-				ISBN =  @ISBN,
-				Author_Id = @AuthorId,
-				Publisher_Id = @PublisherId,
-				Published_Year = @PublishedYear,
-				Category_Id = @CategoryId,
-				Cover_URL = @CoverURL
-			WHERE Id = @BookId";
+        public const string UpdateBookQuery =
+            @"UPDATE Books
+            SET Title = @Title, 
+                ISBN =  @ISBN,
+                Author_Id = @AuthorId,
+                Publisher_Id = @PublisherId,
+                Published_Year = @PublishedYear,
+                Category_Id = @CategoryId,
+                Cover_URL = @CoverURL
+            WHERE Id = @BookId";
 
-		public const string DeleteBookQuery =
-			@"DELETE FROM Books
-			WHERE Id = @BookId";
+        public const string DeleteBookQuery =
+            @"DELETE FROM Books
+            WHERE Id = @BookId";
+
+        public const string FilteredCategoryQuery =
+            @"SELECT
+                Id AS CategoryId, 
+                Name AS CategoryName, 
+                Description AS CategoryDescription
+            FROM 
+                Categories
+            WHERE
+                @SearchString IS NULL OR
+                Name LIKE '%' + @SearchString + '%' OR
+                Description  LIKE '%' + @SearchString + '%'";
+
+        public const string InsertCategoryQuery =
+            @"INSERT INTO 
+                Categories (Name, Description)
+                VALUES (@CategoryName, @CategoryDescription)";
+
+        public const string UpdateCategoryQuery =
+            @"UPDATE Categories
+            SET Name = @CategoryName, 
+                Description =  @CategoryDescription
+            WHERE Id = @CategoryId";
+
+        public const string DeleteCategoryQuery =
+            @"DELETE FROM Categories
+            WHERE Id = @CategoryId";
     }
 }

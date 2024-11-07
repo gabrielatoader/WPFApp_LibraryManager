@@ -42,6 +42,14 @@ namespace WPFApp_LibraryManager.Components
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
             contentControl.Content = new AuthorsPage();
         }
+        
+        private void Categories_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+            ContentControl contentControl = new ContentControl();
+            contentControl = (ContentControl)parentWindow.FindName("Content_CC");
+            contentControl.Content = new CategoriesPage(_categoryService);
+        }
 
         private void Publishers_Btn_Click(object sender, RoutedEventArgs e)
         {

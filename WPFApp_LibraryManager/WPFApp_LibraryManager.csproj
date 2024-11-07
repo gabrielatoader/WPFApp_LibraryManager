@@ -177,6 +177,7 @@
     <Compile Include="Interfaces\IBookValidator.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\ICategoryValidator.cs" />
     <Compile Include="Interfaces\IPublisherRepository.cs" />
     <Compile Include="Interfaces\IPublisherService.cs" />
     <Compile Include="Models\Author.cs" />
@@ -185,6 +186,9 @@
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Pages\AuthorsPage.xaml.cs">
       <DependentUpon>AuthorsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CategoriesPage.xaml.cs">
+      <DependentUpon>CategoriesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PublishersPage.xaml.cs">
       <DependentUpon>PublishersPage.xaml</DependentUpon>
@@ -202,6 +206,7 @@
     </Compile>
     <Compile Include="Services\PublisherService.cs" />
     <Compile Include="Utils\BookValidator.cs" />
+    <Compile Include="Utils\CategoryValidator.cs" />
     <Compile Include="Utils\SqlQueries.cs" />
     <Page Include="Pages\AuthorsPage.xaml">
       <SubType>Designer</SubType>
@@ -227,6 +232,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Components\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
