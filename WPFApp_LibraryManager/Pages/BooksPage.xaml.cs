@@ -222,7 +222,9 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "";
 
+            BindBookToBookDetails((Book)BookList_Dtg.SelectedItem);
             DisableBookDetails();
+
             Cancel_Btn.IsEnabled = false;
             Save_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = true;
