@@ -94,7 +94,7 @@ namespace WPFApp_LibraryManager.Pages
             }
         }
         
-        private void Clear_Btn_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Clear_Btn_Click(object sender, RoutedEventArgs e)
         {
             _requestType = "";
 
@@ -127,25 +127,43 @@ namespace WPFApp_LibraryManager.Pages
 
         private void AuthorFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AuthorFilter_Cbo.SelectedIndex > 0)
+            int selectedValue = Convert.ToInt32(AuthorFilter_Cbo.SelectedValue);
+
+            if (selectedValue > 0)
             {
-                BindBooksToGrid(_bookService.GetFilteredBooksByAuthor(AuthorFilter_Cbo.SelectedIndex));
+                BindBooksToGrid(_bookService.GetFilteredBooksByAuthor(selectedValue));
+            }
+            else if (selectedValue == 0)
+            {
+                BindBooksToGrid(_bookService.GetAllBooksList());
             }
         }
 
         private void PublisherFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PublisherFilter_Cbo.SelectedIndex > 0)
+            int selectedValue = Convert.ToInt32(PublisherFilter_Cbo.SelectedValue);
+
+            if (selectedValue > 0)
             {
-                BindBooksToGrid(_bookService.GetFilteredBooksByPublisher(PublisherFilter_Cbo.SelectedIndex));
+                BindBooksToGrid(_bookService.GetFilteredBooksByPublisher(selectedValue));
+            }
+            else if (selectedValue == 0)
+            {
+                BindBooksToGrid(_bookService.GetAllBooksList());
             }
         }
-        
+
         private void CategoryFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategoryFilter_Cbo.SelectedIndex > 0)
+            int selectedValue = Convert.ToInt32(CategoryFilter_Cbo.SelectedValue);
+
+            if (selectedValue > 0)
             {
-                BindBooksToGrid(_bookService.GetFilteredBooksByCategory(CategoryFilter_Cbo.SelectedIndex));
+                BindBooksToGrid(_bookService.GetFilteredBooksByCategory(selectedValue));
+            }
+            else if (selectedValue == 0)
+            {
+                BindBooksToGrid(_bookService.GetAllBooksList());
             }
         }
 

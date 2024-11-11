@@ -67,15 +67,13 @@
             <ComboBox x:Name="PublisherFilter_Cbo" 
                       Grid.Column="2" 
                       Grid.ColumnSpan="2" 
-                      Grid.Row="1" 
-                      SelectedIndex="0" 
+                      Grid.Row="1"
                       SelectionChanged="PublisherFilter_Cbo_SelectionChanged"
                       />
             <ComboBox x:Name="CategoryFilter_Cbo" 
                       Grid.Column="4" 
                       Grid.ColumnSpan="2" 
                       Grid.Row="1" 
-                      SelectedIndex="0" 
                       SelectionChanged="CategoryFilter_Cbo_SelectionChanged"
                       />
             <Label x:Name="SearchFor_Lbl"
