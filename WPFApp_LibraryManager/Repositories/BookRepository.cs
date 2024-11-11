@@ -91,7 +91,40 @@ namespace WPFApp_LibraryManager.Repositories
                 return resultsTable;
             }
         }
-        
+
+        public List<Book> GetFilteredBookList(
+            string searchString, 
+            bool searchInTitle, 
+            bool searchInAuthor, 
+            bool searchInPublisher, 
+            bool searchInISBN, 
+            bool searchInCategory
+            ) 
+        {
+            SqlCommand cmd = new SqlCommand(SqlQueries.FilteredBookQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@SearchString", searchString);
+            cmd.Parameters.AddWithValue("@SearchInTitle", searchInTitle);
+            cmd.Parameters.AddWithValue("@SearchInAuthor", searchInAuthor);
+            cmd.Parameters.AddWithValue("@SearchInPublisher", searchInPublisher);
+            cmd.Parameters.AddWithValue("@SearchInISBN", searchInISBN);
+            cmd.Parameters.AddWithValue("@SearchInCategory", searchInCategory);
+
+            DataTable booksTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+            using (sqlDataAdapter)
+            {
+                sqlDataAdapter.Fill(booksTable);
+            }
+
+            List<Book> bookList = new List<Book>();
+
+            bookList = ConvertBookDataTableToBooList(booksTable);
+
+            return bookList;
+        }
+
         public void InsertBookInDb(string query, Book book)
         {
             _sqlConnection.Open();

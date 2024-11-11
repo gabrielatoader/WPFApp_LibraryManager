@@ -49,18 +49,31 @@
             FROM 
                 Publishers";
 
-        public const string WhereClause_AuthorNameContainsString = 
-            @"WHERE FirstName LIKE '%@SearchString%'
-                OR MiddleName LIKE '%@SearchString%' 
-                OR LastName LIKE '%@SearchString%'";
-
-        public const string WhereClause_TitleContainsString = "WHERE Title LIKE '%@SearchString%'";
-
-        public const string WhereClause_CategoryNameContainsString = "WHERE CategoryName LIKE '%@SearchString%'";
-
-        public const string WhereClause_ISBNContainsString = "WHERE ISBN LIKE '%@SearchString%'";
-
-        public const string WhereClause_PublisherNameContainsString = "WHERE PublisherName LIKE '%@SearchString%'";
+        public const string FilteredBookQuery =
+            @"SELECT 
+                b.Id as BookId, 
+                ISBN, 
+                Title, 
+                Author_Id AS AuthorId, 
+                CONCAT_WS(' ', [FirstName], [MiddleName], [LastName]) AS AuthorFullName,  
+                Publisher_Id AS PublisherId, 
+                p.Name AS PublisherName, 
+                Published_Year as PublishedYear, 
+                Category_Id AS CategoryId, 
+                c.Name AS CategoryName, 
+                Cover_URL AS CoverURL
+            FROM Books b 
+            JOIN Publishers p ON b.Publisher_Id = p.Id 
+            JOIN Authors a ON b.Author_Id = a.Id
+            JOIN Categories c ON b.Category_Id = c.Id
+            WHERE @SearchString IS NULL
+                OR (@SearchInAuthor = 1 AND a.FirstName LIKE '%' + @SearchString + '%')
+                OR (@SearchInAuthor = 1 AND a.MiddleName LIKE '%' + @SearchString + '%')
+                OR (@SearchInAuthor = 1 AND a.LastName LIKE '%' + @SearchString + '%')
+                OR (@SearchInISBN = 1 AND ISBN LIKE '%' + @SearchString + '%')
+                OR (@SearchInTitle = 1 AND Title LIKE '%' + @SearchString + '%')
+                OR (@SearchInCategory = 1 AND c.Name LIKE '%' + @SearchString + '%')
+                OR (@SearchInPublisher = 1 AND p.Name LIKE '%' + @SearchString + '%')";
 
         public const string WhereClause_FilerByAuthor = "Author_Id = @AuthorId";
 
