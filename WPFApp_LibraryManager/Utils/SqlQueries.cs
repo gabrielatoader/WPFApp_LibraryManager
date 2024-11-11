@@ -45,7 +45,8 @@
         public const string AllPublishersQuery = 
             @"SELECT 
                 Id AS PublisherId,
-                Name AS PublisherName
+                Name AS PublisherName,
+                Description AS PublisherDescription
             FROM 
                 Publishers";
 
@@ -133,5 +134,32 @@
         public const string DeleteCategoryQuery =
             @"DELETE FROM Categories
             WHERE Id = @CategoryId";
+
+        public const string FilteredPublisherQuery =
+            @"SELECT
+                Id AS PublisherId, 
+                Name AS PublisherName, 
+                Description AS PublisherDescription
+            FROM 
+                Publishers
+            WHERE
+                @SearchString IS NULL OR
+                Name LIKE '%' + @SearchString + '%' OR
+                Description  LIKE '%' + @SearchString + '%'";
+
+        public const string InsertPublisherQuery =
+            @"INSERT INTO 
+                Publishers (Name, Description)
+                VALUES (@PublisherName, @PublisherDescription)";
+
+        public const string UpdatePublisherQuery =
+            @"UPDATE Publishers
+            SET Name = @PublisherName, 
+                Description =  @PublisherDescription
+            WHERE Id = @PublisherId";
+
+        public const string DeletePublisherQuery =
+            @"DELETE FROM Publishers
+            WHERE Id = @PublisherId";
     }
 }
