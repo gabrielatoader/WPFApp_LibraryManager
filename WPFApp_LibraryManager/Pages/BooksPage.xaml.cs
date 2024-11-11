@@ -305,5 +305,43 @@ namespace WPFApp_LibraryManager.Pages
             Cancel_Btn.IsEnabled = true;
             Save_Btn.IsEnabled = true;
         }
+        
+        private void Search_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(Search_Txt.Text))
+            {
+                MessageBox.Show("Search box is empty, please add a search string.");
+            }
+            else if (Title_Chk.IsChecked == false && Author_Chk.IsChecked == false && Publisher_Chk.IsChecked == false && ISBN_Chk.IsChecked == false && Category_Chk.IsChecked == false)
+            {
+                MessageBox.Show("Please select at least one checkbox for the search location.");
+            }
+            else 
+            {
+                bool searchInTitle = (bool)Title_Chk.IsChecked;
+                bool searchInAuthor = (bool)Author_Chk.IsChecked;
+                bool searchInPublisher = (bool)Publisher_Chk.IsChecked;
+                bool searchInISBN = (bool)ISBN_Chk.IsChecked;
+                bool searchInCategory = (bool)Category_Chk.IsChecked;
+
+                List<Book> books = _bookService.GetFilteredBookList(
+                    Search_Txt.Text, 
+                    searchInTitle, 
+                    searchInAuthor, 
+                    searchInPublisher, 
+                    searchInISBN, 
+                    searchInCategory
+                    );
+
+                if (books == null || books.Count == 0)
+                {
+                    MessageBox.Show("Could not find books to match search request.");
+                }
+                else
+                {
+                    BindBooksToGrid(books);
+                }
+            }
+        }
     }
 }

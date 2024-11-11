@@ -70,5 +70,27 @@ namespace WPFApp_LibraryManager.Services
             
             MessageBox.Show("Book deleted successfully!");
         }
+
+        public List<Book> GetFilteredBookList(
+            string searchString, 
+            bool searchInTitle, 
+            bool searchInAuthor, 
+            bool searchInPublisher, 
+            bool searchInISBN, 
+            bool searchInCategory
+            )
+        {
+            List<Book> bookList = new List<Book>();
+            bookList.AddRange(_bookRepository.GetFilteredBookList(
+                searchString, 
+                searchInTitle, 
+                searchInAuthor, 
+                searchInPublisher, 
+                searchInISBN, 
+                searchInCategory
+                ));
+
+            return bookList;
+        }
     }
 }
