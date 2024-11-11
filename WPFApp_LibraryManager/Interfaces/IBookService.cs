@@ -7,6 +7,15 @@ namespace WPFApp_LibraryManager.Interfaces
     {
         List<Book> GetAllBooksList();
 
+        List<Book> GetFilteredBookList(
+            string searchString, 
+            bool searchInTitle, 
+            bool searchInAuthor, 
+            bool searchInPublisher, 
+            bool searchInISBN, 
+            bool searchInCategory
+            );
+        
         List<Book> GetFilteredBooksByAuthor(int authorId);
 
         List<Book> GetFilteredBooksByPublisher(int publisherId);

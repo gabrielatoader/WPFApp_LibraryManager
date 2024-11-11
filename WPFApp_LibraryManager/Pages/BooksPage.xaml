@@ -120,7 +120,8 @@
             <Button x:Name="Search_Btn" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="3" 
-                    Grid.Row="5" 
+                    Grid.Row="5"
+                    Click="Search_Btn_Click"
                     Content="SEARCH" 
                     Height="30"
                     />
