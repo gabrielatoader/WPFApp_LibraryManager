@@ -41,7 +41,7 @@ namespace WPFApp_LibraryManager.Pages
 
         public void BindAuthorsToCbo(ComboBox cbo, int selectedIndex)
         {
-            List<Author> authorList = _authorService.GetAuthors();
+            List<Author> authorList = _authorService.GetAuthorListWithListHeader();
 
             cbo.ItemsSource = authorList;
             cbo.DisplayMemberPath = "FullName";

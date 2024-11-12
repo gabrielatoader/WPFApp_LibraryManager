@@ -6,5 +6,13 @@ namespace WPFApp_LibraryManager.Interfaces
     public interface IAuthorRepository
     {
         List<Author> GetAuthorList();
+
+        List<Author> GetFilteredAuthorList(string searchString);
+
+        void InsertAuthor(Author author);
+
+        void UpdateAuthor(Author author);
+
+        void DeleteAuthor(Author author);
     }
 }
