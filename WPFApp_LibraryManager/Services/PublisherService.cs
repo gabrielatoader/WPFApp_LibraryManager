@@ -8,6 +8,7 @@ namespace WPFApp_LibraryManager.Services
     public class PublisherService : IPublisherService
     {
         private IPublisherRepository _publisherRepository;
+
         private IPublisherValidator _publisherValidator;
 
         public PublisherService(IPublisherRepository publisherRepository, IPublisherValidator publisherValidator)

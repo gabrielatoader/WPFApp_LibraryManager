@@ -161,5 +161,36 @@
         public const string DeletePublisherQuery =
             @"DELETE FROM Publishers
             WHERE Id = @PublisherId";
+
+        public const string FilteredAuthorQuery =
+            @"SELECT
+                Id AS AuthorId, 
+                FirstName, 
+                MiddleName, 
+                LastName, 
+                CONCAT_WS(' ', [FirstName], [MiddleName], [LastName]) AS AuthorFullName 
+            FROM 
+                Authors
+            WHERE
+                @SearchString IS NULL 
+                OR FirstName LIKE '%' + @SearchString + '%' 
+                OR MiddleName LIKE '%' + @SearchString + '%' 
+                OR LastName LIKE '%' + @SearchString + '%'";
+
+        public const string InsertAuthorQuery =
+            @"INSERT INTO 
+                Authors (FirstName, MiddleName, LastName)
+                VALUES (@AuthorFirstName, @AuthorMiddleName, @AuthorLastName)";
+
+        public const string UpdateAuthorQuery =
+            @"UPDATE Authors
+            SET FirstName = @AuthorFirstName, 
+                MiddleName =  @AuthorMiddleName,
+                LastName = @AuthorLastName
+            WHERE Id = @AuthorId";
+
+        public const string DeleteAuthorQuery =
+            @"DELETE FROM Authors
+            WHERE Id = @AuthorId";
     }
 }

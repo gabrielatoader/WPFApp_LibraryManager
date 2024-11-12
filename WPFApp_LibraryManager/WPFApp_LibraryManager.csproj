@@ -172,6 +172,7 @@
     </ApplicationDefinition>
     <Compile Include="Interfaces\IAuthorRepository.cs" />
     <Compile Include="Interfaces\IAuthorService.cs" />
+    <Compile Include="Interfaces\IAuthorValidator.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Interfaces\IBookService.cs" />
     <Compile Include="Interfaces\IBookValidator.cs" />
@@ -206,6 +207,7 @@
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\PublisherService.cs" />
+    <Compile Include="Utils\AuthorValidator.cs" />
     <Compile Include="Utils\BookValidator.cs" />
     <Compile Include="Utils\CategoryValidator.cs" />
     <Compile Include="Utils\PublisherValidator.cs" />

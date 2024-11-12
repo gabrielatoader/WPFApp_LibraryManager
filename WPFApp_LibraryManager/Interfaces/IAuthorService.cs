@@ -5,6 +5,16 @@ namespace WPFApp_LibraryManager.Interfaces
 {
     public interface IAuthorService
     {
-        List<Author> GetAuthors();
+        List<Author> GetAuthorList();
+
+        List<Author> GetAuthorListWithListHeader();
+
+        List<Author> GetFilteredAuthorList(string searchString);
+
+        bool InsertAuthor(Author author);
+
+        bool UpdateAuthor(Author author);
+
+        void DeleteAuthor(Author author);
     }
 }

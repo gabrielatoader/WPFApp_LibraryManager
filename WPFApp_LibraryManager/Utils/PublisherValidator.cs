@@ -12,6 +12,7 @@ namespace WPFApp_LibraryManager.Utils
             if (!IsValidPublisherName(publisher.Name))
             {
                 MessageBox.Show("Name is invalid. Please provide the publisher name.");
+
                 return false;
             }
 

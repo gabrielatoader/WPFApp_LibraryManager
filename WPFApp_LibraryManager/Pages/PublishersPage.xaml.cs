@@ -10,6 +10,7 @@ namespace WPFApp_LibraryManager.Pages
     public partial class PublishersPage : UserControl
     {
         private IPublisherService _publisherService;
+
         private string _requestType = "";
 
         public PublishersPage(IPublisherService publisherService)

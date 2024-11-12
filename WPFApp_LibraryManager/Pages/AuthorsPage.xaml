@@ -6,13 +6,251 @@
              xmlns:local="clr-namespace:WPFApp_LibraryManager.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="1080" 
-             d:DesignWidth="1920">
-    <Grid>
-        <Label x:Name="AuthorsPagePlaceholder_Lbl"
-               Content="Authors Page" 
-               FontSize="100" 
-               HorizontalAlignment="Center" 
-               VerticalAlignment="Center"
+             d:DesignWidth="1920"
+             >
+    <Grid x:Name="AuthorsView_Grd">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.11*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="AuthorsCollection_Lbl" 
+               Grid.Column="0" 
+               Grid.Row="0" 
+               Content="Author Collection" 
+               FontSize="20pt" 
+               FontWeight="Bold"
                />
+        <Grid Grid.Column="0"
+              Grid.Row="2" 
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="SearchFor_Lbl"
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="3" 
+                   Grid.Row="0" 
+                   Content="Search for ..." 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="Search_Txt"
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="3" 
+                     Grid.Row="1"
+                     />
+            <Button x:Name="Search_Btn" 
+                    Grid.Column="0"
+                    Grid.Row="2" 
+                    Click="Search_Btn_Click"
+                    Content="SEARCH"
+                    Height="30"
+                    />
+            <Button x:Name="Clear_Btn" 
+                    Grid.Column="2" 
+                    Grid.Row="2" 
+                    Click="Clear_Btn_Click" 
+                    Height="30"
+                    Content="CLEAR"
+                    />
+        </Grid>
+        <DataGrid x:Name="AuthorList_Dtg" 
+                  Grid.Column="0" 
+                  Grid.Row="4" 
+                  AlternatingRowBackground="Snow" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False" 
+                  SelectionChanged="AuthorList_Dtg_SelectionChanged"
+                  SelectionUnit="FullRow" 
+                  VerticalScrollBarVisibility="Auto" 
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="AuthorList_Dtg_Id"
+                                    Binding="{Binding Path=Id}" 
+                                    CanUserResize="True"
+                                    Header="Author Id" 
+                                    Width="75" 
+                                    />
+                <DataGridTextColumn x:Name="AuthorList_Dtg_FirstName" 
+                                    Binding="{Binding Path=FirstName}" 
+                                    CanUserResize="True"
+                                    Header="Author First Name" 
+                                    Width="100" 
+                                    />
+                <DataGridTextColumn x:Name="AuthorList_Dtg_MiddleName" 
+                                    Binding="{Binding Path=MiddleName}" 
+                                    CanUserResize="True"
+                                    Header="Author Middle Name" 
+                                    Width="100" 
+                                    />
+                <DataGridTextColumn x:Name="AuthorList_Dtg_LastName" 
+                                    Binding="{Binding Path=LastName}" 
+                                    CanUserResize="True"
+                                    Header="Author Last Name" 
+                                    Width="390"
+                                    />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="AddAuthor_Btn"
+                Grid.Column="0" 
+                Grid.Row="6" 
+                Click="AddAuthor_Btn_Click"
+                Content="Add New Author" 
+                Height="30" 
+                IsEnabled="True" 
+                VerticalAlignment="Top" 
+                />
+        <ListBox x:Name="SearchInstructions_Lbl"
+                 Grid.Column="2" 
+                 Grid.Row="2" 
+                 FontSize="16" 
+                 IsEnabled="False" 
+                 >
+            <ListBoxItem Content="Use the search box to find specific authors."/>
+            <ListBoxItem Content="Hit 'SEARCH' to start, 'CLEAR' to reset."/>
+        </ListBox>
+        <Grid x:Name="AuthorDetails_Grd" 
+              Grid.Column="2" 
+              Grid.Row="4" 
+              VerticalAlignment="Stretch"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="InstructionsRow" 
+                               Height="1.5*"/>
+                <RowDefinition x:Name="AuthorFirstNameLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="AuthorFirstNameValueRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="AuthorMiddleNameLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="AuthorMiddleNameValueRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="AuthorLastNameLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="AuthorLastNameValueRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="ButtonsRow" 
+                               Height="0.5*"/>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="Instructions_Lbl"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="0" 
+                     FontSize="16"
+                     Height="100"
+                     IsEnabled="False"
+                     VerticalAlignment="Top"
+                     >
+                <ListBoxItem Content="Click on an author for additional options."/>
+                <ListBoxItem Content="Click 'Edit' to modify an author."/>
+                <ListBoxItem Content="Click 'Delete' to remove an author."/>
+            </ListBox>
+            <Label x:Name="TargetAuthor_FirstName_Lbl" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="3" 
+                   Grid.Row="1" 
+                   Content="First Name:" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetAuthor_FirstName_Txt" 
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="3" 
+                     Grid.Row="2" 
+                     IsEnabled="False"
+                     />
+            <Label x:Name="TargetAuthor_MiddleName_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="3" 
+                   Content="Middle Name:" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetAuthor_MiddleName_Txt" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="4" 
+                     IsEnabled="False"
+                     TextWrapping="Wrap"
+                     />
+            <Label x:Name="TargetAuthor_LastName_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="5" 
+                   Content="Middle Name:" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetAuthor_LastName_Txt" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="6" 
+                     IsEnabled="False"
+                     TextWrapping="Wrap"
+                     />
+            <Button x:Name="Save_Btn" 
+                    Grid.Column="0" 
+                    Grid.Row="7" 
+                    Click="Save_Btn_Click"
+                    Content="SAVE" 
+                    Height="25" 
+                    IsEnabled="False"
+                    VerticalAlignment="Bottom"
+                    />
+            <Button x:Name="Cancel_Btn" 
+                    Grid.Column="1" 
+                    Grid.Row="7" 
+                    Click="Cancel_Btn_Click" 
+                    Content="CANCEL" 
+                    Height="25" 
+                    IsEnabled="False" 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Bottom"
+                    />
+        </Grid>
+        <Grid Grid.Column="2"
+              Grid.Row="6" 
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Edit_Btn"
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Click="Edit_Btn_Click"
+                    Content="EDIT" 
+                    Height="30" 
+                    IsEnabled="False" 
+                    />
+            <Button x:Name="Delete_Btn" 
+                    Grid.Column="1" 
+                    Grid.Row="0" 
+                    Click="Delete_Btn_Click" 
+                    Content="DELETE" 
+                    Height="30" 
+                    IsEnabled="False" 
+                    Margin="10,0,0,0"
+                    />
+        </Grid>
     </Grid>
 </UserControl>
