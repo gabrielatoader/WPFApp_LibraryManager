@@ -6,13 +6,228 @@
              xmlns:local="clr-namespace:WPFApp_LibraryManager.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="1080" 
-             d:DesignWidth="1920">
-    <Grid>
-        <Label x:Name="PublishersPagePlaceholder_Lbl"
-               Content="Publishers Page" 
-               FontSize="100" 
-               HorizontalAlignment="Center" 
-               VerticalAlignment="Center"
+             d:DesignWidth="1920"
+             >
+    <Grid x:Name="PublishersView_Grd">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.11*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="PublisherCollection_Lbl" 
+               Grid.Column="0" 
+               Grid.Row="0" 
+               Content="Publisher Collection" 
+               FontSize="20pt" 
+               FontWeight="Bold"
                />
+        <Grid Grid.Column="0"
+              Grid.Row="2" 
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="SearchFor_Lbl"
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="3" 
+                   Grid.Row="0" 
+                   Content="Search for ..." 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="Search_Txt"
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="3" 
+                     Grid.Row="1"
+                     />
+            <Button x:Name="Search_Btn" 
+                    Grid.Column="0"
+                    Grid.Row="2" 
+                    Click="Search_Btn_Click"
+                    Content="SEARCH"
+                    Height="30"
+                    />
+            <Button x:Name="Clear_Btn" 
+                    Grid.Column="2" 
+                    Grid.Row="2" 
+                    Click="Clear_Btn_Click" 
+                    Height="30"
+                    Content="CLEAR"
+                    />
+        </Grid>
+        <DataGrid x:Name="PublisherList_Dtg" 
+                  Grid.Column="0" 
+                  Grid.Row="4" 
+                  AlternatingRowBackground="Snow" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False" 
+                  SelectionChanged="PublisherList_Dtg_SelectionChanged"
+                  SelectionUnit="FullRow" 
+                  VerticalScrollBarVisibility="Auto" 
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="PublisherList_Dtg_Id"
+                                    Binding="{Binding Path=Id}" 
+                                    CanUserResize="True"
+                                    Header="Publisher Id" 
+                                    Width="75" 
+                                    />
+                <DataGridTextColumn x:Name="PublisherList_Dtg_Name" 
+                                    Binding="{Binding Path=Name}" 
+                                    CanUserResize="True"
+                                    Header="Publisher Name" 
+                                    Width="100" 
+                                    />
+                <DataGridTextColumn x:Name="PublisherList_Dtg_Description" 
+                                    Binding="{Binding Path=Description}" 
+                                    CanUserResize="True"
+                                    Header="Publisher Description" 
+                                    Width="390"
+                                    />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="AddPublisher_Btn"
+                Grid.Column="0" 
+                Grid.Row="6" 
+                Click="AddPublisher_Btn_Click"
+                Content="Add New Publisher" 
+                Height="30" 
+                IsEnabled="True" 
+                VerticalAlignment="Top" 
+                />
+        <ListBox x:Name="SearchInstructions_Lbl"
+                 Grid.Column="2" 
+                 Grid.Row="2" 
+                 FontSize="16" 
+                 IsEnabled="False" 
+                 >
+            <ListBoxItem Content="Use the search box to find specific publishers."/>
+            <ListBoxItem Content="Hit 'SEARCH' to start, 'CLEAR' to reset."/>
+        </ListBox>
+        <Grid x:Name="PublisherDetails_Grd" 
+              Grid.Column="2" 
+              Grid.Row="4" 
+              VerticalAlignment="Stretch"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="InstructionsRow" 
+                               Height="1.5*"/>
+                <RowDefinition x:Name="PublisherNameLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="PublisherNameValueRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="PublisherDescriptionLabelRow" 
+                               Height="0.5*"/>
+                <RowDefinition x:Name="PublisherDescriptionValueRow" 
+                               Height="3.5*"/>
+                <RowDefinition x:Name="ButtonsRow" 
+                               Height="0.5*"/>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="Instructions_Lbl"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="0" 
+                     FontSize="16"
+                     Height="100"
+                     IsEnabled="False"
+                     VerticalAlignment="Top"
+                     >
+                <ListBoxItem Content="Click on a publisher for additional options."/>
+                <ListBoxItem Content="Click 'Edit' to modify a publisher."/>
+                <ListBoxItem Content="Click 'Delete' to remove a publisher."/>
+            </ListBox>
+            <Label x:Name="TargetPublisher_Name_Lbl" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="3" 
+                   Grid.Row="1" 
+                   Content="Name:" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetPublisher_Name_Txt" 
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="3" 
+                     Grid.Row="2" 
+                     IsEnabled="False"
+                     />
+            <Label x:Name="TargetPublisher_Description_Lbl" 
+                   Grid.Column="0" 
+                   Grid.Row="3" 
+                   Content="Description:" 
+                   FontWeight="Bold"
+                   />
+            <TextBox x:Name="TargetPublisher_Description_Txt" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="4" 
+                     IsEnabled="False"
+                     TextWrapping="Wrap"
+                     />
+            <Button x:Name="Save_Btn" 
+                    Grid.Column="0" 
+                    Grid.Row="5" 
+                    Click="Save_Btn_Click"
+                    Content="SAVE" 
+                    Height="25" 
+                    IsEnabled="False"
+                    VerticalAlignment="Bottom"
+                    />
+            <Button x:Name="Cancel_Btn" 
+                    Grid.Column="1" 
+                    Grid.Row="5" 
+                    Click="Cancel_Btn_Click" 
+                    Content="CANCEL" 
+                    Height="25" 
+                    IsEnabled="False" 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Bottom"
+                    />
+        </Grid>
+        <Grid Grid.Column="2"
+              Grid.Row="6" 
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Edit_Btn"
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Click="Edit_Btn_Click"
+                    Content="EDIT" 
+                    Height="30" 
+                    IsEnabled="False" 
+                    />
+            <Button x:Name="Delete_Btn" 
+                    Grid.Column="1" 
+                    Grid.Row="0" 
+                    Click="Delete_Btn_Click" 
+                    Content="DELETE" 
+                    Height="30" 
+                    IsEnabled="False" 
+                    Margin="10,0,0,0"
+                    />
+        </Grid>
     </Grid>
 </UserControl>

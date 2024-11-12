@@ -51,7 +51,7 @@ namespace WPFApp_LibraryManager.Pages
 
         public void BindPublishersToCbo(ComboBox cbo, int selectedIndex)
         {
-            List<Publisher> publisherList = _publisherService.GetPublishers();
+            List<Publisher> publisherList = _publisherService.GetPublisherListWithListHeader();
 
             cbo.ItemsSource = publisherList;
             cbo.DisplayMemberPath = "Name";
@@ -240,7 +240,9 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "";
 
+            BindBookToBookDetails((Book)BookList_Dtg.SelectedItem);
             DisableBookDetails();
+
             Cancel_Btn.IsEnabled = false;
             Save_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = true;
