@@ -56,7 +56,7 @@ namespace WPFApp_LibraryManager.Components
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            contentControl.Content = new PublishersPage();
+            contentControl.Content = new PublishersPage(_publisherService);
         }
 
         private void Home_Btn_Click(object sender, RoutedEventArgs e)
