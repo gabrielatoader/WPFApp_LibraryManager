@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using WPFApp_LibraryManager.Interfaces;
@@ -86,13 +85,13 @@ namespace WPFApp_LibraryManager.Repositories
             _sqlConnection.Close();
         }
 
-        public void DeleteCategory(Category category)
+        public void DeleteCategory(int categoryId)
         {
             _sqlConnection.Open();
 
             SqlCommand cmd = new SqlCommand(SqlQueries.DeleteCategoryQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@CategoryId", category.Id);
+            cmd.Parameters.AddWithValue("@CategoryId", categoryId);
 
             cmd.ExecuteNonQuery();
 

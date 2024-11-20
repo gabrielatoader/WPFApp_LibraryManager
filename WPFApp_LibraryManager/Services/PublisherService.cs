@@ -75,9 +75,9 @@ namespace WPFApp_LibraryManager.Services
             return false;
         }
 
-        public void DeletePublisher(Publisher publisher)
+        public void DeletePublisher(int publisherId)
         {
-            _publisherRepository.DeletePublisher(publisher);
+            _publisherRepository.DeletePublisher(publisherId);
 
             MessageBox.Show("Publisher deleted successfully!");
         }

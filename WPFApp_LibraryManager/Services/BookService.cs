@@ -64,9 +64,9 @@ namespace WPFApp_LibraryManager.Services
             return false;
         }
 
-        public void DeleteBook(Book book)
+        public void DeleteBook(int bookId)
         {
-            _bookRepository.DeleteBook(book);
+            _bookRepository.DeleteBook(bookId);
             
             MessageBox.Show("Book deleted successfully!");
         }

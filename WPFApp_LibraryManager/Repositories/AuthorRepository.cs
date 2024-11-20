@@ -106,13 +106,13 @@ namespace WPFApp_LibraryManager.Repositories
             _sqlConnection.Close();
         }
 
-        public void DeleteAuthor(Author author)
+        public void DeleteAuthor(int authorId)
         {
             _sqlConnection.Open();
 
             SqlCommand cmd = new SqlCommand(SqlQueries.DeleteAuthorQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@AuthorId", author.Id);
+            cmd.Parameters.AddWithValue("@AuthorId", authorId);
 
             cmd.ExecuteNonQuery();
 
