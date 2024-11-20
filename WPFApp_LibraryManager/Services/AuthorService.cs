@@ -72,9 +72,9 @@ namespace WPFApp_LibraryManager.Services
             return false;
         }
 
-        public void DeleteAuthor(Author author)
+        public void DeleteAuthor(int authorId)
         {
-            _authorRepository.DeleteAuthor(author);
+            _authorRepository.DeleteAuthor(authorId);
 
             MessageBox.Show("Author deleted successfully!");
         }

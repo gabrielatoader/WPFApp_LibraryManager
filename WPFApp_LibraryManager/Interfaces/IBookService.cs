@@ -26,6 +26,6 @@ namespace WPFApp_LibraryManager.Interfaces
 
         bool UpdateBook(Book book);
 
-        void DeleteBook(Book book);
+        void DeleteBook(int bookId);
     }
 }

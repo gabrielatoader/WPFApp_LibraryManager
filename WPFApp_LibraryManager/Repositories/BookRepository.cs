@@ -174,18 +174,18 @@ namespace WPFApp_LibraryManager.Repositories
             _sqlConnection.Close();
         }
         
-        public void DeleteBook(Book book)
+        public void DeleteBook(int bookId)
         {
-            DeleteBookFromDb(SqlQueries.DeleteBookQuery, book);
+            DeleteBookFromDb(SqlQueries.DeleteBookQuery, bookId);
         }
 
-        public void DeleteBookFromDb(string query, Book book)
+        public void DeleteBookFromDb(string query, int bookId)
         {
             _sqlConnection.Open();
 
             SqlCommand cmd = new SqlCommand(query, _sqlConnection);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@BookId", book.BookId);
+            cmd.Parameters.AddWithValue("@BookId", bookId);
 
             cmd.ExecuteNonQuery();
 

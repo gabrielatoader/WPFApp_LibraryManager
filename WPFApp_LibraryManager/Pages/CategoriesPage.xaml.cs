@@ -120,7 +120,7 @@ namespace WPFApp_LibraryManager.Pages
             {
                 Category activeCategory = (Category)CategoryList_Dtg.SelectedItem;
 
-                _categoryService.DeleteCategory(activeCategory);
+                _categoryService.DeleteCategory(activeCategory.Id);
 
                 Clear_Btn_Click(sender, e);
             }

@@ -258,7 +258,7 @@ namespace WPFApp_LibraryManager.Pages
             {
                 Book activeBook = (Book)BookList_Dtg.SelectedItem;
 
-                _bookService.DeleteBook(activeBook);
+                _bookService.DeleteBook(activeBook.BookId);
 
                 Clear_Btn_Click(sender, e);
             }

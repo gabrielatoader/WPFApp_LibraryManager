@@ -13,6 +13,6 @@ namespace WPFApp_LibraryManager.Interfaces
 
         void UpdateAuthor(Author author);
 
-        void DeleteAuthor(Author author);
+        void DeleteAuthor(int authorId);
     }
 }
