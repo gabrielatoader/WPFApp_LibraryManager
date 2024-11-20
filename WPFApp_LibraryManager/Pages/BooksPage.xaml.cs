@@ -240,13 +240,17 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "";
 
-            BindBookToBookDetails((Book)BookList_Dtg.SelectedItem);
+            if ((Book)BookList_Dtg.SelectedItem != null)
+            {
+                BindBookToBookDetails((Book)BookList_Dtg.SelectedItem);
+                Delete_Btn.IsEnabled = true;
+                Edit_Btn.IsEnabled = true;
+            }
+
             DisableBookDetails();
 
             Cancel_Btn.IsEnabled = false;
             Save_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = true;
-            Edit_Btn.IsEnabled = true;
             AddBook_Btn.IsEnabled = true;
         }
 
