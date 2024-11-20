@@ -94,12 +94,18 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "";
 
+            if ((Publisher)PublisherList_Dtg.SelectedItem != null)
+            {
+                BindPublisherToPublisherDetails((Publisher)PublisherList_Dtg.SelectedItem);
+                Delete_Btn.IsEnabled = true;
+                Edit_Btn.IsEnabled = true;
+            }
+
             DisableActivePublisherSection();
 
-            Edit_Btn.IsEnabled = true;
-            Delete_Btn.IsEnabled = true;
-            Save_Btn.IsEnabled = false;
             Cancel_Btn.IsEnabled = false;
+            Save_Btn.IsEnabled = false;
+            AddPublisher_Btn.IsEnabled = true;
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
