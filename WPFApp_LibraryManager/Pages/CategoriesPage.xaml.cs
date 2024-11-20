@@ -92,12 +92,18 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "";
 
+            if ((Category)CategoryList_Dtg.SelectedItem != null)
+            {
+                BindCategoryToCategoryDetails((Category)CategoryList_Dtg.SelectedItem);
+                Delete_Btn.IsEnabled = true;
+                Edit_Btn.IsEnabled = true;
+            }
+
             DisableActiveCategorySection();
 
-            Edit_Btn.IsEnabled = true;
-            Delete_Btn.IsEnabled = true;
-            Save_Btn.IsEnabled = false;
             Cancel_Btn.IsEnabled = false;
+            Save_Btn.IsEnabled = false;
+            AddCategory_Btn.IsEnabled = true;
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
