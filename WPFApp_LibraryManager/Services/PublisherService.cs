@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
@@ -21,7 +22,14 @@ namespace WPFApp_LibraryManager.Services
         {
             List<Publisher> publisherList = new List<Publisher>();
 
-            publisherList.AddRange(_publisherRepository.GetPublisherList());
+            try
+            {
+                publisherList = _publisherRepository.GetPublisherList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get publisher list: {ex.Message}");
+            }
 
             return publisherList;
         }
@@ -35,7 +43,14 @@ namespace WPFApp_LibraryManager.Services
             header.Name = "- PUBLISHER -";
             publisherList.Add(header);
 
-            publisherList.AddRange(_publisherRepository.GetPublisherList());
+            try
+            {
+                publisherList.AddRange(_publisherRepository.GetPublisherList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get publisher list: {ex.Message}");
+            }
 
             return publisherList;
         }
@@ -44,7 +59,14 @@ namespace WPFApp_LibraryManager.Services
         {
             List<Publisher> publisherList = new List<Publisher>();
 
-            publisherList.AddRange(_publisherRepository.GetFilteredPublisherList(searchString));
+            try
+            {
+                publisherList = _publisherRepository.GetFilteredPublisherList(searchString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get filtered publisher list: {ex.Message}");
+            }
 
             return publisherList;
         }
@@ -53,7 +75,14 @@ namespace WPFApp_LibraryManager.Services
         {
             if (_publisherValidator.IsValidPublisher(publisher))
             {
-                _publisherRepository.InsertPublisher(publisher);
+                try
+                {
+                    _publisherRepository.InsertPublisher(publisher);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not insert publisher: {ex.Message}");
+                }
 
                 MessageBox.Show("Publisher added successfully!");
 
@@ -66,7 +95,14 @@ namespace WPFApp_LibraryManager.Services
         {
             if (_publisherValidator.IsValidPublisher(publisher))
             {
-                _publisherRepository.UpdatePublisher(publisher);
+                try
+                {
+                    _publisherRepository.UpdatePublisher(publisher);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not update publisher: {ex.Message}");
+                }
 
                 MessageBox.Show("Publisher updated successfully!");
 
@@ -77,7 +113,14 @@ namespace WPFApp_LibraryManager.Services
 
         public void DeletePublisher(int publisherId)
         {
-            _publisherRepository.DeletePublisher(publisherId);
+            try
+            {
+                _publisherRepository.DeletePublisher(publisherId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not delete publisher: {ex.Message}");
+            }
 
             MessageBox.Show("Publisher deleted successfully!");
         }

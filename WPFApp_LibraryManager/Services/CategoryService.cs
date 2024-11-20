@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
@@ -20,7 +21,14 @@ namespace WPFApp_LibraryManager.Services
         {
             List<Category> categoryList = new List<Category>();
 
-            categoryList.AddRange(_categoryRepository.GetCategoryList());
+            try
+            {
+                categoryList = _categoryRepository.GetCategoryList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get category list: {ex.Message}");
+            }
 
             return categoryList;
         }
@@ -34,15 +42,30 @@ namespace WPFApp_LibraryManager.Services
             header.Name = "- CATEGORY -";
             categoryList.Add(header);
 
-            categoryList.AddRange(_categoryRepository.GetCategoryList());
+            try
+            {
+                categoryList.AddRange(_categoryRepository.GetCategoryList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get category list: {ex.Message}");
+            }
+
             return categoryList;
         }
 
-        public List<Category> GetFilteredCategoryList(string searchString) 
+        public List<Category> GetFilteredCategoryList(string searchString)
         {
             List<Category> categoryList = new List<Category>();
 
-            categoryList.AddRange(_categoryRepository.GetFilteredCategoryList(searchString));
+            try
+            {
+                categoryList = _categoryRepository.GetFilteredCategoryList(searchString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get filtered category list: {ex.Message}");
+            }
 
             return categoryList;
         }
@@ -51,7 +74,14 @@ namespace WPFApp_LibraryManager.Services
         {
             if (_categoryValidator.IsValidCategory(category))
             {
-                _categoryRepository.InsertCategory(category);
+                try
+                {
+                    _categoryRepository.InsertCategory(category);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not insert category: {ex.Message}");
+                }
 
                 MessageBox.Show("Category added successfully!");
 
@@ -64,7 +94,14 @@ namespace WPFApp_LibraryManager.Services
         {
             if (_categoryValidator.IsValidCategory(category))
             {
-                _categoryRepository.UpdateCategory(category);
+                try
+                {
+                    _categoryRepository.UpdateCategory(category);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not update category: {ex.Message}");
+                }
 
                 MessageBox.Show("Category updated successfully!");
 
@@ -76,7 +113,14 @@ namespace WPFApp_LibraryManager.Services
 
         public void DeleteCategory(int categoryId)
         {
-            _categoryRepository.DeleteCategory(categoryId);
+            try
+            {
+                _categoryRepository.DeleteCategory(categoryId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not delete category: {ex.Message}");
+            }
 
             MessageBox.Show("Category deleted successfully!");
         }
