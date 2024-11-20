@@ -129,7 +129,7 @@ namespace WPFApp_LibraryManager.Pages
             {
                 Author activeAuthor = (Author)AuthorList_Dtg.SelectedItem;
 
-                _authorService.DeleteAuthor(activeAuthor);
+                _authorService.DeleteAuthor(activeAuthor.Id);
 
                 Clear_Btn_Click(sender, e);
             }

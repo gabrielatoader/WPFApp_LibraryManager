@@ -128,7 +128,7 @@ namespace WPFApp_LibraryManager.Pages
             {
                 Publisher activePublisher= (Publisher)PublisherList_Dtg.SelectedItem;
 
-                _publisherService.DeletePublisher(activePublisher);
+                _publisherService.DeletePublisher(activePublisher.Id);
 
                 Clear_Btn_Click(sender, e);
             }

@@ -2,8 +2,6 @@
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Repositories;
-using WPFApp_LibraryManager.Utils;
 
 namespace WPFApp_LibraryManager.Services
 {
@@ -76,9 +74,9 @@ namespace WPFApp_LibraryManager.Services
             return false;
         }
 
-        public void DeleteCategory(Category category)
+        public void DeleteCategory(int categoryId)
         {
-            _categoryRepository.DeleteCategory(category);
+            _categoryRepository.DeleteCategory(categoryId);
 
             MessageBox.Show("Category deleted successfully!");
         }
