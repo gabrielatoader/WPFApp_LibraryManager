@@ -13,7 +13,7 @@ namespace WPFApp_LibraryManager.Repositories
         {
             List<Publisher> publisherList = new List<Publisher>();
 
-            DataTable publishersTable = GetResultTable(SqlQueries.AllPublishersQuery);
+            DataTable publishersTable = GetResultTable(SqlQueries.GetPublisherListQuery);
 
             foreach (DataRow publisherRow in publishersTable.Rows)
             {
@@ -30,7 +30,7 @@ namespace WPFApp_LibraryManager.Repositories
 
         public List<Publisher> GetFilteredPublisherList(string searchString)
         {
-            SqlCommand cmd = new SqlCommand(SqlQueries.FilteredPublisherQuery, _sqlConnection);
+            SqlCommand cmd = new SqlCommand(SqlQueries.GetFilteredPublisherListQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SearchString", searchString);
 

@@ -17,13 +17,13 @@ namespace WPFApp_LibraryManager.Services
             _bookValidator = bookValidator;
         }
 
-        public List<Book> GetAllBooksList()
+        public List<Book> GetBookList()
         {
             List<Book> bookList = new List<Book>();
 
             try
             {
-                bookList = _bookRepository.GetAllBooksList();
+                bookList = _bookRepository.GetBookList();
             }
             catch (Exception ex)
             {
@@ -33,13 +33,13 @@ namespace WPFApp_LibraryManager.Services
             return bookList;
         }
 
-        public List<Book> GetFilteredBooksByAuthor(int authorId)
+        public List<Book> GetFilteredBookList(BookFilters bookFilters)
         {
             List<Book> bookList = new List<Book>();
 
             try
             {
-                bookList = _bookRepository.GetFilteredBooksByAuthor(authorId);
+                bookList = _bookRepository.GetFilteredBookList(bookFilters);
             }
             catch (Exception ex)
             {
@@ -49,45 +49,13 @@ namespace WPFApp_LibraryManager.Services
             return bookList;
         }
 
-        public List<Book> GetFilteredBooksByPublisher(int publisherId)
-        {
-            List<Book> bookList = new List<Book>();
-
-            try
-            {
-                bookList = _bookRepository.GetFilteredBooksByPublisher(publisherId);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not get filtered book list: {ex.Message}");
-            }
-
-            return bookList;
-        }
-
-        public List<Book> GetFilteredBooksByCategory(int categoryId)
-        {
-            List<Book> bookList = new List<Book>();
-
-            try
-            {
-                bookList = _bookRepository.GetFilteredBooksByCategory(categoryId);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not get filtered book list: {ex.Message}");
-            }
-
-            return bookList;
-        }
-
-        public bool InsertNewBook(Book book)
+        public bool InsertBook(Book book)
         {
             if (_bookValidator.IsValidBook(book))
             {
                 try
                 {
-                    _bookRepository.InsertNewBook(book);
+                    _bookRepository.InsertBook(book);
                 }
                 catch (Exception ex)
                 {
@@ -131,40 +99,10 @@ namespace WPFApp_LibraryManager.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Could not update book: {ex.Message}");
+                MessageBox.Show($"Could not delete book: {ex.Message}");
             }
 
             MessageBox.Show("Book deleted successfully!");
-        }
-
-        public List<Book> GetFilteredBookList(
-            string searchString,
-            bool searchInTitle,
-            bool searchInAuthor,
-            bool searchInPublisher,
-            bool searchInISBN,
-            bool searchInCategory
-            )
-        {
-            List<Book> bookList = new List<Book>();
-
-            try
-            {
-                bookList.AddRange(_bookRepository.GetFilteredBookList(
-                searchString,
-                searchInTitle,
-                searchInAuthor,
-                searchInPublisher,
-                searchInISBN,
-                searchInCategory
-                ));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not update book: {ex.Message}");
-            }
-
-            return bookList;
         }
     }
 }

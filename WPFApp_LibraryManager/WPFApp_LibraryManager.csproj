@@ -184,6 +184,7 @@
     <Compile Include="Interfaces\IPublisherValidator.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookFilters.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Pages\AuthorsPage.xaml.cs">
