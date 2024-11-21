@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
@@ -20,7 +21,14 @@ namespace WPFApp_LibraryManager.Services
         {
             List<Author> authorList = new List<Author>();
 
-            authorList.AddRange(_authorRepository.GetAuthorList());
+            try
+            {
+                authorList = _authorRepository.GetAuthorList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get author list: {ex.Message}");
+            }
 
             return authorList;
         }
@@ -34,7 +42,15 @@ namespace WPFApp_LibraryManager.Services
             header.FullName = "- AUTHOR -";
             authorList.Add(header);
 
-            authorList.AddRange(_authorRepository.GetAuthorList());
+            try
+            {
+                authorList.AddRange(_authorRepository.GetAuthorList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get author list: {ex.Message}");
+            }
+
             return authorList;
         }
 
@@ -42,7 +58,15 @@ namespace WPFApp_LibraryManager.Services
         {
             List<Author> authorList = new List<Author>();
 
-            authorList.AddRange(_authorRepository.GetFilteredAuthorList(searchString));
+            try
+            {
+                authorList = _authorRepository.GetFilteredAuthorList(searchString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not get filtered author list: {ex.Message}");
+            }
+
             return authorList;
         }
 
@@ -50,7 +74,14 @@ namespace WPFApp_LibraryManager.Services
         {
             if (_authorValidator.IsValidAuthor(author))
             {
-                _authorRepository.InsertAuthor(author);
+                try
+                {
+                    _authorRepository.InsertAuthor(author);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not insert author: {ex.Message}");
+                }
 
                 MessageBox.Show("Author added successfully!");
 
@@ -63,7 +94,14 @@ namespace WPFApp_LibraryManager.Services
         {
             if (_authorValidator.IsValidAuthor(author))
             {
-                _authorRepository.UpdateAuthor(author);
+                try
+                {
+                    _authorRepository.UpdateAuthor(author);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not update author: {ex.Message}");
+                }
 
                 MessageBox.Show("Author updated successfully!");
 
@@ -74,7 +112,14 @@ namespace WPFApp_LibraryManager.Services
 
         public void DeleteAuthor(int authorId)
         {
-            _authorRepository.DeleteAuthor(authorId);
+            try
+            {
+                _authorRepository.DeleteAuthor(authorId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not delete author: {ex.Message}");
+            }
 
             MessageBox.Show("Author deleted successfully!");
         }
