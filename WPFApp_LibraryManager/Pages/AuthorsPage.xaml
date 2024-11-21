@@ -197,7 +197,7 @@
             <Label x:Name="TargetAuthor_LastName_Lbl" 
                    Grid.Column="0" 
                    Grid.Row="5" 
-                   Content="Middle Name:" 
+                   Content="Last Name:" 
                    FontWeight="Bold"
                    />
             <TextBox x:Name="TargetAuthor_LastName_Txt" 
