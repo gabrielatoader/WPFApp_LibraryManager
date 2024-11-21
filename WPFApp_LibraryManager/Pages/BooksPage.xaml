@@ -61,20 +61,17 @@
             <ComboBox x:Name="AuthorFilter_Cbo" 
                       Grid.Column="0" 
                       Grid.ColumnSpan="2" 
-                      Grid.Row="1" 
-                      SelectionChanged="AuthorFilter_Cbo_SelectionChanged"
+                      Grid.Row="1"
                       />
             <ComboBox x:Name="PublisherFilter_Cbo" 
                       Grid.Column="2" 
                       Grid.ColumnSpan="2" 
                       Grid.Row="1"
-                      SelectionChanged="PublisherFilter_Cbo_SelectionChanged"
                       />
             <ComboBox x:Name="CategoryFilter_Cbo" 
                       Grid.Column="4" 
                       Grid.ColumnSpan="2" 
-                      Grid.Row="1" 
-                      SelectionChanged="CategoryFilter_Cbo_SelectionChanged"
+                      Grid.Row="1"
                       />
             <Label x:Name="SearchFor_Lbl"
                    Grid.Column="0" 

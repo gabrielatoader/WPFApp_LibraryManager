@@ -14,7 +14,7 @@ namespace WPFApp_LibraryManager.Repositories
         {
             List<Author> authorList = new List<Author>();
 
-            DataTable authorsTable = GetResultTable(SqlQueries.AllAuthorsQuery);
+            DataTable authorsTable = GetResultTable(SqlQueries.GetAuthorListQuery);
 
             foreach (DataRow authorRow in authorsTable.Rows)
             {
@@ -40,7 +40,7 @@ namespace WPFApp_LibraryManager.Repositories
 
         public List<Author> GetFilteredAuthorList(string searchString)
         {
-            SqlCommand cmd = new SqlCommand(SqlQueries.FilteredAuthorQuery, _sqlConnection);
+            SqlCommand cmd = new SqlCommand(SqlQueries.GetFilteredAuthorListQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SearchString", searchString);
 

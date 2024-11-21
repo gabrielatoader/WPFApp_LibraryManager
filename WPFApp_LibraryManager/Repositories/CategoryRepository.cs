@@ -13,7 +13,7 @@ namespace WPFApp_LibraryManager.Repositories
         {
             List<Category> categoryList = new List<Category>();
 
-            DataTable categoriesTable = GetResultTable(SqlQueries.AllCategoriesQuery);
+            DataTable categoriesTable = GetResultTable(SqlQueries.GetCategoryListQuery);
 
             foreach (DataRow categoryRow in categoriesTable.Rows)
             {
@@ -29,7 +29,7 @@ namespace WPFApp_LibraryManager.Repositories
         }
         public List<Category> GetFilteredCategoryList(string searchString)
         {
-            SqlCommand cmd = new SqlCommand(SqlQueries.FilteredCategoryQuery, _sqlConnection);
+            SqlCommand cmd = new SqlCommand(SqlQueries.GetFilteredCategoryListQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SearchString", searchString);
 

@@ -26,7 +26,7 @@ namespace WPFApp_LibraryManager.Pages
             InitializeComponent();
             
             // bind data to targetBook collection display and search areas
-            BindBooksToGrid(_bookService.GetAllBooksList());
+            BindBooksToGrid(_bookService.GetBookList());
             BindAuthorsToCbo(AuthorFilter_Cbo, 0);
             BindPublishersToCbo(PublisherFilter_Cbo, 0);
             BindCategoriesToCbo(CategoryFilter_Cbo, 0);
@@ -125,48 +125,6 @@ namespace WPFApp_LibraryManager.Pages
             }
         }
 
-        private void AuthorFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int selectedValue = Convert.ToInt32(AuthorFilter_Cbo.SelectedValue);
-
-            if (selectedValue > 0)
-            {
-                BindBooksToGrid(_bookService.GetFilteredBooksByAuthor(selectedValue));
-            }
-            else if (selectedValue == 0)
-            {
-                BindBooksToGrid(_bookService.GetAllBooksList());
-            }
-        }
-
-        private void PublisherFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int selectedValue = Convert.ToInt32(PublisherFilter_Cbo.SelectedValue);
-
-            if (selectedValue > 0)
-            {
-                BindBooksToGrid(_bookService.GetFilteredBooksByPublisher(selectedValue));
-            }
-            else if (selectedValue == 0)
-            {
-                BindBooksToGrid(_bookService.GetAllBooksList());
-            }
-        }
-
-        private void CategoryFilter_Cbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int selectedValue = Convert.ToInt32(CategoryFilter_Cbo.SelectedValue);
-
-            if (selectedValue > 0)
-            {
-                BindBooksToGrid(_bookService.GetFilteredBooksByCategory(selectedValue));
-            }
-            else if (selectedValue == 0)
-            {
-                BindBooksToGrid(_bookService.GetAllBooksList());
-            }
-        }
-
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
         {
             _requestType = "update";
@@ -233,7 +191,7 @@ namespace WPFApp_LibraryManager.Pages
 
         private void ClearDataGrid()
         {
-            BindBooksToGrid(_bookService.GetAllBooksList());
+            BindBooksToGrid(_bookService.GetBookList());
         }
 
         private void Cancel_Btn_Click(object sender, RoutedEventArgs e)
@@ -302,7 +260,7 @@ namespace WPFApp_LibraryManager.Pages
             }
             else if (_requestType == "insert")
             {
-                bool result = _bookService.InsertNewBook(targetBook);
+                bool result = _bookService.InsertBook(targetBook);
 
                 if (result == true)
                 {
@@ -332,30 +290,34 @@ namespace WPFApp_LibraryManager.Pages
         
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Search_Txt.Text))
+            BookFilters bookFilters = new BookFilters()
             {
-                MessageBox.Show("Search box is empty, please add a search string.");
+                AuthorId = Convert.ToInt32(AuthorFilter_Cbo.SelectedValue),
+                CategoryId = Convert.ToInt32(CategoryFilter_Cbo.SelectedValue),
+                PublisherId = Convert.ToInt32(PublisherFilter_Cbo.SelectedValue),
+                SearchString = Search_Txt.Text,
+                SearchInTitle = (bool)Title_Chk.IsChecked,
+                SearchInAuthor = (bool)Author_Chk.IsChecked,
+                SearchInPublisher = (bool)Publisher_Chk.IsChecked,
+                SearchInISBN = (bool)ISBN_Chk.IsChecked,
+                SearchInCategory = (bool)Category_Chk.IsChecked
+            };
+            
+            if (String.IsNullOrEmpty(bookFilters.SearchString) && bookFilters.AuthorId == 0 && bookFilters.CategoryId == 0 && bookFilters.PublisherId == 0)
+            {
+                MessageBox.Show("Search and filter options are empty, please choose one or more to start.");
             }
-            else if (Title_Chk.IsChecked == false && Author_Chk.IsChecked == false && Publisher_Chk.IsChecked == false && ISBN_Chk.IsChecked == false && Category_Chk.IsChecked == false)
+            else if (!String.IsNullOrEmpty(bookFilters.SearchString) && bookFilters.SearchLocationIsUndefined)
             {
                 MessageBox.Show("Please select at least one checkbox for the search location.");
             }
+            else if (String.IsNullOrEmpty(bookFilters.SearchString) && !bookFilters.SearchLocationIsUndefined)
+            {
+                MessageBox.Show("Search box is empty but search location is checked, please add a search string or remove the search location.");
+            }
             else 
             {
-                bool searchInTitle = (bool)Title_Chk.IsChecked;
-                bool searchInAuthor = (bool)Author_Chk.IsChecked;
-                bool searchInPublisher = (bool)Publisher_Chk.IsChecked;
-                bool searchInISBN = (bool)ISBN_Chk.IsChecked;
-                bool searchInCategory = (bool)Category_Chk.IsChecked;
-
-                List<Book> books = _bookService.GetFilteredBookList(
-                    Search_Txt.Text, 
-                    searchInTitle, 
-                    searchInAuthor, 
-                    searchInPublisher, 
-                    searchInISBN, 
-                    searchInCategory
-                    );
+                List<Book> books = _bookService.GetFilteredBookList(bookFilters);
 
                 if (books == null || books.Count == 0)
                 {

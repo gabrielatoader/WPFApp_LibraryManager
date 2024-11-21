@@ -5,24 +5,11 @@ namespace WPFApp_LibraryManager.Interfaces
 {
     public interface IBookRepository
     {
-        List<Book> GetAllBooksList();
+        List<Book> GetBookList();
 
-        List<Book> GetFilteredBookList(
-            string searchString,
-            bool searchInTitle,
-            bool searchInAuthor,
-            bool searchInPublisher,
-            bool searchInISBN,
-            bool searchInCategory
-            );
+        List<Book> GetFilteredBookList(BookFilters bookFilters);
 
-        List<Book> GetFilteredBooksByAuthor(int authorId);
-
-        List<Book> GetFilteredBooksByPublisher(int publisherId);
-
-        List<Book> GetFilteredBooksByCategory(int categoryId);
-
-        void InsertNewBook(Book book);
+        void InsertBook(Book book);
 
         void UpdateBook(Book book);
 

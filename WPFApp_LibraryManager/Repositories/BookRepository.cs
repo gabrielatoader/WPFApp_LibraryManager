@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using WPFApp_LibraryManager.Interfaces;
@@ -9,106 +10,57 @@ namespace WPFApp_LibraryManager.Repositories
 {
     public class BookRepository : BaseRepository, IBookRepository
     {
-        public List<Book> GetAllBooksList()
+        public List<Book> GetBookList()
         {
-            DataTable booksTable = GetResultTable(SqlQueries.AllBooksQuery);
-
-            return ConvertBookDataTableToBooList(booksTable);
+            return GetFilteredBookList(new BookFilters());
         }
-
-        public List<Book> GetFilteredBooksByAuthor(int authorId)
+        
+        public List<Book> GetFilteredBookList(BookFilters bookFilters) 
         {
-            DataTable booksTable = GetResultTableFilteredByAuthor(SqlQueries.BooksFilteredByAuthorQuery, authorId);
-
-            return ConvertBookDataTableToBooList(booksTable);
-
-        }
-
-        public List<Book> GetFilteredBooksByPublisher(int publisherId)
-        {
-            DataTable booksTable = GetResultTableFilteredByPublisher(SqlQueries.BooksFilteredByPublisherQuery, publisherId);
-
-            return ConvertBookDataTableToBooList(booksTable);
-
-        }
-
-        public List<Book> GetFilteredBooksByCategory(int categoryId)
-        {
-            DataTable booksTable = GetResultTableFilteredByCategory(SqlQueries.BooksFilteredByCategoryQuery, categoryId);
-
-            return ConvertBookDataTableToBooList(booksTable);
-
-        }
-
-        public DataTable GetResultTableFilteredByAuthor(string query, int authorId)
-        {
-            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
+            SqlCommand cmd = new SqlCommand(SqlQueries.GetFilteredBookListQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@AuthorId", authorId);
 
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-            using (sqlDataAdapter)
+            if (bookFilters.AuthorId == 0)
             {
-                DataTable resultsTable = new DataTable();
-
-                sqlDataAdapter.Fill(resultsTable);
-
-                return resultsTable;
+                cmd.Parameters.AddWithValue("@AuthorId", DBNull.Value);
             }
-        }
-
-        public DataTable GetResultTableFilteredByPublisher(string query, int publisherId)
-        {
-            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@PublisherId", publisherId);
-
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-            using (sqlDataAdapter)
+            else 
             {
-                DataTable resultsTable = new DataTable();
-
-                sqlDataAdapter.Fill(resultsTable);
-
-                return resultsTable;
+                cmd.Parameters.AddWithValue("@AuthorId", bookFilters.AuthorId);
             }
-        }
 
-        public DataTable GetResultTableFilteredByCategory(string query, int categoryId)
-        {
-            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@CategoryId", categoryId);
-
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-
-            using (sqlDataAdapter)
+            if (bookFilters.CategoryId == 0)
             {
-                DataTable resultsTable = new DataTable();
-
-                sqlDataAdapter.Fill(resultsTable);
-
-                return resultsTable;
+                cmd.Parameters.AddWithValue("@CategoryId", DBNull.Value);
             }
-        }
+            else
+            {
+                cmd.Parameters.AddWithValue("@CategoryId", bookFilters.CategoryId);
+            }
 
-        public List<Book> GetFilteredBookList(
-            string searchString, 
-            bool searchInTitle, 
-            bool searchInAuthor, 
-            bool searchInPublisher, 
-            bool searchInISBN, 
-            bool searchInCategory
-            ) 
-        {
-            SqlCommand cmd = new SqlCommand(SqlQueries.FilteredBookQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@SearchString", searchString);
-            cmd.Parameters.AddWithValue("@SearchInTitle", searchInTitle);
-            cmd.Parameters.AddWithValue("@SearchInAuthor", searchInAuthor);
-            cmd.Parameters.AddWithValue("@SearchInPublisher", searchInPublisher);
-            cmd.Parameters.AddWithValue("@SearchInISBN", searchInISBN);
-            cmd.Parameters.AddWithValue("@SearchInCategory", searchInCategory);
+            if (bookFilters.PublisherId == 0)
+            {
+                cmd.Parameters.AddWithValue("@PublisherId", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@PublisherId", bookFilters.PublisherId);
+            }
+
+            if (String.IsNullOrEmpty(bookFilters.SearchString))
+            {
+                cmd.Parameters.AddWithValue("@SearchString", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@SearchString", bookFilters.SearchString);
+            }
+
+            cmd.Parameters.AddWithValue("@SearchInTitle", bookFilters.SearchInTitle);
+            cmd.Parameters.AddWithValue("@SearchInAuthor", bookFilters.SearchInAuthor);
+            cmd.Parameters.AddWithValue("@SearchInPublisher", bookFilters.SearchInPublisher);
+            cmd.Parameters.AddWithValue("@SearchInISBN", bookFilters.SearchInISBN);
+            cmd.Parameters.AddWithValue("@SearchInCategory", bookFilters.SearchInCategory);
 
             DataTable booksTable = new DataTable();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
@@ -123,6 +75,11 @@ namespace WPFApp_LibraryManager.Repositories
             bookList = ConvertBookDataTableToBooList(booksTable);
 
             return bookList;
+        }
+        
+        public void InsertBook(Book book)
+        {
+            InsertBookInDb(SqlQueries.InsertBookQuery, book);
         }
 
         public void InsertBookInDb(string query, Book book)
@@ -144,11 +101,6 @@ namespace WPFApp_LibraryManager.Repositories
             _sqlConnection.Close();
         }
 
-        public void InsertNewBook(Book book)
-        {
-            InsertBookInDb(SqlQueries.InsertNewBookQuery, book);
-        }
-        
         public void UpdateBook(Book book)
         {
             UpdatebookInDb(SqlQueries.UpdateBookQuery, book);
