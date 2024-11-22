@@ -72,7 +72,7 @@ namespace WPFApp_LibraryManager.Repositories
 
             List<Book> bookList = new List<Book>();
 
-            bookList = ConvertBookDataTableToBooList(bookTable);
+            bookList = ConvertBookDataTableToBookList(bookTable);
 
             return bookList;
         }
@@ -144,7 +144,7 @@ namespace WPFApp_LibraryManager.Repositories
             _sqlConnection.Close();
         }
         
-        private List<Book> ConvertBookDataTableToBooList(DataTable bookTable)
+        private List<Book> ConvertBookDataTableToBookList(DataTable bookTable)
         {
             List<Book> bookList = new List<Book>();
 
