@@ -40,8 +40,6 @@ namespace WPFApp_LibraryManager.Pages
             BindAuthorListToCbo(TargetBook_Author_Cbo, 0);
             BindCategoryListToCbo(TargetBook_Category_Cbo, 0);
             BindPublisherListToCbo(TargetBook_Publisher_Cbo, 0);
-
-            DisableBookDetails();
         }
 
         public void BindAuthorListToCbo(ComboBox cbo, int selectedIndex)
@@ -97,6 +95,8 @@ namespace WPFApp_LibraryManager.Pages
             {
                 TargetBook_Cover_img.Source = new BitmapImage(new Uri(@"../Images/BookCoverPlaceholder.png", UriKind.RelativeOrAbsolute));
             }
+
+            DisableBookDetails();
         }
         
         private void Clear_Btn_Click(object sender, RoutedEventArgs e)
@@ -106,10 +106,6 @@ namespace WPFApp_LibraryManager.Pages
             ClearSearch();
             ClearBookGrid();
             ClearBookDetails();
-
-            DisableBookDetails();
-            DisableEditDeleteButtons();
-            DisableSaveCancelButtons();
         }
         
         private void BookList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -121,9 +117,6 @@ namespace WPFApp_LibraryManager.Pages
             if (selectedRow != null)
             {
                 BindBookToBookDetails(selectedRow);
-
-                EnableEditDeleteButtons();
-                DisableSaveCancelButtons();
             }
         }
 
@@ -132,8 +125,6 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnableBookDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void EnableBookDetails()
@@ -146,6 +137,9 @@ namespace WPFApp_LibraryManager.Pages
             TargetBook_PublishedYear_Txt.IsEnabled = true;
             TargetBook_CoverURL_Txt.IsEnabled = true;
             TargetBook_Cover_img.IsEnabled = true;
+
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void DisableBookDetails()
@@ -158,6 +152,9 @@ namespace WPFApp_LibraryManager.Pages
             TargetBook_PublishedYear_Txt.IsEnabled = false;
             TargetBook_CoverURL_Txt.IsEnabled = false;
             TargetBook_Cover_img.IsEnabled = false;
+
+            EnableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
 
         private void ClearBookDetails()
@@ -170,6 +167,9 @@ namespace WPFApp_LibraryManager.Pages
             TargetBook_PublishedYear_Txt.Text = string.Empty;
             TargetBook_CoverURL_Txt.Text = string.Empty;
             TargetBook_Cover_img.Source = new BitmapImage(new Uri(@"../Images/BookCoverPlaceholder.png", UriKind.Relative));
+
+            DisableBookDetails();
+            DisableEditDeleteButtons();
         }
         private void ClearSearch()
         {
@@ -196,12 +196,11 @@ namespace WPFApp_LibraryManager.Pages
             if ((Book)BookList_Dtg.SelectedItem != null)
             {
                 BindBookToBookDetails((Book)BookList_Dtg.SelectedItem);
-
-                EnableEditDeleteButtons();
             }
-
-            DisableBookDetails();
-            DisableSaveCancelButtons();
+            else
+            {
+                ClearBookDetails();
+            }
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -220,7 +219,6 @@ namespace WPFApp_LibraryManager.Pages
 
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
-            
             Book targetBook = new Book();
             targetBook.Title = TargetBook_Title_Txt.Text;
             targetBook.ISBN = TargetBook_ISBN_Txt.Text;
@@ -235,7 +233,8 @@ namespace WPFApp_LibraryManager.Pages
             int year = -1;
             Int32.TryParse(TargetBook_PublishedYear_Txt.Text, out year);
             targetBook.PublishedYear = year;
-            
+
+            bool result = false;
 
             if (_requestType == "update")
             {
@@ -243,29 +242,20 @@ namespace WPFApp_LibraryManager.Pages
 
                 targetBook.BookId = activeBook.BookId;
 
-                bool result = _bookService.UpdateBook(targetBook);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindBookToBookDetails(targetBook);
-                }
+                result = _bookService.UpdateBook(targetBook);
             }
             else if (_requestType == "insert")
             {
-                bool result = _bookService.InsertBook(targetBook);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindBookToBookDetails(targetBook);
-                }
+                result = _bookService.InsertBook(targetBook);
             }
             else
             {
                 MessageBox.Show("Something went wrong, try again.");
+            }
+
+            if (result == true)
+            {
+                Clear_Btn_Click(sender, e);
             }
         }
 
@@ -276,8 +266,6 @@ namespace WPFApp_LibraryManager.Pages
             ClearBookDetails();
 
             EnableBookDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
         
         private void Search_Btn_Click(object sender, RoutedEventArgs e)

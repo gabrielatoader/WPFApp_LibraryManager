@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -37,6 +38,8 @@ namespace WPFApp_LibraryManager.Pages
             TargetAuthor_FirstName_Txt.Text = author.FirstName;
             TargetAuthor_MiddleName_Txt.Text = author.MiddleName;
             TargetAuthor_LastName_Txt.Text = author.LastName;
+
+            DisableAuthorDetails();
         }
 
         private void Clear_Btn_Click(object sender, RoutedEventArgs e)
@@ -46,10 +49,6 @@ namespace WPFApp_LibraryManager.Pages
             ClearSearch();
             ClearAuthorGrid();
             ClearAuthorDetails();
-
-            DisableAuthorDetails();
-            DisableEditDeleteButtons();
-            DisableSaveCancelButtons();
         }
 
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
@@ -59,35 +58,28 @@ namespace WPFApp_LibraryManager.Pages
             targetAuthor.MiddleName = TargetAuthor_MiddleName_Txt.Text;
             targetAuthor.LastName = TargetAuthor_LastName_Txt.Text;
 
+            bool result = false;
+
             if (_requestType == "update")
             {
                 Author activeAuthor = (Author)AuthorList_Dtg.SelectedItem;
 
                 targetAuthor.Id = activeAuthor.Id;
 
-                bool result = _authorService.UpdateAuthor(targetAuthor);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindAuthorToAuthorDetails(targetAuthor);
-                }
+                result = _authorService.UpdateAuthor(targetAuthor);
             }
             else if (_requestType == "insert")
             {
-                bool result = _authorService.InsertAuthor(targetAuthor);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindAuthorToAuthorDetails(targetAuthor);
-                }
+                result = _authorService.InsertAuthor(targetAuthor);
             }
             else
             {
                 MessageBox.Show("Something went wrong, try again.");
+            }
+
+            if (result == true)
+            {
+                Clear_Btn_Click(sender, e);
             }
         }
 
@@ -98,12 +90,11 @@ namespace WPFApp_LibraryManager.Pages
             if ((Author)AuthorList_Dtg.SelectedItem != null)
             {
                 BindAuthorToAuthorDetails((Author)AuthorList_Dtg.SelectedItem);
-
-                EnableEditDeleteButtons();
             }
-
-            DisableAuthorDetails();
-            DisableSaveCancelButtons();
+            else
+            {
+                ClearAuthorDetails();
+            }
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
@@ -111,8 +102,6 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnableAuthorDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -136,8 +125,6 @@ namespace WPFApp_LibraryManager.Pages
             ClearAuthorDetails();
             
             EnableAuthorDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
@@ -146,9 +133,18 @@ namespace WPFApp_LibraryManager.Pages
             {
                 MessageBox.Show("Search box is empty, please add a search string.");
             }
-            else 
+            else
             {
-                BindAuthorListToGrid(_authorService.GetFilteredAuthorList(Search_Txt.Text));
+                List<Author> authorList = _authorService.GetFilteredAuthorList(Search_Txt.Text);
+
+                if (authorList == null || authorList.Count == 0)
+                {
+                    MessageBox.Show("Could not find authors to match search request.");
+                }
+                else
+                {
+                    BindAuthorListToGrid(authorList);
+                }
             }
         }
 
@@ -161,9 +157,6 @@ namespace WPFApp_LibraryManager.Pages
             if (selectedRow != null)
             {
                 BindAuthorToAuthorDetails(selectedRow);
-
-                EnableEditDeleteButtons();
-                DisableSaveCancelButtons();
             }
         }
 
@@ -177,6 +170,9 @@ namespace WPFApp_LibraryManager.Pages
             TargetAuthor_FirstName_Txt.IsEnabled = true;
             TargetAuthor_MiddleName_Txt.IsEnabled = true;
             TargetAuthor_LastName_Txt.IsEnabled = true;
+
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void DisableAuthorDetails()
@@ -184,6 +180,9 @@ namespace WPFApp_LibraryManager.Pages
             TargetAuthor_FirstName_Txt.IsEnabled = false;
             TargetAuthor_MiddleName_Txt.IsEnabled = false;
             TargetAuthor_LastName_Txt.IsEnabled = false;
+
+            EnableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
 
         private void ClearAuthorDetails()
@@ -191,6 +190,9 @@ namespace WPFApp_LibraryManager.Pages
             TargetAuthor_FirstName_Txt.Text = string.Empty;
             TargetAuthor_MiddleName_Txt.Text = string.Empty;
             TargetAuthor_LastName_Txt.Text = string.Empty;
+
+            DisableAuthorDetails();
+            DisableEditDeleteButtons();
         }
         
         private void EnableSaveCancelButtons()

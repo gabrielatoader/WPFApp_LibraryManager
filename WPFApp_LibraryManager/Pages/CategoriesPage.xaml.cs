@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -35,6 +37,8 @@ namespace WPFApp_LibraryManager.Pages
         {
             TargetCategory_Name_Txt.Text = category.Name;
             TargetCategory_Description_Txt.Text = category.Description;
+
+            DisableCategoryDetails();
         }
 
         private void Clear_Btn_Click(object sender, RoutedEventArgs e)
@@ -44,47 +48,36 @@ namespace WPFApp_LibraryManager.Pages
             ClearSearch();
             ClearCategoryGrid();
             ClearCategoryDetails();
-
-            DisableCategoryDetails();
-            DisableEditDeleteButtons();
-            DisableSaveCancelButtons();
         }
-        
+
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
             Category targetCategory = new Category();
             targetCategory.Name = TargetCategory_Name_Txt.Text;
             targetCategory.Description = TargetCategory_Description_Txt.Text;
-            
+
+            bool result = false;
+
             if (_requestType == "update")
             {
                 Category activeCategory = (Category)CategoryList_Dtg.SelectedItem;
 
                 targetCategory.Id = activeCategory.Id;
 
-                bool result = _categoryService.UpdateCategory(targetCategory);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindCategoryToCategoryDetails(targetCategory);
-                }
+                result = _categoryService.UpdateCategory(targetCategory);
             }
             else if (_requestType == "insert")
             {
-                bool result = _categoryService.InsertCategory(targetCategory);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindCategoryToCategoryDetails(targetCategory);
-                }
+                result = _categoryService.InsertCategory(targetCategory);
             }
             else
             {
                 MessageBox.Show("Something went wrong, try again.");
+            }
+
+            if (result == true)
+            {
+                Clear_Btn_Click(sender, e);
             }
         }
 
@@ -95,12 +88,11 @@ namespace WPFApp_LibraryManager.Pages
             if ((Category)CategoryList_Dtg.SelectedItem != null)
             {
                 BindCategoryToCategoryDetails((Category)CategoryList_Dtg.SelectedItem);
-
-                EnableEditDeleteButtons();
             }
-
-            DisableCategoryDetails();
-            DisableSaveCancelButtons();
+            else
+            {
+                ClearCategoryDetails();
+            }
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
@@ -108,8 +100,6 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnableCategoryDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -125,23 +115,37 @@ namespace WPFApp_LibraryManager.Pages
                 Clear_Btn_Click(sender, e);
             }
         }
-        
+
         private void AddCategory_Btn_Click(object sender, RoutedEventArgs e)
         {
             _requestType = "insert";
 
             ClearCategoryDetails();
-            
+
             EnableCategoryDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
         {
-            BindCategoryListToGrid(_categoryService.GetFilteredCategoryList(Search_Txt.Text));
+            if (String.IsNullOrEmpty(Search_Txt.Text))
+            {
+                MessageBox.Show("Search box is empty, please add a search string.");
+            }
+            else
+            {
+                List<Category> categoryList = _categoryService.GetFilteredCategoryList(Search_Txt.Text);
+
+                if (categoryList == null || categoryList.Count == 0)
+                {
+                    MessageBox.Show("Could not find categories to match search request.");
+                }
+                else
+                {
+                    BindCategoryListToGrid(categoryList);
+                }
+            }
         }
-        
+
         private void CategoryList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = (DataGrid)sender;
@@ -151,9 +155,6 @@ namespace WPFApp_LibraryManager.Pages
             if (selectedRow != null)
             {
                 BindCategoryToCategoryDetails(selectedRow);
-
-                EnableEditDeleteButtons();
-                DisableSaveCancelButtons();
             }
         }
 
@@ -161,23 +162,32 @@ namespace WPFApp_LibraryManager.Pages
         {
             Search_Txt.Text = string.Empty;
         }
-        
+
         private void EnableCategoryDetails()
         {
             TargetCategory_Name_Txt.IsEnabled = true;
             TargetCategory_Description_Txt.IsEnabled = true;
+
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void DisableCategoryDetails()
         {
             TargetCategory_Name_Txt.IsEnabled = false;
             TargetCategory_Description_Txt.IsEnabled = false;
+
+            EnableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
 
         private void ClearCategoryDetails()
         {
             TargetCategory_Name_Txt.Text = string.Empty;
             TargetCategory_Description_Txt.Text = string.Empty;
+
+            DisableCategoryDetails();
+            DisableEditDeleteButtons();
         }
 
         private void EnableSaveCancelButtons()
