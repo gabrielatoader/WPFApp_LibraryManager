@@ -10,24 +10,26 @@ namespace WPFApp_LibraryManager.Pages
     public partial class AuthorsPage : UserControl
     {
         private IAuthorService _authorService;
+
         private string _requestType = "";
 
         public AuthorsPage(IAuthorService authorService)
         {
             _authorService = authorService;
+
             InitializeComponent();
 
-            BindCategoriesToGrid(_authorService.GetAuthorList());
+            BindAuthorListToGrid(_authorService.GetAuthorList());
         }
 
-        private void BindCategoriesToGrid(List<Author> authorList)
+        private void BindAuthorListToGrid(List<Author> authorList)
         {
             AuthorList_Dtg.ItemsSource = authorList;
         }
 
-        private void ResetDataGrid()
+        private void ClearAuthorGrid()
         {
-            BindCategoriesToGrid(_authorService.GetAuthorList());
+            BindAuthorListToGrid(_authorService.GetAuthorList());
         }
 
         private void BindAuthorToAuthorDetails(Author author)
@@ -42,9 +44,10 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "";
 
             ClearSearch();
-            ResetDataGrid();
-            ClearActiveAuthorSection();
-            DisableActiveAuthorSection();
+            ClearAuthorGrid();
+            ClearAuthorDetails();
+
+            DisableAuthorDetails();
 
             Edit_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = false;
@@ -63,6 +66,7 @@ namespace WPFApp_LibraryManager.Pages
             if (_requestType == "update")
             {
                 Author activeAuthor = (Author)AuthorList_Dtg.SelectedItem;
+
                 targetAuthor.Id = activeAuthor.Id;
 
                 bool result = _authorService.UpdateAuthor(targetAuthor);
@@ -98,11 +102,12 @@ namespace WPFApp_LibraryManager.Pages
             if ((Author)AuthorList_Dtg.SelectedItem != null)
             {
                 BindAuthorToAuthorDetails((Author)AuthorList_Dtg.SelectedItem);
+
                 Delete_Btn.IsEnabled = true;
                 Edit_Btn.IsEnabled = true;
             }
 
-            DisableActiveAuthorSection();
+            DisableAuthorDetails();
 
             Cancel_Btn.IsEnabled = false;
             Save_Btn.IsEnabled = false;
@@ -113,7 +118,7 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "update";
 
-            EnableActiveAuthorSection();
+            EnableAuthorDetails();
 
             Edit_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = false;
@@ -139,8 +144,8 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "insert";
 
-            ClearActiveAuthorSection();
-            EnableActiveAuthorSection();
+            ClearAuthorDetails();
+            EnableAuthorDetails();
 
             AddAuthor_Btn.IsEnabled = false;
             Edit_Btn.IsEnabled = false;
@@ -157,13 +162,14 @@ namespace WPFApp_LibraryManager.Pages
             }
             else 
             {
-                BindCategoriesToGrid(_authorService.GetFilteredAuthorList(Search_Txt.Text));
+                BindAuthorListToGrid(_authorService.GetFilteredAuthorList(Search_Txt.Text));
             }
         }
 
         private void AuthorList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = (DataGrid)sender;
+
             var selectedRow = dataGrid.SelectedItem as Author;
 
             if (selectedRow != null)
@@ -182,21 +188,21 @@ namespace WPFApp_LibraryManager.Pages
             Search_Txt.Text = string.Empty;
         }
 
-        private void EnableActiveAuthorSection()
+        private void EnableAuthorDetails()
         {
             TargetAuthor_FirstName_Txt.IsEnabled = true;
             TargetAuthor_MiddleName_Txt.IsEnabled = true;
             TargetAuthor_LastName_Txt.IsEnabled = true;
         }
 
-        private void DisableActiveAuthorSection()
+        private void DisableAuthorDetails()
         {
             TargetAuthor_FirstName_Txt.IsEnabled = false;
             TargetAuthor_MiddleName_Txt.IsEnabled = false;
             TargetAuthor_LastName_Txt.IsEnabled = false;
         }
 
-        private void ClearActiveAuthorSection()
+        private void ClearAuthorDetails()
         {
             TargetAuthor_FirstName_Txt.Text = string.Empty;
             TargetAuthor_MiddleName_Txt.Text = string.Empty;

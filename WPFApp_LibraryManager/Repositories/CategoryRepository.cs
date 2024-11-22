@@ -13,9 +13,9 @@ namespace WPFApp_LibraryManager.Repositories
         {
             List<Category> categoryList = new List<Category>();
 
-            DataTable categoriesTable = GetResultTable(SqlQueries.GetCategoryListQuery);
+            DataTable categoryTable = GetResultTable(SqlQueries.GetCategoryListQuery);
 
-            foreach (DataRow categoryRow in categoriesTable.Rows)
+            foreach (DataRow categoryRow in categoryTable.Rows)
             {
                 Category category = new Category();
                 category.Id = (int)categoryRow["CategoryId"];
@@ -34,17 +34,17 @@ namespace WPFApp_LibraryManager.Repositories
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SearchString", searchString);
 
-            DataTable categoriesTable = new DataTable();
+            DataTable categoryTable = new DataTable();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
 
             using (sqlDataAdapter)
             {
-                sqlDataAdapter.Fill(categoriesTable);
+                sqlDataAdapter.Fill(categoryTable);
             }
 
             List<Category> categoryList = new List<Category>();
 
-            foreach (DataRow categoryRow in categoriesTable.Rows)
+            foreach (DataRow categoryRow in categoryTable.Rows)
             {
                 Category category = new Category();
                 category.Id = (int)categoryRow["CategoryId"];

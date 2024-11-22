@@ -18,18 +18,18 @@ namespace WPFApp_LibraryManager
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton<MainWindow>();
-                    services.AddTransient<IAuthorService, AuthorService>();
-                    services.AddTransient<IBookService, BookService>();
-                    services.AddTransient<IBookValidator, BookValidator>();
-                    services.AddTransient<ICategoryService, CategoryService>();
-                    services.AddTransient<ICategoryValidator, CategoryValidator>();
-                    services.AddTransient<IPublisherService, PublisherService>();
-                    services.AddTransient<IPublisherValidator, PublisherValidator>();
                     services.AddTransient<IAuthorRepository, AuthorRepository>();
+                    services.AddTransient<IAuthorService, AuthorService>();
                     services.AddTransient<IAuthorValidator, AuthorValidator>();
                     services.AddTransient<IBookRepository, BookRepository>();
+                    services.AddTransient<IBookService, BookService>();
+                    services.AddTransient<IBookValidator, BookValidator>();
                     services.AddTransient<ICategoryRepository, CategoryRepository>();
+                    services.AddTransient<ICategoryService, CategoryService>();
+                    services.AddTransient<ICategoryValidator, CategoryValidator>();
                     services.AddTransient<IPublisherRepository, PublisherRepository>();
+                    services.AddTransient<IPublisherService, PublisherService>();
+                    services.AddTransient<IPublisherValidator, PublisherValidator>();
                 })
                 .Build();
         }

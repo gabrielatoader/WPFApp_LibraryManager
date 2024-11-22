@@ -16,19 +16,20 @@ namespace WPFApp_LibraryManager.Pages
         public PublishersPage(IPublisherService publisherService)
         {
             _publisherService = publisherService;
+
             InitializeComponent();
 
-            BindPublishersToGrid(_publisherService.GetPublisherList());
+            BindPublisherListToGrid(_publisherService.GetPublisherList());
         }
 
-        private void BindPublishersToGrid(List<Publisher> publisherList)
+        private void BindPublisherListToGrid(List<Publisher> publisherList)
         {
             PublisherList_Dtg.ItemsSource = publisherList;
         }
 
-        private void ResetDataGrid()
+        private void ClearPublisherGrid()
         {
-            BindPublishersToGrid(_publisherService.GetPublisherList());
+            BindPublisherListToGrid(_publisherService.GetPublisherList());
         }
 
         private void BindPublisherToPublisherDetails(Publisher publisher)
@@ -42,9 +43,10 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "";
 
             ClearSearch();
-            ResetDataGrid();
-            ClearActivePublisherSection();
-            DisableActivePublisherSection();
+            ClearPublisherGrid();
+            ClearPublisherDetails();
+
+            DisablePublisherDetails();
 
             Edit_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = false;
@@ -62,6 +64,7 @@ namespace WPFApp_LibraryManager.Pages
             if (_requestType == "update")
             {
                 Publisher activePublisher = (Publisher)PublisherList_Dtg.SelectedItem;
+
                 targetPublisher.Id = activePublisher.Id;
 
                 bool result = _publisherService.UpdatePublisher(targetPublisher);
@@ -97,11 +100,12 @@ namespace WPFApp_LibraryManager.Pages
             if ((Publisher)PublisherList_Dtg.SelectedItem != null)
             {
                 BindPublisherToPublisherDetails((Publisher)PublisherList_Dtg.SelectedItem);
+
                 Delete_Btn.IsEnabled = true;
                 Edit_Btn.IsEnabled = true;
             }
 
-            DisableActivePublisherSection();
+            DisablePublisherDetails();
 
             Cancel_Btn.IsEnabled = false;
             Save_Btn.IsEnabled = false;
@@ -112,7 +116,7 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "update";
 
-            EnableActivePublisherSection();
+            EnablePublisherDetails();
 
             Edit_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = false;
@@ -138,8 +142,8 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "insert";
 
-            ClearActivePublisherSection();
-            EnableActivePublisherSection();
+            ClearPublisherDetails();
+            EnablePublisherDetails();
 
             AddPublisher_Btn.IsEnabled = false;
             Edit_Btn.IsEnabled = false;
@@ -156,13 +160,14 @@ namespace WPFApp_LibraryManager.Pages
             }
             else
             { 
-                BindPublishersToGrid(_publisherService.GetFilteredPublisherList(Search_Txt.Text));
+                BindPublisherListToGrid(_publisherService.GetFilteredPublisherList(Search_Txt.Text));
             }
         }
 
         private void PublisherList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = (DataGrid)sender;
+
             var selectedRow = dataGrid.SelectedItem as Publisher;
 
             if (selectedRow != null)
@@ -181,19 +186,19 @@ namespace WPFApp_LibraryManager.Pages
             Search_Txt.Text = string.Empty;
         }
 
-        private void EnableActivePublisherSection()
+        private void EnablePublisherDetails()
         {
             TargetPublisher_Name_Txt.IsEnabled = true;
             TargetPublisher_Description_Txt.IsEnabled = true;
         }
 
-        private void DisableActivePublisherSection()
+        private void DisablePublisherDetails()
         {
             TargetPublisher_Name_Txt.IsEnabled = false;
             TargetPublisher_Description_Txt.IsEnabled = false;
         }
 
-        private void ClearActivePublisherSection()
+        private void ClearPublisherDetails()
         {
             TargetPublisher_Name_Txt.Text = string.Empty;
             TargetPublisher_Description_Txt.Text = string.Empty;

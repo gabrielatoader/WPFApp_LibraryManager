@@ -8,8 +8,11 @@ namespace WPFApp_LibraryManager.Components
     public partial class NavigationBar : UserControl
     {
         private IAuthorService _authorService;
+
         private IBookService _bookService;
+
         private ICategoryService _categoryService;
+
         private IPublisherService _publisherService;
 
         public NavigationBar(IAuthorService authorService, IBookService bookService, ICategoryService categoryService, IPublisherService publisherService)
@@ -27,43 +30,53 @@ namespace WPFApp_LibraryManager.Components
             Application.Current.Shutdown();
         }
 
-        private void Books_Btn_Click(object sender, RoutedEventArgs e)
+        private void BooksPage_Btn_Click(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
+            
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
+            
             contentControl.Content = new BooksPage(_authorService, _bookService, _categoryService, _publisherService);
         }
 
-        private void Authors_Btn_Click(object sender, RoutedEventArgs e)
+        private void AuthorsPage_Btn_Click(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
+
             contentControl.Content = new AuthorsPage(_authorService);
         }
-        
-        private void Categories_Btn_Click(object sender, RoutedEventArgs e)
+
+        private void CategoriesPage_Btn_Click(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
+
             contentControl.Content = new CategoriesPage(_categoryService);
         }
 
-        private void Publishers_Btn_Click(object sender, RoutedEventArgs e)
+        private void PublishersPage_Btn_Click(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
+
             contentControl.Content = new PublishersPage(_publisherService);
         }
 
-        private void Home_Btn_Click(object sender, RoutedEventArgs e)
+        private void HomePage_Btn_Click(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
+
             contentControl.Content = new HomePage();
         }
     }

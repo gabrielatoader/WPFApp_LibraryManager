@@ -234,7 +234,7 @@
                    Grid.RowSpan="12" 
                    HorizontalAlignment="Left" 
                    Margin="10,10,0,0"
-                   Source="../Images/CoverPlaceholder.png" 
+                   Source="../Images/BookCoverPlaceholder.png" 
                    />
             <Label x:Name="TargetBook_Author_Lbl" 
                    Grid.Column="0" 
