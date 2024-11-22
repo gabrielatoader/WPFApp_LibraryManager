@@ -9,24 +9,26 @@ namespace WPFApp_LibraryManager.Pages
     public partial class CategoriesPage : UserControl
     {
         private ICategoryService _categoryService;
+
         private string _requestType = "";
 
         public CategoriesPage(ICategoryService categoryService)
         {
             _categoryService = categoryService;
+
             InitializeComponent();
 
-            BindCategoriesToGrid(_categoryService.GetCategoryList());
+            BindCategoryListToGrid(_categoryService.GetCategoryList());
         }
 
-        private void BindCategoriesToGrid(List<Category> categoryList)
+        private void BindCategoryListToGrid(List<Category> categoryList)
         {
             CategoryList_Dtg.ItemsSource = categoryList;
         }
 
-        private void ResetDataGrid()
+        private void ClearCategoryGrid()
         {
-            BindCategoriesToGrid(_categoryService.GetCategoryList());
+            BindCategoryListToGrid(_categoryService.GetCategoryList());
         }
 
         private void BindCategoryToCategoryDetails(Category category)
@@ -40,9 +42,10 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "";
 
             ClearSearch();
-            ResetDataGrid();
-            ClearActiveCategorySection();
-            DisableActiveCategorySection();
+            ClearCategoryGrid();
+            ClearCategoryDetails();
+
+            DisableCategoryDetails();
 
             Edit_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = false;
@@ -60,6 +63,7 @@ namespace WPFApp_LibraryManager.Pages
             if (_requestType == "update")
             {
                 Category activeCategory = (Category)CategoryList_Dtg.SelectedItem;
+
                 targetCategory.Id = activeCategory.Id;
 
                 bool result = _categoryService.UpdateCategory(targetCategory);
@@ -95,11 +99,12 @@ namespace WPFApp_LibraryManager.Pages
             if ((Category)CategoryList_Dtg.SelectedItem != null)
             {
                 BindCategoryToCategoryDetails((Category)CategoryList_Dtg.SelectedItem);
+
                 Delete_Btn.IsEnabled = true;
                 Edit_Btn.IsEnabled = true;
             }
 
-            DisableActiveCategorySection();
+            DisableCategoryDetails();
 
             Cancel_Btn.IsEnabled = false;
             Save_Btn.IsEnabled = false;
@@ -110,7 +115,7 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "update";
 
-            EnableActiveCategorySection();
+            EnableCategoryDetails();
 
             Edit_Btn.IsEnabled = false;
             Delete_Btn.IsEnabled = false;
@@ -136,8 +141,8 @@ namespace WPFApp_LibraryManager.Pages
         {
             _requestType = "insert";
 
-            ClearActiveCategorySection();
-            EnableActiveCategorySection();
+            ClearCategoryDetails();
+            EnableCategoryDetails();
             
             AddCategory_Btn.IsEnabled = false;
             Edit_Btn.IsEnabled = false;
@@ -148,12 +153,13 @@ namespace WPFApp_LibraryManager.Pages
 
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
         {
-            BindCategoriesToGrid(_categoryService.GetFilteredCategoryList(Search_Txt.Text));
+            BindCategoryListToGrid(_categoryService.GetFilteredCategoryList(Search_Txt.Text));
         }
         
         private void CategoryList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = (DataGrid)sender;
+
             var selectedRow = dataGrid.SelectedItem as Category;
 
             if (selectedRow != null)
@@ -172,19 +178,19 @@ namespace WPFApp_LibraryManager.Pages
             Search_Txt.Text = string.Empty;
         }
         
-        private void EnableActiveCategorySection()
+        private void EnableCategoryDetails()
         {
             TargetCategory_Name_Txt.IsEnabled = true;
             TargetCategory_Description_Txt.IsEnabled = true;
         }
 
-        private void DisableActiveCategorySection()
+        private void DisableCategoryDetails()
         {
             TargetCategory_Name_Txt.IsEnabled = false;
             TargetCategory_Description_Txt.IsEnabled = false;
         }
 
-        private void ClearActiveCategorySection()
+        private void ClearCategoryDetails()
         {
             TargetCategory_Name_Txt.Text = string.Empty;
             TargetCategory_Description_Txt.Text = string.Empty;

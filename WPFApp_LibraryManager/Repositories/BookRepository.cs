@@ -62,17 +62,17 @@ namespace WPFApp_LibraryManager.Repositories
             cmd.Parameters.AddWithValue("@SearchInISBN", bookFilters.SearchInISBN);
             cmd.Parameters.AddWithValue("@SearchInCategory", bookFilters.SearchInCategory);
 
-            DataTable booksTable = new DataTable();
+            DataTable bookTable = new DataTable();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
 
             using (sqlDataAdapter)
             {
-                sqlDataAdapter.Fill(booksTable);
+                sqlDataAdapter.Fill(bookTable);
             }
 
             List<Book> bookList = new List<Book>();
 
-            bookList = ConvertBookDataTableToBooList(booksTable);
+            bookList = ConvertBookDataTableToBooList(bookTable);
 
             return bookList;
         }
@@ -144,11 +144,11 @@ namespace WPFApp_LibraryManager.Repositories
             _sqlConnection.Close();
         }
         
-        private List<Book> ConvertBookDataTableToBooList(DataTable booksTable)
+        private List<Book> ConvertBookDataTableToBooList(DataTable bookTable)
         {
             List<Book> bookList = new List<Book>();
 
-            foreach (DataRow bookRow in booksTable.Rows)
+            foreach (DataRow bookRow in bookTable.Rows)
             {
                 Book book = new Book();
                 book.BookId = (int)bookRow["BookId"];

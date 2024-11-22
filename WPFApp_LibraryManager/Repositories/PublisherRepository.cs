@@ -13,9 +13,9 @@ namespace WPFApp_LibraryManager.Repositories
         {
             List<Publisher> publisherList = new List<Publisher>();
 
-            DataTable publishersTable = GetResultTable(SqlQueries.GetPublisherListQuery);
+            DataTable publisherTable = GetResultTable(SqlQueries.GetPublisherListQuery);
 
-            foreach (DataRow publisherRow in publishersTable.Rows)
+            foreach (DataRow publisherRow in publisherTable.Rows)
             {
                 Publisher publisher = new Publisher();
                 publisher.Id = (int)publisherRow["PublisherId"];
@@ -34,17 +34,17 @@ namespace WPFApp_LibraryManager.Repositories
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SearchString", searchString);
 
-            DataTable publishersTable = new DataTable();
+            DataTable publisherTable = new DataTable();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
 
             using (sqlDataAdapter)
             {
-                sqlDataAdapter.Fill(publishersTable);
+                sqlDataAdapter.Fill(publisherTable);
             }
 
             List<Publisher> publisherList = new List<Publisher>();
 
-            foreach (DataRow publisherRow in publishersTable.Rows)
+            foreach (DataRow publisherRow in publisherTable.Rows)
             {
                 Publisher publisher = new Publisher();
                 publisher.Id = (int)publisherRow["PublisherId"];

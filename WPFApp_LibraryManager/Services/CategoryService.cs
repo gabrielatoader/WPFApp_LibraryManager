@@ -9,6 +9,7 @@ namespace WPFApp_LibraryManager.Services
     public class CategoryService : ICategoryService
     {
         private ICategoryRepository _categoryRepository;
+
         private ICategoryValidator _categoryValidator;
 
         public CategoryService(ICategoryRepository categoryRepository, ICategoryValidator categoryValidator)

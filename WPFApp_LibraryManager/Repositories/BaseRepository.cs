@@ -19,11 +19,11 @@ namespace WPFApp_LibraryManager.Repositories
 
             using (sqlDataAdapter)
             {
-                DataTable resultsTable = new DataTable();
+                DataTable resultTable = new DataTable();
 
-                sqlDataAdapter.Fill(resultsTable);
+                sqlDataAdapter.Fill(resultTable);
 
-                return resultsTable;
+                return resultTable;
             }
         }
     }

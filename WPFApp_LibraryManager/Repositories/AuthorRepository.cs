@@ -14,9 +14,9 @@ namespace WPFApp_LibraryManager.Repositories
         {
             List<Author> authorList = new List<Author>();
 
-            DataTable authorsTable = GetResultTable(SqlQueries.GetAuthorListQuery);
+            DataTable authorTable = GetResultTable(SqlQueries.GetAuthorListQuery);
 
-            foreach (DataRow authorRow in authorsTable.Rows)
+            foreach (DataRow authorRow in authorTable.Rows)
             {
                 Author author = new Author();
                 author.Id = (int)authorRow["AuthorId"];
@@ -44,17 +44,17 @@ namespace WPFApp_LibraryManager.Repositories
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SearchString", searchString);
 
-            DataTable authorsTable = new DataTable();
+            DataTable authorTable = new DataTable();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
 
             using (sqlDataAdapter)
             {
-                sqlDataAdapter.Fill(authorsTable);
+                sqlDataAdapter.Fill(authorTable);
             }
 
             List<Author> authorList = new List<Author>();
 
-            foreach (DataRow authorRow in authorsTable.Rows)
+            foreach (DataRow authorRow in authorTable.Rows)
             {
                 Author author = new Author();
                 author.Id = (int)authorRow["AuthorId"];
