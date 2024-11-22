@@ -47,12 +47,8 @@ namespace WPFApp_LibraryManager.Pages
             ClearPublisherDetails();
 
             DisablePublisherDetails();
-
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = false;
-            AddPublisher_Btn.IsEnabled = true;
+            DisableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
 
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
@@ -101,15 +97,11 @@ namespace WPFApp_LibraryManager.Pages
             {
                 BindPublisherToPublisherDetails((Publisher)PublisherList_Dtg.SelectedItem);
 
-                Delete_Btn.IsEnabled = true;
-                Edit_Btn.IsEnabled = true;
+                EnableEditDeleteButtons();
             }
 
             DisablePublisherDetails();
-
-            Cancel_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = false;
-            AddPublisher_Btn.IsEnabled = true;
+            DisableSaveCancelButtons();
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
@@ -117,11 +109,8 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnablePublisherDetails();
-
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = true;
-            Cancel_Btn.IsEnabled = true;
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -143,13 +132,10 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "insert";
 
             ClearPublisherDetails();
+            
             EnablePublisherDetails();
-
-            AddPublisher_Btn.IsEnabled = false;
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = true;
-            Save_Btn.IsEnabled = true;
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
@@ -174,10 +160,8 @@ namespace WPFApp_LibraryManager.Pages
             {
                 BindPublisherToPublisherDetails(selectedRow);
 
-                Edit_Btn.IsEnabled = true;
-                Delete_Btn.IsEnabled = true;
-                Save_Btn.IsEnabled = false;
-                Cancel_Btn.IsEnabled = false;
+                EnableEditDeleteButtons();
+                DisableSaveCancelButtons();
             }
         }
 
@@ -202,6 +186,30 @@ namespace WPFApp_LibraryManager.Pages
         {
             TargetPublisher_Name_Txt.Text = string.Empty;
             TargetPublisher_Description_Txt.Text = string.Empty;
+        }
+
+        private void EnableSaveCancelButtons()
+        {
+            Cancel_Btn.IsEnabled = true;
+            Save_Btn.IsEnabled = true;
+        }
+
+        private void DisableSaveCancelButtons()
+        {
+            Cancel_Btn.IsEnabled = false;
+            Save_Btn.IsEnabled = false;
+        }
+
+        private void EnableEditDeleteButtons()
+        {
+            Edit_Btn.IsEnabled = true;
+            Delete_Btn.IsEnabled = true;
+        }
+
+        private void DisableEditDeleteButtons()
+        {
+            Edit_Btn.IsEnabled = false;
+            Delete_Btn.IsEnabled = false;
         }
     }
 }
