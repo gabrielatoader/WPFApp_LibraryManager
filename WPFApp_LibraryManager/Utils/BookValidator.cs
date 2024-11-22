@@ -12,46 +12,53 @@ namespace WPFApp_LibraryManager.Utils
             if (!IsValidTitle(book.Title))
             {
                 MessageBox.Show("Title is empty. Please provide the book title!");
+
                 return false;
             }
             else if (!IsValidISBN(book.ISBN))
             {
                 MessageBox.Show("ISBN is not valid, it should have exactly 10 digits.");
+
                 return false;
             }
             else if (!IsValidYear(book.PublishedYear))
             {
                 MessageBox.Show("Year is not valid, it should have exactly 4 digits.");
+
                 return false;
             }
             else if (!IsValidURL(book.CoverURL))
             {
                 MessageBox.Show("Cover URL is not valid, please provide a proper link.");
+
                 return false;
             }
             else if (!IsValidAuthor(book.AuthorId))
             {
                 MessageBox.Show("Select the book author from the list!");
+
                 return false;
             }
             else if (!IsValidCategory(book.CategoryId))
             {
                 MessageBox.Show("Select the book category from the list!");
+
                 return false;
             }
             else if (!IsValidPublisher(book.PublisherId))
             {
                 MessageBox.Show("Select the book publisher from the list!");
+
                 return false;
             }
 
             return true;
         }
-        
+
         private bool IsValidTitle(string inputString)
         {
             if (String.IsNullOrWhiteSpace(inputString))
-            { 
+            {
                 return false;
             }
 
@@ -68,7 +75,7 @@ namespace WPFApp_LibraryManager.Utils
             return false;
         }
 
-        private bool IsValidYear(int year) 
+        private bool IsValidYear(int year)
         {
             if (year != -1 && year.ToString().Length == 4)
             {
@@ -77,12 +84,15 @@ namespace WPFApp_LibraryManager.Utils
 
             return false;
         }
+
         bool IsDigitsOnly(string str)
         {
             foreach (char c in str)
             {
                 if (c < '0' || c > '9')
+                {
                     return false;
+                }
             }
 
             return true;
@@ -96,7 +106,7 @@ namespace WPFApp_LibraryManager.Utils
             {
                 return true;
             }
-            
+
             return false;
         }
 
@@ -106,7 +116,7 @@ namespace WPFApp_LibraryManager.Utils
             {
                 return true;
             }
-            
+
             return false;
         }
 
@@ -116,7 +126,7 @@ namespace WPFApp_LibraryManager.Utils
             {
                 return true;
             }
-            
+
             return false;
         }
 
@@ -126,7 +136,7 @@ namespace WPFApp_LibraryManager.Utils
             {
                 return true;
             }
-            
+
             return false;
         }
     }
