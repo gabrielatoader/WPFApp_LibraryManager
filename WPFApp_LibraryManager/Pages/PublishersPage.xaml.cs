@@ -36,6 +36,8 @@ namespace WPFApp_LibraryManager.Pages
         {
             TargetPublisher_Name_Txt.Text = publisher.Name;
             TargetPublisher_Description_Txt.Text = publisher.Description;
+
+            DisablePublisherDetails();
         }
 
         private void Clear_Btn_Click(object sender, RoutedEventArgs e)
@@ -45,10 +47,6 @@ namespace WPFApp_LibraryManager.Pages
             ClearSearch();
             ClearPublisherGrid();
             ClearPublisherDetails();
-
-            DisablePublisherDetails();
-            DisableEditDeleteButtons();
-            DisableSaveCancelButtons();
         }
 
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
@@ -57,35 +55,28 @@ namespace WPFApp_LibraryManager.Pages
             targetPublisher.Name = TargetPublisher_Name_Txt.Text;
             targetPublisher.Description = TargetPublisher_Description_Txt.Text;
 
+            bool result = false;
+
             if (_requestType == "update")
             {
                 Publisher activePublisher = (Publisher)PublisherList_Dtg.SelectedItem;
 
                 targetPublisher.Id = activePublisher.Id;
 
-                bool result = _publisherService.UpdatePublisher(targetPublisher);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindPublisherToPublisherDetails(targetPublisher);
-                }
+                result = _publisherService.UpdatePublisher(targetPublisher);
             }
             else if (_requestType == "insert")
             {
-                bool result = _publisherService.InsertPublisher(targetPublisher);
-
-                if (result == true)
-                {
-                    Clear_Btn_Click(sender, e);
-
-                    BindPublisherToPublisherDetails(targetPublisher);
-                }
+                result = _publisherService.InsertPublisher(targetPublisher);
             }
             else
             {
                 MessageBox.Show("Something went wrong, try again.");
+            }
+
+            if (result == true)
+            {
+                Clear_Btn_Click(sender, e);
             }
         }
 
@@ -96,12 +87,11 @@ namespace WPFApp_LibraryManager.Pages
             if ((Publisher)PublisherList_Dtg.SelectedItem != null)
             {
                 BindPublisherToPublisherDetails((Publisher)PublisherList_Dtg.SelectedItem);
-
-                EnableEditDeleteButtons();
             }
-
-            DisablePublisherDetails();
-            DisableSaveCancelButtons();
+            else 
+            {
+                ClearPublisherDetails();
+            }
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
@@ -109,8 +99,6 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnablePublisherDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -119,7 +107,7 @@ namespace WPFApp_LibraryManager.Pages
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                Publisher activePublisher= (Publisher)PublisherList_Dtg.SelectedItem;
+                Publisher activePublisher = (Publisher)PublisherList_Dtg.SelectedItem;
 
                 _publisherService.DeletePublisher(activePublisher.Id);
 
@@ -132,10 +120,8 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "insert";
 
             ClearPublisherDetails();
-            
+
             EnablePublisherDetails();
-            EnableSaveCancelButtons();
-            DisableEditDeleteButtons();
         }
 
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
@@ -145,7 +131,7 @@ namespace WPFApp_LibraryManager.Pages
                 MessageBox.Show("Search box is empty, please add a search string.");
             }
             else
-            { 
+            {
                 BindPublisherListToGrid(_publisherService.GetFilteredPublisherList(Search_Txt.Text));
             }
         }
@@ -159,9 +145,6 @@ namespace WPFApp_LibraryManager.Pages
             if (selectedRow != null)
             {
                 BindPublisherToPublisherDetails(selectedRow);
-
-                EnableEditDeleteButtons();
-                DisableSaveCancelButtons();
             }
         }
 
@@ -174,18 +157,27 @@ namespace WPFApp_LibraryManager.Pages
         {
             TargetPublisher_Name_Txt.IsEnabled = true;
             TargetPublisher_Description_Txt.IsEnabled = true;
+
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void DisablePublisherDetails()
         {
             TargetPublisher_Name_Txt.IsEnabled = false;
             TargetPublisher_Description_Txt.IsEnabled = false;
+
+            EnableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
 
         private void ClearPublisherDetails()
         {
             TargetPublisher_Name_Txt.Text = string.Empty;
             TargetPublisher_Description_Txt.Text = string.Empty;
+
+            DisablePublisherDetails();
+            DisableEditDeleteButtons();
         }
 
         private void EnableSaveCancelButtons()
