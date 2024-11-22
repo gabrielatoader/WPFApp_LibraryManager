@@ -46,12 +46,8 @@ namespace WPFApp_LibraryManager.Pages
             ClearCategoryDetails();
 
             DisableCategoryDetails();
-
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = false;
-            AddCategory_Btn.IsEnabled = true;
+            DisableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
         
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
@@ -100,15 +96,11 @@ namespace WPFApp_LibraryManager.Pages
             {
                 BindCategoryToCategoryDetails((Category)CategoryList_Dtg.SelectedItem);
 
-                Delete_Btn.IsEnabled = true;
-                Edit_Btn.IsEnabled = true;
+                EnableEditDeleteButtons();
             }
 
             DisableCategoryDetails();
-
-            Cancel_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = false;
-            AddCategory_Btn.IsEnabled = true;
+            DisableSaveCancelButtons();
         }
 
         private void Edit_Btn_Click(object sender, RoutedEventArgs e)
@@ -116,11 +108,8 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnableCategoryDetails();
-
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = true;
-            Cancel_Btn.IsEnabled = true;
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -142,13 +131,10 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "insert";
 
             ClearCategoryDetails();
-            EnableCategoryDetails();
             
-            AddCategory_Btn.IsEnabled = false;
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = true;
-            Save_Btn.IsEnabled = true;
+            EnableCategoryDetails();
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
@@ -166,10 +152,8 @@ namespace WPFApp_LibraryManager.Pages
             {
                 BindCategoryToCategoryDetails(selectedRow);
 
-                Edit_Btn.IsEnabled = true;
-                Delete_Btn.IsEnabled = true;
-                Save_Btn.IsEnabled = false;
-                Cancel_Btn.IsEnabled = false;
+                EnableEditDeleteButtons();
+                DisableSaveCancelButtons();
             }
         }
 
@@ -194,6 +178,30 @@ namespace WPFApp_LibraryManager.Pages
         {
             TargetCategory_Name_Txt.Text = string.Empty;
             TargetCategory_Description_Txt.Text = string.Empty;
+        }
+
+        private void EnableSaveCancelButtons()
+        {
+            Cancel_Btn.IsEnabled = true;
+            Save_Btn.IsEnabled = true;
+        }
+
+        private void DisableSaveCancelButtons()
+        {
+            Cancel_Btn.IsEnabled = false;
+            Save_Btn.IsEnabled = false;
+        }
+
+        private void EnableEditDeleteButtons()
+        {
+            Edit_Btn.IsEnabled = true;
+            Delete_Btn.IsEnabled = true;
+        }
+
+        private void DisableEditDeleteButtons()
+        {
+            Edit_Btn.IsEnabled = false;
+            Delete_Btn.IsEnabled = false;
         }
     }
 }

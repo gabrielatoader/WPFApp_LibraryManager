@@ -108,12 +108,8 @@ namespace WPFApp_LibraryManager.Pages
             ClearBookDetails();
 
             DisableBookDetails();
-
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = false;
-            AddBook_Btn.IsEnabled = true;
+            DisableEditDeleteButtons();
+            DisableSaveCancelButtons();
         }
         
         private void BookList_Dtg_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,10 +122,8 @@ namespace WPFApp_LibraryManager.Pages
             {
                 BindBookToBookDetails(selectedRow);
 
-                Edit_Btn.IsEnabled = true;
-                Delete_Btn.IsEnabled = true;
-                Save_Btn.IsEnabled = false;
-                Cancel_Btn.IsEnabled = false;
+                EnableEditDeleteButtons();
+                DisableSaveCancelButtons();
             }
         }
 
@@ -138,11 +132,8 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "update";
 
             EnableBookDetails();
-
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = true;
-            Save_Btn.IsEnabled = true;
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
 
         private void EnableBookDetails()
@@ -206,15 +197,11 @@ namespace WPFApp_LibraryManager.Pages
             {
                 BindBookToBookDetails((Book)BookList_Dtg.SelectedItem);
 
-                Delete_Btn.IsEnabled = true;
-                Edit_Btn.IsEnabled = true;
+                EnableEditDeleteButtons();
             }
 
             DisableBookDetails();
-
-            Cancel_Btn.IsEnabled = false;
-            Save_Btn.IsEnabled = false;
-            AddBook_Btn.IsEnabled = true;
+            DisableSaveCancelButtons();
         }
 
         private void Delete_Btn_Click(object sender, RoutedEventArgs e)
@@ -287,13 +274,10 @@ namespace WPFApp_LibraryManager.Pages
             _requestType = "insert";
 
             ClearBookDetails();
-            EnableBookDetails();
 
-            AddBook_Btn.IsEnabled = false;
-            Edit_Btn.IsEnabled = false;
-            Delete_Btn.IsEnabled = false;
-            Cancel_Btn.IsEnabled = true;
-            Save_Btn.IsEnabled = true;
+            EnableBookDetails();
+            EnableSaveCancelButtons();
+            DisableEditDeleteButtons();
         }
         
         private void Search_Btn_Click(object sender, RoutedEventArgs e)
@@ -336,6 +320,30 @@ namespace WPFApp_LibraryManager.Pages
                     BindBookListToGrid(bookList);
                 }
             }
+        }
+
+        private void EnableSaveCancelButtons()
+        {
+            Cancel_Btn.IsEnabled = true;
+            Save_Btn.IsEnabled = true;
+        }
+
+        private void DisableSaveCancelButtons()
+        {
+            Cancel_Btn.IsEnabled = false;
+            Save_Btn.IsEnabled = false;
+        }
+
+        private void EnableEditDeleteButtons()
+        {
+            Edit_Btn.IsEnabled = true;
+            Delete_Btn.IsEnabled = true;
+        }
+
+        private void DisableEditDeleteButtons()
+        {
+            Edit_Btn.IsEnabled = false;
+            Delete_Btn.IsEnabled = false;
         }
     }
 }
