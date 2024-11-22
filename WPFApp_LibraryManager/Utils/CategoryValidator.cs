@@ -12,6 +12,7 @@ namespace WPFApp_LibraryManager.Utils
             if (!IsValidCategoryName(category.Name))
             {
                 MessageBox.Show("Name is invalid. Please provide the category name.");
+
                 return false;
             }
 

@@ -14,7 +14,7 @@ namespace WPFApp_LibraryManager.Repositories
         {
             return GetFilteredBookList(new BookFilters());
         }
-        
+
         public List<Book> GetFilteredBookList(BookFilters bookFilters) 
         {
             SqlCommand cmd = new SqlCommand(SqlQueries.GetFilteredBookListQuery, _sqlConnection);
@@ -76,7 +76,7 @@ namespace WPFApp_LibraryManager.Repositories
 
             return bookList;
         }
-        
+
         public void InsertBook(Book book)
         {
             InsertBookInDb(SqlQueries.InsertBookQuery, book);
@@ -105,7 +105,7 @@ namespace WPFApp_LibraryManager.Repositories
         {
             UpdatebookInDb(SqlQueries.UpdateBookQuery, book);
         }
-        
+
         public void UpdatebookInDb(string query, Book book)
         {
             _sqlConnection.Open();
@@ -125,7 +125,7 @@ namespace WPFApp_LibraryManager.Repositories
 
             _sqlConnection.Close();
         }
-        
+
         public void DeleteBook(int bookId)
         {
             DeleteBookFromDb(SqlQueries.DeleteBookQuery, bookId);

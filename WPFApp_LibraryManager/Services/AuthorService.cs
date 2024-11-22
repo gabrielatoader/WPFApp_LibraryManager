@@ -88,6 +88,7 @@ namespace WPFApp_LibraryManager.Services
 
                 return true;
             }
+
             return false;
         }
 
@@ -108,6 +109,7 @@ namespace WPFApp_LibraryManager.Services
 
                 return true;
             }
+
             return false;
         }
 

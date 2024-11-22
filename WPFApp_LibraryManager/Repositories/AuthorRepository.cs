@@ -21,6 +21,9 @@ namespace WPFApp_LibraryManager.Repositories
                 Author author = new Author();
                 author.Id = (int)authorRow["AuthorId"];
                 author.FirstName = (string)authorRow["FirstName"];
+                author.LastName = (string)authorRow["LastName"];
+                author.FullName = (string)authorRow["AuthorFullName"];
+
                 if (DBNull.Value.Equals(authorRow["MiddleName"]))
                 {
                     author.MiddleName = "";
@@ -29,8 +32,6 @@ namespace WPFApp_LibraryManager.Repositories
                 {
                     author.MiddleName = (string)authorRow["MiddleName"];
                 }
-                author.LastName = (string)authorRow["LastName"];
-                author.FullName = (string)authorRow["AuthorFullName"];
 
                 authorList.Add(author);
             }
@@ -59,6 +60,9 @@ namespace WPFApp_LibraryManager.Repositories
                 Author author = new Author();
                 author.Id = (int)authorRow["AuthorId"];
                 author.FirstName = (string)authorRow["FirstName"];
+                author.LastName = (string)authorRow["LastName"];
+                author.FullName = (string)authorRow["AuthorFullName"];
+
                 if (DBNull.Value.Equals(authorRow["MiddleName"]))
                 {
                     author.MiddleName = "";
@@ -67,8 +71,6 @@ namespace WPFApp_LibraryManager.Repositories
                 {
                     author.MiddleName = (string)authorRow["MiddleName"];
                 }
-                author.LastName = (string)authorRow["LastName"];
-                author.FullName = (string)authorRow["AuthorFullName"];
 
                 authorList.Add(author);
             }

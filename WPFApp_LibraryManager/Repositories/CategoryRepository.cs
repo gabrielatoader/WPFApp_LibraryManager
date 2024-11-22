@@ -27,6 +27,7 @@ namespace WPFApp_LibraryManager.Repositories
 
             return categoryList;
         }
+
         public List<Category> GetFilteredCategoryList(string searchString)
         {
             SqlCommand cmd = new SqlCommand(SqlQueries.GetFilteredCategoryListQuery, _sqlConnection);
@@ -35,7 +36,7 @@ namespace WPFApp_LibraryManager.Repositories
 
             DataTable categoryTable = new DataTable();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-            
+
             using (sqlDataAdapter)
             {
                 sqlDataAdapter.Fill(categoryTable);
@@ -55,7 +56,7 @@ namespace WPFApp_LibraryManager.Repositories
 
             return categoryList;
         }
-        
+
         public void InsertCategory(Category category)
         {
             _sqlConnection.Open();
