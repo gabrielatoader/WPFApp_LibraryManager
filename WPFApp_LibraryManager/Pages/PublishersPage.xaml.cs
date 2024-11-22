@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -132,7 +133,16 @@ namespace WPFApp_LibraryManager.Pages
             }
             else
             {
-                BindPublisherListToGrid(_publisherService.GetFilteredPublisherList(Search_Txt.Text));
+                List <Publisher> publisherList = _publisherService.GetFilteredPublisherList(Search_Txt.Text);
+
+                if (publisherList == null || publisherList.Count == 0)
+                {
+                    MessageBox.Show("Could not find publishers to match search request.");
+                }
+                else
+                {
+                    BindPublisherListToGrid(publisherList);
+                }
             }
         }
 

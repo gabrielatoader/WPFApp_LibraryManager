@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -134,7 +135,16 @@ namespace WPFApp_LibraryManager.Pages
             }
             else
             {
-                BindAuthorListToGrid(_authorService.GetFilteredAuthorList(Search_Txt.Text));
+                List<Author> authorList = _authorService.GetFilteredAuthorList(Search_Txt.Text);
+
+                if (authorList == null || authorList.Count == 0)
+                {
+                    MessageBox.Show("Could not find authors to match search request.");
+                }
+                else
+                {
+                    BindAuthorListToGrid(authorList);
+                }
             }
         }
 

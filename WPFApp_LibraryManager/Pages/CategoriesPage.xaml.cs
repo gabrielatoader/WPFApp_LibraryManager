@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
+using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -48,7 +49,7 @@ namespace WPFApp_LibraryManager.Pages
             ClearCategoryGrid();
             ClearCategoryDetails();
         }
-        
+
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
             Category targetCategory = new Category();
@@ -56,7 +57,7 @@ namespace WPFApp_LibraryManager.Pages
             targetCategory.Description = TargetCategory_Description_Txt.Text;
 
             bool result = false;
-            
+
             if (_requestType == "update")
             {
                 Category activeCategory = (Category)CategoryList_Dtg.SelectedItem;
@@ -114,7 +115,7 @@ namespace WPFApp_LibraryManager.Pages
                 Clear_Btn_Click(sender, e);
             }
         }
-        
+
         private void AddCategory_Btn_Click(object sender, RoutedEventArgs e)
         {
             _requestType = "insert";
@@ -132,7 +133,16 @@ namespace WPFApp_LibraryManager.Pages
             }
             else
             {
-                BindCategoryListToGrid(_categoryService.GetFilteredCategoryList(Search_Txt.Text));
+                List<Category> categoryList = _categoryService.GetFilteredCategoryList(Search_Txt.Text);
+
+                if (categoryList == null || categoryList.Count == 0)
+                {
+                    MessageBox.Show("Could not find categories to match search request.");
+                }
+                else
+                {
+                    BindCategoryListToGrid(categoryList);
+                }
             }
         }
 
@@ -152,7 +162,7 @@ namespace WPFApp_LibraryManager.Pages
         {
             Search_Txt.Text = string.Empty;
         }
-        
+
         private void EnableCategoryDetails()
         {
             TargetCategory_Name_Txt.IsEnabled = true;
