@@ -9,6 +9,7 @@ namespace WPFApp_LibraryManager.Services
     public class AuthorService : IAuthorService
     {
         private IAuthorRepository _authorRepository;
+
         private IAuthorValidator _authorValidator;
 
         public AuthorService(IAuthorRepository authorRepository, IAuthorValidator authorValidator)
@@ -87,6 +88,7 @@ namespace WPFApp_LibraryManager.Services
 
                 return true;
             }
+
             return false;
         }
 
@@ -107,6 +109,7 @@ namespace WPFApp_LibraryManager.Services
 
                 return true;
             }
+
             return false;
         }
 

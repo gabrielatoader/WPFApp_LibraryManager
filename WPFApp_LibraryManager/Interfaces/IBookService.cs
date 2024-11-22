@@ -8,7 +8,7 @@ namespace WPFApp_LibraryManager.Interfaces
         List<Book> GetBookList();
 
         List<Book> GetFilteredBookList(BookFilters bookFilters);
-        
+
         bool InsertBook(Book book);
 
         bool UpdateBook(Book book);

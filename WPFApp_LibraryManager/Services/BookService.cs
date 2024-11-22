@@ -9,6 +9,7 @@ namespace WPFApp_LibraryManager.Services
     public class BookService : IBookService
     {
         private IBookRepository _bookRepository;
+
         private IBookValidator _bookValidator;
 
         public BookService(IBookRepository bookRepository, IBookValidator bookValidator)
