@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -165,8 +164,8 @@ namespace WPFApp_LibraryManager.Pages
 
         private void EnableCategoryDetails()
         {
-            TargetCategory_Name_Txt.IsEnabled = true;
-            TargetCategory_Description_Txt.IsEnabled = true;
+            TargetCategory_Name_Txt.IsReadOnly = false;
+            TargetCategory_Description_Txt.IsReadOnly = false;
 
             EnableSaveCancelButtons();
             DisableEditDeleteButtons();
@@ -174,8 +173,8 @@ namespace WPFApp_LibraryManager.Pages
 
         private void DisableCategoryDetails()
         {
-            TargetCategory_Name_Txt.IsEnabled = false;
-            TargetCategory_Description_Txt.IsEnabled = false;
+            TargetCategory_Name_Txt.IsReadOnly = true;
+            TargetCategory_Description_Txt.IsReadOnly = true;
 
             EnableEditDeleteButtons();
             DisableSaveCancelButtons();

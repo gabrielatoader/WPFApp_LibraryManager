@@ -75,7 +75,6 @@
         <DataGrid x:Name="CategoryList_Dtg" 
                   Grid.Column="0" 
                   Grid.Row="4" 
-                  AlternatingRowBackground="Snow" 
                   AutoGenerateColumns="False" 
                   CanUserAddRows="False" 
                   SelectionChanged="CategoryList_Dtg_SelectionChanged"
@@ -134,13 +133,15 @@
                 <RowDefinition x:Name="InstructionsRow" 
                                Height="1.5*"/>
                 <RowDefinition x:Name="CategoryNameLabelRow" 
-                               Height="0.5*"/>
+                               Height="25"/>
                 <RowDefinition x:Name="CategoryNameValueRow" 
-                               Height="0.5*"/>
+                               Height="1.5*"/>
                 <RowDefinition x:Name="CategoryDescriptionLabelRow" 
-                               Height="0.5*"/>
+                               Height="25"/>
                 <RowDefinition x:Name="CategoryDescriptionValueRow" 
                                Height="3.5*"/>
+                <RowDefinition x:Name="SpaceRow"
+                               Height="10"/>
                 <RowDefinition x:Name="ButtonsRow" 
                                Height="0.5*"/>
             </Grid.RowDefinitions>
@@ -169,7 +170,7 @@
                      Grid.Column="0" 
                      Grid.ColumnSpan="3" 
                      Grid.Row="2" 
-                     IsEnabled="False"
+                     IsReadOnly="True"
                      />
             <Label x:Name="TargetCategory_Description_Lbl" 
                    Grid.Column="0" 
@@ -181,12 +182,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="2"
                      Grid.Row="4" 
-                     IsEnabled="False"
+                     IsReadOnly="True"
                      TextWrapping="Wrap"
                      />
             <Button x:Name="Save_Btn" 
                     Grid.Column="0" 
-                    Grid.Row="5" 
+                    Grid.Row="6" 
                     Click="Save_Btn_Click"
                     Content="SAVE" 
                     Height="25" 
@@ -195,7 +196,7 @@
                     />
             <Button x:Name="Cancel_Btn" 
                     Grid.Column="1" 
-                    Grid.Row="5" 
+                    Grid.Row="6" 
                     Click="Cancel_Btn_Click" 
                     Content="CANCEL" 
                     Height="25" 

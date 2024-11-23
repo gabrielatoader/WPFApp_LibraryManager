@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
-using WPFApp_LibraryManager.Services;
 
 namespace WPFApp_LibraryManager.Pages
 {
@@ -167,9 +166,9 @@ namespace WPFApp_LibraryManager.Pages
 
         private void EnableAuthorDetails()
         {
-            TargetAuthor_FirstName_Txt.IsEnabled = true;
-            TargetAuthor_MiddleName_Txt.IsEnabled = true;
-            TargetAuthor_LastName_Txt.IsEnabled = true;
+            TargetAuthor_FirstName_Txt.IsReadOnly = false;
+            TargetAuthor_MiddleName_Txt.IsReadOnly = false;
+            TargetAuthor_LastName_Txt.IsReadOnly = false;
 
             EnableSaveCancelButtons();
             DisableEditDeleteButtons();
@@ -177,9 +176,9 @@ namespace WPFApp_LibraryManager.Pages
 
         private void DisableAuthorDetails()
         {
-            TargetAuthor_FirstName_Txt.IsEnabled = false;
-            TargetAuthor_MiddleName_Txt.IsEnabled = false;
-            TargetAuthor_LastName_Txt.IsEnabled = false;
+            TargetAuthor_FirstName_Txt.IsReadOnly = true;
+            TargetAuthor_MiddleName_Txt.IsReadOnly = true;
+            TargetAuthor_LastName_Txt.IsReadOnly = true;
 
             EnableEditDeleteButtons();
             DisableSaveCancelButtons();

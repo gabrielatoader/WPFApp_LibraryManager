@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="WPFApp_LibraryManager.Components.SettingsBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp_LibraryManager.Components" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <Grid>
+        <StackPanel x:Name="ThemeSwitch_Sp"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    >
+            <Label x:Name="ThemeSwitch_Lbl"
+                   Content="Theme:"
+                   VerticalAlignment="Center"
+                   />
+            <mah:ToggleSwitch x:Name="ThemeSwitch_Tgl"
+                              FontSize="12"
+                              IsOn="False"
+                              OffContent="Light"
+                              OnContent="Dark"
+                              Toggled="ToggleSwitch_Toggled"
+                              VerticalAlignment="Center"
+                              />
+            <Label x:Name="ThemeAccentSwitch_Lbl"
+                   Content="Accent Color:"
+                   VerticalAlignment="Center"
+                   Width="85"
+                   />
+            <ComboBox x:Name="ThemeAccentColor_Cbo"
+                      Height="30"
+                      MaxDropDownHeight="150"
+                      SelectionChanged="ThemeAccentColor_Cbo_SelectionChanged"
+                      SelectedValuePath="Content"
+                      SelectedValue="Amber"
+                      Width="100"
+                      >
+                <ComboBoxItem>Amber</ComboBoxItem>
+                <ComboBoxItem>Blue</ComboBoxItem>
+                <ComboBoxItem>Crimson</ComboBoxItem>
+                <ComboBoxItem>Emerald</ComboBoxItem>
+                <ComboBoxItem>Steel</ComboBoxItem>
+                <ComboBoxItem>Teal</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+    </Grid>
+</UserControl>
