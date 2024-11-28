@@ -129,13 +129,13 @@ namespace WPFApp_LibraryManager.Pages
 
         private void EnableBookDetails()
         {
-            TargetBook_Title_Txt.IsEnabled = true;
-            TargetBook_ISBN_Txt.IsEnabled = true;
-            TargetBook_Author_Cbo.IsEnabled = true;
-            TargetBook_Category_Cbo.IsEnabled = true;
-            TargetBook_Publisher_Cbo.IsEnabled = true;
-            TargetBook_PublishedYear_Txt.IsEnabled = true;
-            TargetBook_CoverURL_Txt.IsEnabled = true;
+            TargetBook_Title_Txt.IsReadOnly = false;
+            TargetBook_ISBN_Txt.IsReadOnly = false;
+            TargetBook_Author_Cbo.IsReadOnly = false;
+            TargetBook_Category_Cbo.IsReadOnly = false;
+            TargetBook_Publisher_Cbo.IsReadOnly = false;
+            TargetBook_PublishedYear_Txt.IsReadOnly = false;
+            TargetBook_CoverURL_Txt.IsReadOnly = false;
             TargetBook_Cover_img.IsEnabled = true;
 
             EnableSaveCancelButtons();
@@ -144,13 +144,13 @@ namespace WPFApp_LibraryManager.Pages
 
         private void DisableBookDetails()
         {
-            TargetBook_Title_Txt.IsEnabled = false;
-            TargetBook_ISBN_Txt.IsEnabled = false;
-            TargetBook_Author_Cbo.IsEnabled = false;
-            TargetBook_Category_Cbo.IsEnabled = false;
-            TargetBook_Publisher_Cbo.IsEnabled = false;
-            TargetBook_PublishedYear_Txt.IsEnabled = false;
-            TargetBook_CoverURL_Txt.IsEnabled = false;
+            TargetBook_Title_Txt.IsReadOnly = true;
+            TargetBook_ISBN_Txt.IsReadOnly = true;
+            TargetBook_Author_Cbo.IsReadOnly = true;
+            TargetBook_Category_Cbo.IsReadOnly = true;
+            TargetBook_Publisher_Cbo.IsReadOnly = true;
+            TargetBook_PublishedYear_Txt.IsReadOnly = true;
+            TargetBook_CoverURL_Txt.IsReadOnly = true;
             TargetBook_Cover_img.IsEnabled = false;
 
             EnableEditDeleteButtons();

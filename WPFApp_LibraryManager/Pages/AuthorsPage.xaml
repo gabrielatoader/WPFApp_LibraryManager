@@ -75,7 +75,6 @@
         <DataGrid x:Name="AuthorList_Dtg" 
                   Grid.Column="0" 
                   Grid.Row="4" 
-                  AlternatingRowBackground="Snow" 
                   AutoGenerateColumns="False" 
                   CanUserAddRows="False" 
                   SelectionChanged="AuthorList_Dtg_SelectionChanged"
@@ -140,17 +139,19 @@
                 <RowDefinition x:Name="InstructionsRow" 
                                Height="1.5*"/>
                 <RowDefinition x:Name="AuthorFirstNameLabelRow" 
-                               Height="0.5*"/>
+                               Height="25"/>
                 <RowDefinition x:Name="AuthorFirstNameValueRow" 
-                               Height="0.5*"/>
+                               Height="1.5*"/>
                 <RowDefinition x:Name="AuthorMiddleNameLabelRow" 
-                               Height="0.5*"/>
+                               Height="25"/>
                 <RowDefinition x:Name="AuthorMiddleNameValueRow" 
-                               Height="0.5*"/>
+                               Height="1.5*"/>
                 <RowDefinition x:Name="AuthorLastNameLabelRow" 
-                               Height="0.5*"/>
+                               Height="25"/>
                 <RowDefinition x:Name="AuthorLastNameValueRow" 
-                               Height="0.5*"/>
+                               Height="1.5*"/>
+                <RowDefinition x:Name="SpaceRow"
+                               Height="10"/>
                 <RowDefinition x:Name="ButtonsRow" 
                                Height="0.5*"/>
             </Grid.RowDefinitions>
@@ -179,7 +180,7 @@
                      Grid.Column="0" 
                      Grid.ColumnSpan="3" 
                      Grid.Row="2" 
-                     IsEnabled="False"
+                     IsReadOnly="True"
                      />
             <Label x:Name="TargetAuthor_MiddleName_Lbl" 
                    Grid.Column="0" 
@@ -191,7 +192,7 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="2"
                      Grid.Row="4" 
-                     IsEnabled="False"
+                     IsReadOnly="True"
                      TextWrapping="Wrap"
                      />
             <Label x:Name="TargetAuthor_LastName_Lbl" 
@@ -204,12 +205,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="2"
                      Grid.Row="6" 
-                     IsEnabled="False"
+                     IsReadOnly="True"
                      TextWrapping="Wrap"
                      />
             <Button x:Name="Save_Btn" 
                     Grid.Column="0" 
-                    Grid.Row="7" 
+                    Grid.Row="8" 
                     Click="Save_Btn_Click"
                     Content="SAVE" 
                     Height="25" 
@@ -218,7 +219,7 @@
                     />
             <Button x:Name="Cancel_Btn" 
                     Grid.Column="1" 
-                    Grid.Row="7" 
+                    Grid.Row="8" 
                     Click="Cancel_Btn_Click" 
                     Content="CANCEL" 
                     Height="25" 

@@ -33,10 +33,10 @@ namespace WPFApp_LibraryManager.Components
         private void BooksPage_Btn_Click(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
-            
+
             ContentControl contentControl = new ContentControl();
             contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-            
+
             contentControl.Content = new BooksPage(_authorService, _bookService, _categoryService, _publisherService);
         }
 

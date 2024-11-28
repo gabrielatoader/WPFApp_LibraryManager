@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="160"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
@@ -119,6 +119,7 @@
                     Click="Search_Btn_Click"
                     Content="SEARCH" 
                     Height="30"
+                    Margin="0,0,5,0"
                     />
             <Button x:Name="Clear_Btn" 
                     Grid.Column="3" 
@@ -126,12 +127,12 @@
                     Grid.Row="5" 
                     Click="Clear_Btn_Click" Height="30"
                     Content="CLEAR"
+                    Margin="5,0,0,0"
                     />
         </Grid>
         <DataGrid x:Name="BookList_Dtg" 
                   Grid.Column="0" 
                   Grid.Row="4" 
-                  AlternatingRowBackground="Snow" 
                   AutoGenerateColumns="False" 
                   CanUserAddRows="False" 
                   SelectionChanged="BookList_Dtg_SelectionChanged"
@@ -196,23 +197,23 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="TitleLabelRow"/>
-                <RowDefinition x:Name="TitleValueRow"/>
-                <RowDefinition x:Name="AuthorLabelRow"/>
-                <RowDefinition x:Name="AuthorValueRow"/>
-                <RowDefinition x:Name="ISBNLabelRow"/>
+                <RowDefinition x:Name="TitleLabelRow" Height="25"/>
+                <RowDefinition x:Name="TitleValueRow" Height="1.5*"/>
+                <RowDefinition x:Name="AuthorLabelRow" Height="25"/>
+                <RowDefinition x:Name="AuthorValueRow" Height="1.5*"/>
+                <RowDefinition x:Name="ISBNLabelRow" Height="25"/>
 
-                <RowDefinition x:Name="ISBNValueRow"/>
-                <RowDefinition x:Name="PublisherLabelRow"/>
-                <RowDefinition x:Name="PublisherValueRow"/>
-                <RowDefinition x:Name="PublishedYearLabelRow"/>
-                <RowDefinition x:Name="PublishedYearValueRow"/>
+                <RowDefinition x:Name="ISBNValueRow" Height="1.5*"/>
+                <RowDefinition x:Name="PublisherLabelRow" Height="25"/>
+                <RowDefinition x:Name="PublisherValueRow" Height="1.5*"/>
+                <RowDefinition x:Name="PublishedYearLabelRow" Height="25"/>
+                <RowDefinition x:Name="PublishedYearValueRow" Height="1.5*"/>
 
-                <RowDefinition x:Name="CategoryLabelRow"/>
-                <RowDefinition x:Name="CategoryValueRow"/>
-                <RowDefinition x:Name="CoverURLLabelRow"/>
-                <RowDefinition x:Name="CoverURLValueRow"/>
-                <RowDefinition x:Name="ButtonsRow"/>
+                <RowDefinition x:Name="CategoryLabelRow" Height="25"/>
+                <RowDefinition x:Name="CategoryValueRow" Height="1.5*"/>
+                <RowDefinition x:Name="CoverURLLabelRow" Height="25"/>
+                <RowDefinition x:Name="CoverURLValueRow" Height="1.5*"/>
+                <RowDefinition x:Name="ButtonsRow" Height="1*"/>
             </Grid.RowDefinitions>
 
             <Label x:Name="Title_Lbl" 
@@ -225,9 +226,10 @@
             <TextBox x:Name="TargetBook_Title_Txt" 
                      Grid.Column="0" 
                      Grid.ColumnSpan="3" 
-                     Grid.Row="1" 
-                     IsEnabled="False"
-                     />
+                     Grid.Row="1"
+                     IsReadOnly="True"
+                     >
+            </TextBox>
             <Image x:Name="TargetBook_Cover_img" 
                    Grid.Column="1" 
                    Grid.Row="2" 
@@ -245,7 +247,7 @@
             <ComboBox x:Name="TargetBook_Author_Cbo" 
                       Grid.Column="0" 
                       Grid.Row="3" 
-                      IsEnabled="False"
+                      IsReadOnly="True"
                       />
             <Label x:Name="TargetBook_ISBN_Lbl" 
                    Grid.Column="0" 
@@ -256,7 +258,7 @@
             <TextBox x:Name="TargetBook_ISBN_Txt" 
                      Grid.Column="0" 
                      Grid.Row="5" 
-                     IsEnabled="False" 
+                     IsReadOnly="True"
                      />
             <Label x:Name="TargetBook_Publisher_Lbl" 
                    Grid.Column="0" 
@@ -267,7 +269,7 @@
             <ComboBox x:Name="TargetBook_Publisher_Cbo" 
                       Grid.Column="0" 
                       Grid.Row="7" 
-                      IsEnabled="False"
+                      IsReadOnly="True"
                       />
             <Label x:Name="TargetBook_PublishedYear_Lbl" 
                    Grid.Column="0" 
@@ -278,7 +280,7 @@
             <TextBox x:Name="TargetBook_PublishedYear_Txt" 
                      Grid.Column="0" 
                      Grid.Row="9" 
-                     IsEnabled="False" 
+                     IsReadOnly="True"
                      />
             <Label x:Name="TargetBook_Category_Lbl" 
                    Grid.Column="0" 
@@ -289,7 +291,7 @@
             <ComboBox x:Name="TargetBook_Category_Cbo" 
                       Grid.Column="0" 
                       Grid.Row="11" 
-                      IsEnabled="False"
+                      IsReadOnly="True"
                       />
             <Label x:Name="TargetBook_CoverURL_Lbl" 
                    Grid.Column="0" 
@@ -300,7 +302,7 @@
             <TextBox x:Name="TargetBook_CoverURL_Txt" 
                      Grid.Column="0" 
                      Grid.Row="13" 
-                     IsEnabled="False"
+                     IsReadOnly="True"
                      />
             <Button x:Name="Save_Btn" 
                     Grid.Column="0" 
