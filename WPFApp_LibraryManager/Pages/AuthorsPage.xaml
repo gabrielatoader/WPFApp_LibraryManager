@@ -85,26 +85,26 @@
                 <DataGridTextColumn x:Name="AuthorList_Dtg_Id"
                                     Binding="{Binding Path=Id}" 
                                     CanUserResize="True"
-                                    Header="Author Id" 
-                                    Width="75" 
+                                    Header="Id" 
+                                    Width="65" 
                                     />
                 <DataGridTextColumn x:Name="AuthorList_Dtg_FirstName" 
                                     Binding="{Binding Path=FirstName}" 
                                     CanUserResize="True"
-                                    Header="Author First Name" 
-                                    Width="100" 
+                                    Header="First Name" 
+                                    Width="150" 
                                     />
                 <DataGridTextColumn x:Name="AuthorList_Dtg_MiddleName" 
                                     Binding="{Binding Path=MiddleName}" 
                                     CanUserResize="True"
-                                    Header="Author Middle Name" 
-                                    Width="100" 
+                                    Header="Middle Name" 
+                                    Width="150" 
                                     />
                 <DataGridTextColumn x:Name="AuthorList_Dtg_LastName" 
                                     Binding="{Binding Path=LastName}" 
                                     CanUserResize="True"
-                                    Header="Author Last Name" 
-                                    Width="390"
+                                    Header="Last Name" 
+                                    Width="200"
                                     />
             </DataGrid.Columns>
         </DataGrid>

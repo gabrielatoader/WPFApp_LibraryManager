@@ -85,20 +85,20 @@
                 <DataGridTextColumn x:Name="CategoryList_Dtg_Id"
                                     Binding="{Binding Path=Id}" 
                                     CanUserResize="True"
-                                    Header="Category Id" 
-                                    Width="75" 
+                                    Header="Id" 
+                                    Width="65" 
                                     />
                 <DataGridTextColumn x:Name="CategoryList_Dtg_Name" 
                                     Binding="{Binding Path=Name}" 
                                     CanUserResize="True"
-                                    Header="Category Name" 
-                                    Width="100" 
+                                    Header="Name" 
+                                    Width="150" 
                                     />
                 <DataGridTextColumn x:Name="CategoryList_Dtg_Description" 
                                     Binding="{Binding Path=Description}" 
                                     CanUserResize="True"
-                                    Header="Category Description" 
-                                    Width="390"
+                                    Header="Description" 
+                                    Width="350"
                                     />
             </DataGrid.Columns>
         </DataGrid>

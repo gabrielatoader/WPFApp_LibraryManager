@@ -143,26 +143,32 @@
                 <DataGridTextColumn x:Name="BookList_Dtg_Title"
                                     Binding="{Binding Path=Title}" 
                                     CanUserResize="True"
-                                    Header="Book Title" 
-                                    Width="275" 
-                                    />
-                <DataGridTextColumn x:Name="BookList_Dtg_ISBN" 
-                                    Binding="{Binding Path=ISBN}"
-                                    CanUserResize="True"
-                                    Header="ISBN" 
-                                    Width="75" 
+                                    Header="Title" 
+                                    Width="225" 
                                     />
                 <DataGridTextColumn x:Name="BookList_Dtg_Author" 
                                     Binding="{Binding Path=AuthorName}" 
                                     CanUserResize="True"
                                     Header="Author" 
-                                    Width="100" 
+                                    Width="125" 
                                     />
                 <DataGridTextColumn x:Name="BookList_Dtg_Category" 
                                     CanUserResize="True"
                                     Binding="{Binding Path=CategoryName}" 
                                     Header="Category" 
-                                    Width="98" 
+                                    Width="100" 
+                                    />
+                <DataGridTextColumn x:Name="BookList_Dtg_Publisher" 
+                                    CanUserResize="True"
+                                    Binding="{Binding Path=PublisherName}" 
+                                    Header="Publisher" 
+                                    Width="125" 
+                                    />
+                <DataGridTextColumn x:Name="BookList_Dtg_ISBN" 
+                                    Binding="{Binding Path=ISBN}"
+                                    CanUserResize="True"
+                                    Header="ISBN" 
+                                    Width="100" 
                                     />
             </DataGrid.Columns>
         </DataGrid>
