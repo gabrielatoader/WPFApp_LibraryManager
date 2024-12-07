@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="WPFApp_LibraryManager.Pages.BooksPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WPFApp_LibraryManager.Pages"
-             mc:Ignorable="d" 
-             d:DesignHeight="1080" 
+             mc:Ignorable="d"
+             d:DesignHeight="1080"
              d:DesignWidth="1920">
     <Grid x:Name="BooksView_Grd">
         <Grid.ColumnDefinitions>
@@ -23,16 +23,16 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Label x:Name="LibraryCollection_Lbl" 
-               Grid.Column="0" 
-               Grid.Row="0" 
-               Content="Library Collection" 
-               FontSize="20pt" 
+        <Label x:Name="LibraryCollection_Lbl"
+               Grid.Column="0"
+               Grid.Row="0"
+               Content="Library Collection"
+               FontSize="20pt"
                FontWeight="Bold"
                />
 
         <Grid Grid.Column="0"
-              Grid.Row="2" 
+              Grid.Row="2"
               >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -44,145 +44,165 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
             <Label x:Name="FilterBy_Lbl"
-                   Grid.Column="0" 
-                   Grid.ColumnSpan="6" 
-                   Grid.Row="0" 
-                   Content="Filter by ..." 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="6"
+                   Grid.Row="0"
+                   Content="Filter by ..."
                    FontWeight="Bold"
                    />
-            <ComboBox x:Name="AuthorFilter_Cbo" 
-                      Grid.Column="0" 
-                      Grid.ColumnSpan="2" 
+            <ComboBox x:Name="AuthorFilter_Cbo"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
                       Grid.Row="1"
+                      SelectionChanged="AuthorFilter_Cbo_SelectionChanged"
                       />
-            <ComboBox x:Name="PublisherFilter_Cbo" 
-                      Grid.Column="2" 
-                      Grid.ColumnSpan="2" 
+            <ComboBox x:Name="PublisherFilter_Cbo"
+                      Grid.Column="2"
+                      Grid.ColumnSpan="2"
                       Grid.Row="1"
+                      SelectionChanged="PublisherFilter_Cbo_SelectionChanged"
                       />
-            <ComboBox x:Name="CategoryFilter_Cbo" 
-                      Grid.Column="4" 
-                      Grid.ColumnSpan="2" 
+            <ComboBox x:Name="CategoryFilter_Cbo"
+                      Grid.Column="4"
+                      Grid.ColumnSpan="2"
                       Grid.Row="1"
+                      SelectionChanged="CategoryFilter_Cbo_SelectionChanged"
                       />
             <Label x:Name="SearchFor_Lbl"
-                   Grid.Column="0" 
-                   Grid.ColumnSpan="6" 
-                   Grid.Row="2" 
-                   Content="Search for ..." 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="6"
+                   Grid.Row="2"
+                   Content="Search for ..."
                    FontWeight="Bold"
                    />
             <TextBox x:Name="Search_Txt"
-                Grid.Column="0" 
-                Grid.ColumnSpan="6" 
-                Grid.Row="3" 
-                />
+                     Grid.Column="0"
+                     Grid.ColumnSpan="6"
+                     Grid.Row="3"
+                     TextChanged="Search_Txt_TextChanged"
+                     />
             <Label x:Name="SearchIn_Lbl"
-                Grid.Column="0" 
-                Grid.ColumnSpan="6" 
-                Grid.Row="4" 
-                Content="Search in ..." 
+                Grid.Column="0"
+                Grid.ColumnSpan="6"
+                Grid.Row="4"
+                Content="Search in ..."
                 FontWeight="Bold"
                 />
             <CheckBox x:Name="Title_Chk"
-                      Grid.Column="1" 
-                      Grid.Row="4" 
-                      VerticalAlignment="Center">Title</CheckBox>
-            <CheckBox x:Name="Author_Chk" 
-                      Grid.Column="2" 
-                      Grid.Row="4" 
-                      VerticalAlignment="Center">Author</CheckBox>
-            <CheckBox x:Name="Publisher_Chk" 
-                      Grid.Column="3" 
-                      Grid.Row="4" 
-                      VerticalAlignment="Center">Publisher</CheckBox>
-            <CheckBox x:Name="ISBN_Chk" 
-                      Grid.Column="4" 
-                      Grid.Row="4" 
-                      VerticalAlignment="Center">ISBN</CheckBox>
-            <CheckBox x:Name="Category_Chk" 
+                      Grid.Column="1"
+                      Grid.Row="4"
+                      Content="Title"
+                      VerticalAlignment="Center"
+                      />
+            <CheckBox x:Name="Author_Chk"
+                      Grid.Column="2"
+                      Grid.Row="4"
+                      Content="Author"
+                      VerticalAlignment="Center"
+                      />
+            <CheckBox x:Name="Publisher_Chk"
+                      Grid.Column="3"
+                      Grid.Row="4"
+                      Content="Publisher"
+                      VerticalAlignment="Center"
+                      />
+            <CheckBox x:Name="ISBN_Chk"
+                      Grid.Column="4"
+                      Grid.Row="4"
+                      Content="ISBN"
+                      VerticalAlignment="Center"
+                      />
+            <CheckBox x:Name="Category_Chk"
                       Grid.Column="5"
-                      Grid.Row="4" 
-                      VerticalAlignment="Center">Category</CheckBox>
-            <Button x:Name="Search_Btn" 
-                    Grid.Column="0" 
-                    Grid.ColumnSpan="3" 
+                      Grid.Row="4"
+                      Content="Category"
+                      VerticalAlignment="Center"
+                      />
+            <Button x:Name="Search_Btn"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
                     Grid.Row="5"
                     Click="Search_Btn_Click"
-                    Content="SEARCH" 
+                    Content="SEARCH"
                     Height="30"
+                    IsEnabled="False"
                     Margin="0,0,5,0"
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
                     />
-            <Button x:Name="Clear_Btn" 
-                    Grid.Column="3" 
+            <Button x:Name="Clear_Btn"
+                    Grid.Column="3"
                     Grid.ColumnSpan="3"
-                    Grid.Row="5" 
-                    Click="Clear_Btn_Click" Height="30"
+                    Grid.Row="5"
+                    Click="Clear_Btn_Click"
                     Content="CLEAR"
+                    Height="30"
+                    IsEnabled="False"
                     Margin="5,0,0,0"
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
                     />
         </Grid>
-        <DataGrid x:Name="BookList_Dtg" 
-                  Grid.Column="0" 
-                  Grid.Row="4" 
-                  AutoGenerateColumns="False" 
-                  CanUserAddRows="False" 
+        <DataGrid x:Name="BookList_Dtg"
+                  Grid.Column="0"
+                  Grid.Row="4"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
                   SelectionChanged="BookList_Dtg_SelectionChanged"
-                  SelectionUnit="FullRow" 
-                  VerticalScrollBarVisibility="Auto" 
+                  SelectionUnit="FullRow"
+                  VerticalScrollBarVisibility="Auto"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BookList_Dtg_Title"
-                                    Binding="{Binding Path=Title}" 
+                                    Binding="{Binding Path=Title}"
                                     CanUserResize="True"
-                                    Header="Title" 
-                                    Width="225" 
+                                    Header="Title"
+                                    Width="225"
                                     />
-                <DataGridTextColumn x:Name="BookList_Dtg_Author" 
-                                    Binding="{Binding Path=AuthorName}" 
+                <DataGridTextColumn x:Name="BookList_Dtg_Author"
+                                    Binding="{Binding Path=AuthorName}"
                                     CanUserResize="True"
-                                    Header="Author" 
-                                    Width="125" 
+                                    Header="Author"
+                                    Width="125"
                                     />
-                <DataGridTextColumn x:Name="BookList_Dtg_Category" 
+                <DataGridTextColumn x:Name="BookList_Dtg_Category"
                                     CanUserResize="True"
-                                    Binding="{Binding Path=CategoryName}" 
-                                    Header="Category" 
-                                    Width="100" 
+                                    Binding="{Binding Path=CategoryName}"
+                                    Header="Category"
+                                    Width="100"
                                     />
-                <DataGridTextColumn x:Name="BookList_Dtg_Publisher" 
+                <DataGridTextColumn x:Name="BookList_Dtg_Publisher"
                                     CanUserResize="True"
-                                    Binding="{Binding Path=PublisherName}" 
-                                    Header="Publisher" 
-                                    Width="125" 
+                                    Binding="{Binding Path=PublisherName}"
+                                    Header="Publisher"
+                                    Width="125"
                                     />
-                <DataGridTextColumn x:Name="BookList_Dtg_ISBN" 
+                <DataGridTextColumn x:Name="BookList_Dtg_ISBN"
                                     Binding="{Binding Path=ISBN}"
                                     CanUserResize="True"
-                                    Header="ISBN" 
-                                    Width="100" 
+                                    Header="ISBN"
+                                    Width="100"
                                     />
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="AddBook_Btn"
-                Grid.Column="0" 
-                Grid.Row="6" 
+                Grid.Column="0"
+                Grid.Row="6"
                 Click="AddBook_Btn_Click"
-                Content="Add New Book" 
-                Height="30" 
-                IsEnabled="True" 
-                VerticalAlignment="Top" 
+                Content="Add New Book"
+                Height="30"
+                IsEnabled="True"
+                VerticalAlignment="Top"
+                Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                 />
-        <Grid x:Name="BookDetails_Grd" 
-              Grid.Column="2" 
+        <Grid x:Name="BookDetails_Grd"
+              Grid.Column="2"
               Grid.Row="2"
               Grid.RowSpan="3"
               >
@@ -192,25 +212,56 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="InstructionsRow" Height="110"/>
-                <RowDefinition x:Name="TitleLabelRow" Height="25"/>
-                <RowDefinition x:Name="TitleValueRow" Height="1.5*"/>
-                <RowDefinition x:Name="AuthorLabelRow" Height="25"/>
-                <RowDefinition x:Name="AuthorValueRow" Height="1.5*"/>
-                <RowDefinition x:Name="ISBNLabelRow" Height="25"/>
-
-                <RowDefinition x:Name="ISBNValueRow" Height="1.5*"/>
-                <RowDefinition x:Name="PublisherLabelRow" Height="25"/>
-                <RowDefinition x:Name="PublisherValueRow" Height="1.5*"/>
-                <RowDefinition x:Name="PublishedYearLabelRow" Height="25"/>
-                <RowDefinition x:Name="PublishedYearValueRow" Height="1.5*"/>
-
-                <RowDefinition x:Name="CategoryLabelRow" Height="25"/>
-                <RowDefinition x:Name="CategoryValueRow" Height="1.5*"/>
-                <RowDefinition x:Name="CoverURLLabelRow" Height="25"/>
-                <RowDefinition x:Name="CoverURLValueRow" Height="1.5*"/>
-                <RowDefinition x:Name="SpaceRow" Height="10"/>
-                <RowDefinition x:Name="ButtonsRow" Height="30"/>
+                <RowDefinition x:Name="InstructionsRow"
+                               Height="110"
+                               />
+                <RowDefinition x:Name="TitleLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="TitleValueRow"
+                               Height="1.5*"
+                               />
+                <RowDefinition x:Name="AuthorLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="AuthorValueRow"
+                               Height="1.5*"
+                               />
+                <RowDefinition x:Name="ISBNLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="ISBNValueRow"
+                               Height="1.5*"/>
+                <RowDefinition x:Name="PublisherLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="PublisherValueRow"
+                               Height="1.5*"
+                               />
+                <RowDefinition x:Name="PublishedYearLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="PublishedYearValueRow"
+                               Height="1.5*"
+                               />
+                <RowDefinition x:Name="CategoryLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="CategoryValueRow"
+                               Height="1.5*"
+                               />
+                <RowDefinition x:Name="CoverURLLabelRow"
+                               Height="25"
+                               />
+                <RowDefinition x:Name="CoverURLValueRow"
+                               Height="1.5*"
+                               />
+                <RowDefinition x:Name="SpaceRow"
+                               Height="10"
+                               />
+                <RowDefinition x:Name="ButtonsRow"
+                               Height="30"
+                               />
             </Grid.RowDefinitions>
 
             <ListBox x:Name="Instructions_Lbl"
@@ -225,133 +276,137 @@
                 <ListBoxItem Content="Click on a book for details."/>
                 <ListBoxItem Content="Click 'Add New Book' to insert a book."/>
             </ListBox>
-            <Label x:Name="Title_Lbl" 
-                   Grid.Column="0" 
-                   Grid.ColumnSpan="3" 
-                   Grid.Row="1" 
-                   Content="Title:" 
+            <Label x:Name="Title_Lbl"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="1"
+                   Content="Title:"
                    FontWeight="Bold"
                    />
-            <TextBox x:Name="TargetBook_Title_Txt" 
-                     Grid.Column="0" 
-                     Grid.ColumnSpan="3" 
+            <TextBox x:Name="TargetBook_Title_Txt"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
                      Grid.Row="2"
-                     IsReadOnly="True"
+                     IsEnabled="False"
                      >
             </TextBox>
-            <Image x:Name="TargetBook_Cover_img" 
+            <Image x:Name="TargetBook_Cover_img"
                    Grid.Column="2"
-                   Grid.Row="3" 
+                   Grid.Row="3"
                    Grid.RowSpan="12"
                    Source="../Images/BookCoverPlaceholder.png"
                    VerticalAlignment="Center"
                    />
-            <Label x:Name="TargetBook_Author_Lbl" 
-                   Grid.Column="0" 
-                   Grid.Row="3" 
-                   Content="Author" 
+            <Label x:Name="TargetBook_Author_Lbl"
+                   Grid.Column="0"
+                   Grid.Row="3"
+                   Content="Author:"
                    FontWeight="Bold"
                    />
-            <ComboBox x:Name="TargetBook_Author_Cbo" 
-                      Grid.Column="0" 
-                      Grid.Row="4" 
-                      IsReadOnly="True"
+            <ComboBox x:Name="TargetBook_Author_Cbo"
+                      Grid.Column="0"
+                      Grid.Row="4"
+                      IsEnabled="False"
                       />
-            <Label x:Name="TargetBook_ISBN_Lbl" 
-                   Grid.Column="0" 
-                   Grid.Row="5" 
-                   Content="ISBN" 
+            <Label x:Name="TargetBook_ISBN_Lbl"
+                   Grid.Column="0"
+                   Grid.Row="5"
+                   Content="ISBN:"
                    FontWeight="Bold"
                    />
-            <TextBox x:Name="TargetBook_ISBN_Txt" 
-                     Grid.Column="0" 
-                     Grid.Row="6" 
-                     IsReadOnly="True"
+            <TextBox x:Name="TargetBook_ISBN_Txt"
+                     Grid.Column="0"
+                     Grid.Row="6"
+                     IsEnabled="False"
                      />
-            <Label x:Name="TargetBook_Publisher_Lbl" 
-                   Grid.Column="0" 
-                   Grid.Row="7" 
-                   Content="Publisher" 
+            <Label x:Name="TargetBook_Publisher_Lbl"
+                   Grid.Column="0"
+                   Grid.Row="7"
+                   Content="Publisher:"
                    FontWeight="Bold"
                    />
-            <ComboBox x:Name="TargetBook_Publisher_Cbo" 
-                      Grid.Column="0" 
-                      Grid.Row="8" 
-                      IsReadOnly="True"
+            <ComboBox x:Name="TargetBook_Publisher_Cbo"
+                      Grid.Column="0"
+                      Grid.Row="8"
+                      IsEnabled="False"
                       />
-            <Label x:Name="TargetBook_PublishedYear_Lbl" 
-                   Grid.Column="0" 
-                   Grid.Row="9" 
-                   Content="Year" 
+            <Label x:Name="TargetBook_PublishedYear_Lbl"
+                   Grid.Column="0"
+                   Grid.Row="9"
+                   Content="Year:"
                    FontWeight="Bold"
                    />
-            <TextBox x:Name="TargetBook_PublishedYear_Txt" 
-                     Grid.Column="0" 
-                     Grid.Row="10" 
-                     IsReadOnly="True"
+            <TextBox x:Name="TargetBook_PublishedYear_Txt"
+                     Grid.Column="0"
+                     Grid.Row="10"
+                     IsEnabled="False"
                      />
-            <Label x:Name="TargetBook_Category_Lbl" 
-                   Grid.Column="0" 
-                   Grid.Row="11" 
-                   Content="Category" 
+            <Label x:Name="TargetBook_Category_Lbl"
+                   Grid.Column="0"
+                   Grid.Row="11"
+                   Content="Category:"
                    FontWeight="Bold"
                    />
-            <ComboBox x:Name="TargetBook_Category_Cbo" 
-                      Grid.Column="0" 
-                      Grid.Row="12" 
-                      IsReadOnly="True"
+            <ComboBox x:Name="TargetBook_Category_Cbo"
+                      Grid.Column="0"
+                      Grid.Row="12"
+                      IsEnabled="False"
                       />
-            <Label x:Name="TargetBook_CoverURL_Lbl" 
-                   Grid.Column="0" 
-                   Grid.Row="13" 
-                   Content="Cover URL" 
+            <Label x:Name="TargetBook_CoverURL_Lbl"
+                   Grid.Column="0"
+                   Grid.Row="13"
+                   Content="Cover URL:"
                    FontWeight="Bold"
                    />
-            <TextBox x:Name="TargetBook_CoverURL_Txt" 
-                     Grid.Column="0" 
-                     Grid.Row="14" 
-                     IsReadOnly="True"
+            <TextBox x:Name="TargetBook_CoverURL_Txt"
+                     Grid.Column="0"
+                     Grid.Row="14"
+                     IsEnabled="False"
                      />
-            <Button x:Name="Save_Btn" 
-                    Grid.Column="0" 
-                    Grid.Row="16" 
+            <Button x:Name="Save_Btn"
+                    Grid.Column="0"
+                    Grid.Row="16"
                     Click="Save_Btn_Click"
-                    Content="SAVE" 
-                    Height="30" 
+                    Content="SAVE"
+                    Height="30"
                     IsEnabled="False"
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
                     />
-            <Button x:Name="Cancel_Btn" 
-                    Grid.Column="2" 
-                    Grid.Row="16" 
-                    Click="Cancel_Btn_Click" 
-                    Content="CANCEL" 
-                    Height="30" 
+            <Button x:Name="Cancel_Btn"
+                    Grid.Column="2"
+                    Grid.Row="16"
+                    Click="Cancel_Btn_Click"
+                    Content="CANCEL"
+                    Height="30"
                     IsEnabled="False"
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
                     />
         </Grid>
         <Grid Grid.Column="2"
-              Grid.Row="6" 
+              Grid.Row="6"
               >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="Edit_Btn" 
-                    Grid.Column="0" 
-                    Grid.Row="0" 
+            <Button x:Name="Edit_Btn"
+                    Grid.Column="0"
+                    Grid.Row="0"
                     Click="Edit_Btn_Click"
-                    Content="EDIT" 
-                    Height="30" 
-                    IsEnabled="False" 
+                    Content="EDIT"
+                    Height="30"
+                    IsEnabled="False"
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
                     />
-            <Button x:Name="Delete_Btn" 
-                    Grid.Column="2" 
-                    Grid.Row="0" 
-                    Click="Delete_Btn_Click" 
-                    Content="DELETE" 
-                    Height="30" 
-                    IsEnabled="False" 
+            <Button x:Name="Delete_Btn"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Click="Delete_Btn_Click"
+                    Content="DELETE"
+                    Height="30"
+                    IsEnabled="False"
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
                     />
         </Grid>
     </Grid>
