@@ -20,9 +20,6 @@ namespace WPFApp_LibraryManager.Pages
             InitializeComponent();
 
             BindCategoryListToGrid(_categoryService.GetCategoryList());
-
-            //DisableSearchButton();
-            //DisableClearButton();
         }
 
         private void BindCategoryListToGrid(List<Category> categoryList)
@@ -177,8 +174,8 @@ namespace WPFApp_LibraryManager.Pages
 
         private void EnableCategoryDetails()
         {
-            TargetCategory_Name_Txt.IsReadOnly = false;
-            TargetCategory_Description_Txt.IsReadOnly = false;
+            TargetCategory_Name_Txt.IsEnabled = true;
+            TargetCategory_Description_Txt.IsEnabled = true;
 
             EnableSaveCancelButtons();
             DisableEditDeleteButtons();
@@ -186,8 +183,8 @@ namespace WPFApp_LibraryManager.Pages
 
         private void DisableCategoryDetails()
         {
-            TargetCategory_Name_Txt.IsReadOnly = true;
-            TargetCategory_Description_Txt.IsReadOnly = true;
+            TargetCategory_Name_Txt.IsEnabled = false;
+            TargetCategory_Description_Txt.IsEnabled = false;
 
             EnableEditDeleteButtons();
             DisableSaveCancelButtons();
