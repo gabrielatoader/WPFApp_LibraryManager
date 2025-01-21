@@ -45,7 +45,6 @@ namespace WPFApp_LibraryManager.Components
             BooksPage_Btn.IsEnabled = false;
             AuthorsPage_Btn.IsEnabled = true;
             CategoriesPage_Btn.IsEnabled = true;
-            HomePage_Btn.IsEnabled = true;
             PublishersPage_Btn.IsEnabled = true;
         }
 
@@ -61,7 +60,6 @@ namespace WPFApp_LibraryManager.Components
             AuthorsPage_Btn.IsEnabled = false;
             BooksPage_Btn.IsEnabled = true;
             CategoriesPage_Btn.IsEnabled = true;
-            HomePage_Btn.IsEnabled = true;
             PublishersPage_Btn.IsEnabled = true;
         }
 
@@ -77,7 +75,6 @@ namespace WPFApp_LibraryManager.Components
             CategoriesPage_Btn.IsEnabled = false;
             AuthorsPage_Btn.IsEnabled = true;
             BooksPage_Btn.IsEnabled = true;
-            HomePage_Btn.IsEnabled = true;
             PublishersPage_Btn.IsEnabled = true;
         }
 
@@ -94,23 +91,6 @@ namespace WPFApp_LibraryManager.Components
             AuthorsPage_Btn.IsEnabled = true;
             BooksPage_Btn.IsEnabled = true;
             CategoriesPage_Btn.IsEnabled = true;
-            HomePage_Btn.IsEnabled = true;
-        }
-
-        private void HomePage_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            Window parentWindow = Window.GetWindow((DependencyObject)sender);
-
-            ContentControl contentControl = new ContentControl();
-            contentControl = (ContentControl)parentWindow.FindName("Content_CC");
-
-            contentControl.Content = new HomePage();
-
-            HomePage_Btn.IsEnabled = false;
-            AuthorsPage_Btn.IsEnabled = true;
-            BooksPage_Btn.IsEnabled = true;
-            CategoriesPage_Btn.IsEnabled = true;
-            PublishersPage_Btn.IsEnabled = true;
         }
     }
 }
