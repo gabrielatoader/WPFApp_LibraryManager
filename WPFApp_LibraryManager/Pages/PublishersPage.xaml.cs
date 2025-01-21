@@ -20,9 +20,6 @@ namespace WPFApp_LibraryManager.Pages
             InitializeComponent();
 
             BindPublisherListToGrid(_publisherService.GetPublisherList());
-
-            //DisableSearchButton();
-            //DisableClearButton();
         }
 
         private void BindPublisherListToGrid(List<Publisher> publisherList)
@@ -177,8 +174,8 @@ namespace WPFApp_LibraryManager.Pages
 
         private void EnablePublisherDetails()
         {
-            TargetPublisher_Name_Txt.IsReadOnly = false;
-            TargetPublisher_Description_Txt.IsReadOnly = false;
+            TargetPublisher_Name_Txt.IsEnabled = true;
+            TargetPublisher_Description_Txt.IsEnabled = true;
 
             EnableSaveCancelButtons();
             DisableEditDeleteButtons();
@@ -186,8 +183,8 @@ namespace WPFApp_LibraryManager.Pages
 
         private void DisablePublisherDetails()
         {
-            TargetPublisher_Name_Txt.IsReadOnly = true;
-            TargetPublisher_Description_Txt.IsReadOnly = true;
+            TargetPublisher_Name_Txt.IsEnabled = false;
+            TargetPublisher_Description_Txt.IsEnabled = false;
 
             EnableEditDeleteButtons();
             DisableSaveCancelButtons();
