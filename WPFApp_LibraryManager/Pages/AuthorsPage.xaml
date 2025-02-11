@@ -82,6 +82,8 @@
                   Grid.Column="0"
                   Grid.Row="4"
                   AutoGenerateColumns="False"
+                  BorderBrush="#737373"
+                  BorderThickness="1"
                   CanUserAddRows="False"
                   SelectionChanged="AuthorList_Dtg_SelectionChanged"
                   SelectionUnit="FullRow"
@@ -110,7 +112,7 @@
                                     Binding="{Binding Path=LastName}"
                                     CanUserResize="True"
                                     Header="Last Name"
-                                    Width="200"
+                                    Width="198"
                                     />
             </DataGrid.Columns>
         </DataGrid>

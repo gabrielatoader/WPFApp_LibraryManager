@@ -153,6 +153,8 @@
                   Grid.Column="0"
                   Grid.Row="4"
                   AutoGenerateColumns="False"
+                  BorderBrush="#737373"
+                  BorderThickness="1"
                   CanUserAddRows="False"
                   SelectionChanged="BookList_Dtg_SelectionChanged"
                   SelectionUnit="FullRow"
@@ -181,7 +183,7 @@
                                     CanUserResize="True"
                                     Binding="{Binding Path=PublisherName}"
                                     Header="Publisher"
-                                    Width="125"
+                                    Width="114"
                                     />
                 <DataGridTextColumn x:Name="BookList_Dtg_ISBN"
                                     Binding="{Binding Path=ISBN}"
