@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
@@ -118,13 +119,20 @@ namespace WPFApp_LibraryManager.Services
             try
             {
                 _categoryRepository.DeleteCategory(categoryId);
+
+                MessageBox.Show("Category deleted successfully!");
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Errors[0].Number == 547)
+                {
+                    MessageBox.Show($"Cannot delete category #{categoryId}. Some books are still associated with it.");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Could not delete category: {ex.Message}");
             }
-
-            MessageBox.Show("Category deleted successfully!");
         }
     }
 }

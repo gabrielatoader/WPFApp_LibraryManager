@@ -59,44 +59,71 @@ namespace WPFApp_LibraryManager.Repositories
 
         public void InsertCategory(Category category)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.InsertCategoryQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@CategoryName", category.Name);
-            cmd.Parameters.AddWithValue("@CategoryDescription", category.Description);
+                SqlCommand cmd = new SqlCommand(SqlQueries.InsertCategoryQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@CategoryName", category.Name);
+                cmd.Parameters.AddWithValue("@CategoryDescription", category.Description);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void UpdateCategory(Category category)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.UpdateCategoryQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@CategoryId", category.Id);
-            cmd.Parameters.AddWithValue("@CategoryName", category.Name);
-            cmd.Parameters.AddWithValue("@CategoryDescription", category.Description);
+                SqlCommand cmd = new SqlCommand(SqlQueries.UpdateCategoryQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@CategoryId", category.Id);
+                cmd.Parameters.AddWithValue("@CategoryName", category.Name);
+                cmd.Parameters.AddWithValue("@CategoryDescription", category.Description);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void DeleteCategory(int categoryId)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.DeleteCategoryQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+                SqlCommand cmd = new SqlCommand(SqlQueries.DeleteCategoryQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@CategoryId", categoryId);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
     }
 }
