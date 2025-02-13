@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
@@ -118,13 +119,20 @@ namespace WPFApp_LibraryManager.Services
             try
             {
                 _publisherRepository.DeletePublisher(publisherId);
+
+                MessageBox.Show("Publisher deleted successfully!");
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Errors[0].Number == 547)
+                {
+                    MessageBox.Show($"Cannot delete publisher #{publisherId}. Some books are still associated with it.");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Could not delete publisher: {ex.Message}");
             }
-
-            MessageBox.Show("Publisher deleted successfully!");
         }
     }
 }

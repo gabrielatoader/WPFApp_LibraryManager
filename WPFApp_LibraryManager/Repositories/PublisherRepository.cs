@@ -59,44 +59,71 @@ namespace WPFApp_LibraryManager.Repositories
 
         public void InsertPublisher(Publisher publisher)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.InsertPublisherQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@PublisherName", publisher.Name);
-            cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description);
+                SqlCommand cmd = new SqlCommand(SqlQueries.InsertPublisherQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@PublisherName", publisher.Name);
+                cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void UpdatePublisher(Publisher publisher)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.UpdatePublisherQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@PublisherId", publisher.Id);
-            cmd.Parameters.AddWithValue("@PublisherName", publisher.Name);
-            cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description);
+                SqlCommand cmd = new SqlCommand(SqlQueries.UpdatePublisherQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@PublisherId", publisher.Id);
+                cmd.Parameters.AddWithValue("@PublisherName", publisher.Name);
+                cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void DeletePublisher(int publisherId)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.DeletePublisherQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@PublisherId", publisherId);
+                SqlCommand cmd = new SqlCommand(SqlQueries.DeletePublisherQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@PublisherId", publisherId);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
     }
 }
