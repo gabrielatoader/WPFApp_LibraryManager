@@ -117,14 +117,21 @@ namespace WPFApp_LibraryManager.Services
         {
             try
             {
-                _authorRepository.DeleteAuthor(authorId);
+                if (_authorRepository.IsAuthorInUse(authorId))
+                {
+                    MessageBox.Show($"Could not delete Author #{authorId}. Some books are still associated with it.");
+                }
+                else
+                {
+                    _authorRepository.DeleteAuthor(authorId);
+
+                    MessageBox.Show($"Author #{authorId} deleted successfully!");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Could not delete author: {ex.Message}");
+                MessageBox.Show($"Could not delete Author #{authorId}: {ex.Message}");
             }
-
-            MessageBox.Show("Author deleted successfully!");
         }
     }
 }

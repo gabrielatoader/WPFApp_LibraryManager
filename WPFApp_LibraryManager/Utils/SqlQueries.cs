@@ -88,6 +88,15 @@
                 LastName = @AuthorLastName
             WHERE Id = @AuthorId";
 
+        public const string IsAuthorInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Books 
+                WHERE Author_Id = @AuthorId
+            )
+                SELECT 'true'";
+
         public const string DeleteAuthorQuery =
             @"DELETE FROM Authors
             WHERE Id = @AuthorId";
@@ -123,6 +132,15 @@
                 Description =  @CategoryDescription
             WHERE Id = @CategoryId";
 
+        public const string IsCategoryInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Books 
+                WHERE Category_Id = @CategoryId
+            )
+                SELECT 'true'";
+
         public const string DeleteCategoryQuery =
             @"DELETE FROM Categories
             WHERE Id = @CategoryId";
@@ -157,6 +175,15 @@
             SET Name = @PublisherName, 
                 Description =  @PublisherDescription
             WHERE Id = @PublisherId";
+
+        public const string IsPublisherInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Books 
+                WHERE Publisher_Id = @PublisherId
+            )
+                SELECT 'true'";
 
         public const string DeletePublisherQuery =
             @"DELETE FROM Publishers

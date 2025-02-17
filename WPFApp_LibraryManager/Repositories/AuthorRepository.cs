@@ -28,7 +28,7 @@ namespace WPFApp_LibraryManager.Repositories
                 {
                     author.MiddleName = "";
                 }
-                else 
+                else
                 {
                     author.MiddleName = (string)authorRow["MiddleName"];
                 }
@@ -80,45 +80,94 @@ namespace WPFApp_LibraryManager.Repositories
 
         public void InsertAuthor(Author author)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.InsertAuthorQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@AuthorFirstName", author.FirstName);
-            cmd.Parameters.AddWithValue("@AuthorMiddleName", author.MiddleName);
-            cmd.Parameters.AddWithValue("@AuthorLastName", author.LastName);
-            
-            cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand(SqlQueries.InsertAuthorQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@AuthorFirstName", author.FirstName);
+                cmd.Parameters.AddWithValue("@AuthorMiddleName", author.MiddleName);
+                cmd.Parameters.AddWithValue("@AuthorLastName", author.LastName);
 
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void UpdateAuthor(Author author)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.UpdateAuthorQuery, _sqlConnection);
+                SqlCommand cmd = new SqlCommand(SqlQueries.UpdateAuthorQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@AuthorId", author.Id);
+                cmd.Parameters.AddWithValue("@AuthorFirstName", author.FirstName);
+                cmd.Parameters.AddWithValue("@AuthorMiddleName", author.MiddleName);
+                cmd.Parameters.AddWithValue("@AuthorLastName", author.LastName);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
+        }
+
+        public bool IsAuthorInUse(int authorId)
+        {
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsAuthorInUseQuery, _sqlConnection);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@AuthorId", author.Id);
-            cmd.Parameters.AddWithValue("@AuthorFirstName", author.FirstName);
-            cmd.Parameters.AddWithValue("@AuthorMiddleName", author.MiddleName);
-            cmd.Parameters.AddWithValue("@AuthorLastName", author.LastName);
-            cmd.ExecuteNonQuery();
+            cmd.Parameters.AddWithValue("@AuthorId", authorId);
 
-            _sqlConnection.Close();
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+            using (sqlDataAdapter)
+            {
+                sqlDataAdapter.Fill(resultTable);
+            }
+
+            if (resultTable.Rows.Count != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void DeleteAuthor(int authorId)
         {
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection.Open();
 
-            SqlCommand cmd = new SqlCommand(SqlQueries.DeleteAuthorQuery, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@AuthorId", authorId);
+                SqlCommand cmd = new SqlCommand(SqlQueries.DeleteAuthorQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@AuthorId", authorId);
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
     }
 }
