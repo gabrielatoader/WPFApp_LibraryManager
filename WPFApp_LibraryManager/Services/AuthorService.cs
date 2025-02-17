@@ -117,13 +117,12 @@ namespace WPFApp_LibraryManager.Services
         {
             try
             {
-                if (_authorRepository.IsAuthorInUse(authorId) == true)
+                if (_authorRepository.IsAuthorInUse(authorId))
                 {
                     MessageBox.Show($"Could not delete Author #{authorId}. Some books are still associated with it.");
                 }
                 else
                 {
-
                     _authorRepository.DeleteAuthor(authorId);
 
                     MessageBox.Show($"Author #{authorId} deleted successfully!");

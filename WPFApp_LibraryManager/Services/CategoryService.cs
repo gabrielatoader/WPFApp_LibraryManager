@@ -118,13 +118,12 @@ namespace WPFApp_LibraryManager.Services
         {
             try
             {
-                if (_categoryRepository.IsCategoryInUse(categoryId) == true)
+                if (_categoryRepository.IsCategoryInUse(categoryId))
                 {
                     MessageBox.Show($"Could not delete Category #{categoryId}. Some books are still associated with it.");
                 }
                 else
                 {
-
                     _categoryRepository.DeleteCategory(categoryId);
 
                     MessageBox.Show($"Category #{categoryId} deleted successfully!");
