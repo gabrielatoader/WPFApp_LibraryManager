@@ -104,6 +104,28 @@ namespace WPFApp_LibraryManager.Repositories
             }
         }
 
+        public bool IsCategoryInUse(int categoryId)
+        {
+                SqlCommand cmd = new SqlCommand(SqlQueries.IsCategoryInUseQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+
+                DataTable resultTable = new DataTable();
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+                using (sqlDataAdapter)
+                {
+                    sqlDataAdapter.Fill(resultTable);
+                }
+
+                if (resultTable.Rows.Count != 0)
+                {
+                    return true;
+                }
+
+            return false;
+        }
+
         public void DeleteCategory(int categoryId)
         {
             try

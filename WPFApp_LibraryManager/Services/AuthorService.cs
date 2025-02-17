@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Windows;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
@@ -118,20 +117,21 @@ namespace WPFApp_LibraryManager.Services
         {
             try
             {
-                _authorRepository.DeleteAuthor(authorId);
-
-                MessageBox.Show("Author deleted successfully!");
-            }
-            catch (SqlException ex)
-            {
-                if (ex.Errors[0].Number == 547)
+                if (_authorRepository.IsAuthorInUse(authorId) == true)
                 {
-                    MessageBox.Show($"Cannot delete author #{authorId}. Some books are still associated with it.");
+                    MessageBox.Show($"Could not delete Author #{authorId}. Some books are still associated with it.");
+                }
+                else
+                {
+
+                    _authorRepository.DeleteAuthor(authorId);
+
+                    MessageBox.Show($"Author #{authorId} deleted successfully!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Could not delete author: {ex.Message}");
+                MessageBox.Show($"Could not delete Author #{authorId}: {ex.Message}");
             }
         }
     }

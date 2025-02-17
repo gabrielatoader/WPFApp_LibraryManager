@@ -126,6 +126,28 @@ namespace WPFApp_LibraryManager.Repositories
             }
         }
 
+        public bool IsAuthorInUse(int authorId)
+        {
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsAuthorInUseQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@AuthorId", authorId);
+
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+            using (sqlDataAdapter)
+            {
+                sqlDataAdapter.Fill(resultTable);
+            }
+
+            if (resultTable.Rows.Count != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void DeleteAuthor(int authorId)
         {
             try
