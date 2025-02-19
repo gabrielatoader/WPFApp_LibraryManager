@@ -51,6 +51,15 @@
             @"DELETE FROM Books
             WHERE Id = @BookId";
 
+        public const string IsBookIsbnInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Books 
+                WHERE ISBN = @ISBN AND Id != @BookId
+            )
+                SELECT 'true'";
+
         public const string GetAuthorListQuery =
             @"SELECT
                 Id AS AuthorId, 
@@ -88,6 +97,10 @@
                 LastName = @AuthorLastName
             WHERE Id = @AuthorId";
 
+        public const string DeleteAuthorQuery =
+            @"DELETE FROM Authors
+            WHERE Id = @AuthorId";
+
         public const string IsAuthorInUseQuery =
             @"IF EXISTS 
             (
@@ -97,9 +110,14 @@
             )
                 SELECT 'true'";
 
-        public const string DeleteAuthorQuery =
-            @"DELETE FROM Authors
-            WHERE Id = @AuthorId";
+        public const string IsAuthorNameInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Authors 
+                WHERE FirstName = @AuthorFirstName AND MiddleName = @AuthorMiddleName AND LastName = @AuthorLastName AND Id != @AuthorId
+            )
+                SELECT 'true'";
 
         public const string GetCategoryListQuery = 
             @"SELECT 
@@ -132,6 +150,10 @@
                 Description =  @CategoryDescription
             WHERE Id = @CategoryId";
 
+        public const string DeleteCategoryQuery =
+            @"DELETE FROM Categories
+            WHERE Id = @CategoryId";
+
         public const string IsCategoryInUseQuery =
             @"IF EXISTS 
             (
@@ -141,9 +163,14 @@
             )
                 SELECT 'true'";
 
-        public const string DeleteCategoryQuery =
-            @"DELETE FROM Categories
-            WHERE Id = @CategoryId";
+        public const string IsCategoryNameInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Categories 
+                WHERE Name = @CategoryName AND Id != @CategoryId
+            )
+                SELECT 'true'";
 
         public const string GetPublisherListQuery = 
             @"SELECT 
@@ -176,6 +203,10 @@
                 Description =  @PublisherDescription
             WHERE Id = @PublisherId";
 
+        public const string DeletePublisherQuery =
+            @"DELETE FROM Publishers
+            WHERE Id = @PublisherId";
+
         public const string IsPublisherInUseQuery =
             @"IF EXISTS 
             (
@@ -185,8 +216,13 @@
             )
                 SELECT 'true'";
 
-        public const string DeletePublisherQuery =
-            @"DELETE FROM Publishers
-            WHERE Id = @PublisherId";
+        public const string IsPublisherNameInUseQuery =
+            @"IF EXISTS 
+            (
+                SELECT TOP 1 * 
+                FROM Publishers 
+                WHERE Name = @PublisherName AND Id != @PublisherId
+            )
+                SELECT 'true'";
     }
 }

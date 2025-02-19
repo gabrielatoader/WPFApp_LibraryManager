@@ -13,8 +13,10 @@ namespace WPFApp_LibraryManager.Interfaces
 
         void UpdatePublisher(Publisher publisher);
 
+        void DeletePublisher(int publisherId);
+
         bool IsPublisherInUse(int publisherId);
 
-        void DeletePublisher(int publisherId);
+        bool IsPublisherNameInUse(Publisher publisher);
     }
 }

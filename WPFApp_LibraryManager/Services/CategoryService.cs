@@ -78,16 +78,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _categoryRepository.InsertCategory(category);
+                    if (!_categoryRepository.IsCategoryNameInUse(category))
+                    {
+                        _categoryRepository.InsertCategory(category);
+
+                        MessageBox.Show("Category added successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not insert category. Another category with the same name already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not insert category: {ex.Message}");
                 }
-
-                MessageBox.Show("Category added successfully!");
-
-                return true;
             }
 
             return false;
@@ -99,16 +106,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _categoryRepository.UpdateCategory(category);
+                    if (!_categoryRepository.IsCategoryNameInUse(category))
+                    {
+                        _categoryRepository.UpdateCategory(category);
+
+                        MessageBox.Show("Category updated successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not update category. Another category with the same name already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not update category: {ex.Message}");
                 }
-
-                MessageBox.Show("Category updated successfully!");
-
-                return true;
             }
 
             return false;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
@@ -79,69 +80,82 @@ namespace WPFApp_LibraryManager.Repositories
 
         public void InsertBook(Book book)
         {
-            InsertBookInDb(SqlQueries.InsertBookQuery, book);
-        }
+            try
+            {
+                _sqlConnection.Open();
 
-        public void InsertBookInDb(string query, Book book)
-        {
-            _sqlConnection.Open();
+                SqlCommand cmd = new SqlCommand(SqlQueries.InsertBookQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@Title", book.Title);
+                cmd.Parameters.AddWithValue("@ISBN", book.Isbn);
+                cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
+                cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
+                cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
+                cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+                cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
 
-            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@Title", book.Title);
-            cmd.Parameters.AddWithValue("@ISBN", book.ISBN);
-            cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
-            cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
-            cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
-            cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
-            cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
-
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void UpdateBook(Book book)
         {
-            UpdatebookInDb(SqlQueries.UpdateBookQuery, book);
-        }
+            try
+            {
+                _sqlConnection.Open();
 
-        public void UpdatebookInDb(string query, Book book)
-        {
-            _sqlConnection.Open();
+                SqlCommand cmd = new SqlCommand(SqlQueries.UpdateBookQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@BookId", book.Id);
+                cmd.Parameters.AddWithValue("@Title", book.Title);
+                cmd.Parameters.AddWithValue("@ISBN", book.Isbn);
+                cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
+                cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
+                cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
+                cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
+                cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
 
-            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@BookId", book.BookId);
-            cmd.Parameters.AddWithValue("@Title", book.Title);
-            cmd.Parameters.AddWithValue("@ISBN", book.ISBN);
-            cmd.Parameters.AddWithValue("@AuthorId", book.AuthorId);
-            cmd.Parameters.AddWithValue("@PublisherId", book.PublisherId);
-            cmd.Parameters.AddWithValue("@PublishedYear", book.PublishedYear);
-            cmd.Parameters.AddWithValue("@CategoryId", book.CategoryId);
-            cmd.Parameters.AddWithValue("@CoverURL", book.CoverURL);
-
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public void DeleteBook(int bookId)
         {
-            DeleteBookFromDb(SqlQueries.DeleteBookQuery, bookId);
-        }
+            try
+            {
+                _sqlConnection.Open();
 
-        public void DeleteBookFromDb(string query, int bookId)
-        {
-            _sqlConnection.Open();
+                SqlCommand cmd = new SqlCommand(SqlQueries.DeleteBookQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@BookId", bookId);
 
-            SqlCommand cmd = new SqlCommand(query, _sqlConnection);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@BookId", bookId);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
 
-            cmd.ExecuteNonQuery();
-
-            _sqlConnection.Close();
         }
         
         private List<Book> ConvertBookDataTableToBookList(DataTable bookTable)
@@ -151,9 +165,9 @@ namespace WPFApp_LibraryManager.Repositories
             foreach (DataRow bookRow in bookTable.Rows)
             {
                 Book book = new Book();
-                book.BookId = (int)bookRow["BookId"];
+                book.Id = (int)bookRow["BookId"];
                 book.Title = (string)bookRow["Title"];
-                book.ISBN = (string)bookRow["ISBN"];
+                book.Isbn = (string)bookRow["ISBN"];
                 book.AuthorId = (int)bookRow["AuthorId"];
                 book.AuthorName = (string)bookRow["AuthorFullName"];
                 book.PublisherId = (int)bookRow["PublisherId"];
@@ -167,6 +181,29 @@ namespace WPFApp_LibraryManager.Repositories
             }
 
             return bookList;
+        }
+        
+        public bool IsBookIsbnInUse(Book book)
+        {
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsBookIsbnInUseQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@BookId", book.Id);
+            cmd.Parameters.AddWithValue("@ISBN", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(book.Isbn.Trim()));
+
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+            using (sqlDataAdapter)
+            {
+                sqlDataAdapter.Fill(resultTable);
+            }
+
+            if (resultTable.Rows.Count != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
@@ -86,9 +87,9 @@ namespace WPFApp_LibraryManager.Repositories
 
                 SqlCommand cmd = new SqlCommand(SqlQueries.InsertAuthorQuery, _sqlConnection);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@AuthorFirstName", author.FirstName);
-                cmd.Parameters.AddWithValue("@AuthorMiddleName", author.MiddleName);
-                cmd.Parameters.AddWithValue("@AuthorLastName", author.LastName);
+                cmd.Parameters.AddWithValue("@AuthorFirstName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.FirstName.Trim()));
+                cmd.Parameters.AddWithValue("@AuthorMiddleName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.MiddleName.Trim()));
+                cmd.Parameters.AddWithValue("@AuthorLastName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.LastName.Trim()));
 
                 cmd.ExecuteNonQuery();
             }
@@ -111,9 +112,31 @@ namespace WPFApp_LibraryManager.Repositories
                 SqlCommand cmd = new SqlCommand(SqlQueries.UpdateAuthorQuery, _sqlConnection);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("@AuthorId", author.Id);
-                cmd.Parameters.AddWithValue("@AuthorFirstName", author.FirstName);
-                cmd.Parameters.AddWithValue("@AuthorMiddleName", author.MiddleName);
-                cmd.Parameters.AddWithValue("@AuthorLastName", author.LastName);
+                cmd.Parameters.AddWithValue("@AuthorFirstName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.FirstName.Trim()));
+                cmd.Parameters.AddWithValue("@AuthorMiddleName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.MiddleName.Trim()));
+                cmd.Parameters.AddWithValue("@AuthorLastName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.LastName.Trim()));
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
+        }
+
+        public void DeleteAuthor(int authorId)
+        {
+            try
+            {
+                _sqlConnection.Open();
+
+                SqlCommand cmd = new SqlCommand(SqlQueries.DeleteAuthorQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@AuthorId", authorId);
+
                 cmd.ExecuteNonQuery();
             }
             catch
@@ -148,26 +171,29 @@ namespace WPFApp_LibraryManager.Repositories
             return false;
         }
 
-        public void DeleteAuthor(int authorId)
+        public bool IsAuthorNameInUse(Author author)
         {
-            try
-            {
-                _sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsAuthorNameInUseQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@AuthorId", author.Id);
+            cmd.Parameters.AddWithValue("@AuthorFirstName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.FirstName.Trim()));
+            cmd.Parameters.AddWithValue("@AuthorMiddleName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.MiddleName.Trim()));
+            cmd.Parameters.AddWithValue("@AuthorLastName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(author.LastName.Trim()));
 
-                SqlCommand cmd = new SqlCommand(SqlQueries.DeleteAuthorQuery, _sqlConnection);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@AuthorId", authorId);
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
 
-                cmd.ExecuteNonQuery();
-            }
-            catch
+            using (sqlDataAdapter)
             {
-                throw;
+                sqlDataAdapter.Fill(resultTable);
             }
-            finally
+
+            if (resultTable.Rows.Count != 0)
             {
-                _sqlConnection.Close();
+                return true;
             }
+
+            return false;
         }
     }
 }

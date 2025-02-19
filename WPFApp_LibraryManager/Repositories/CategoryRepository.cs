@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
@@ -65,8 +66,8 @@ namespace WPFApp_LibraryManager.Repositories
 
                 SqlCommand cmd = new SqlCommand(SqlQueries.InsertCategoryQuery, _sqlConnection);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@CategoryName", category.Name);
-                cmd.Parameters.AddWithValue("@CategoryDescription", category.Description);
+                cmd.Parameters.AddWithValue("@CategoryName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category.Name.Trim()));
+                cmd.Parameters.AddWithValue("@CategoryDescription", category.Description.Trim());
 
                 cmd.ExecuteNonQuery();
             }
@@ -89,8 +90,8 @@ namespace WPFApp_LibraryManager.Repositories
                 SqlCommand cmd = new SqlCommand(SqlQueries.UpdateCategoryQuery, _sqlConnection);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("@CategoryId", category.Id);
-                cmd.Parameters.AddWithValue("@CategoryName", category.Name);
-                cmd.Parameters.AddWithValue("@CategoryDescription", category.Description);
+                cmd.Parameters.AddWithValue("@CategoryName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category.Name.Trim()));
+                cmd.Parameters.AddWithValue("@CategoryDescription", category.Description.Trim());
 
                 cmd.ExecuteNonQuery();
             }
@@ -102,28 +103,6 @@ namespace WPFApp_LibraryManager.Repositories
             {
                 _sqlConnection.Close();
             }
-        }
-
-        public bool IsCategoryInUse(int categoryId)
-        {
-                SqlCommand cmd = new SqlCommand(SqlQueries.IsCategoryInUseQuery, _sqlConnection);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@CategoryId", categoryId);
-
-                DataTable resultTable = new DataTable();
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-
-                using (sqlDataAdapter)
-                {
-                    sqlDataAdapter.Fill(resultTable);
-                }
-
-                if (resultTable.Rows.Count != 0)
-                {
-                    return true;
-                }
-
-            return false;
         }
 
         public void DeleteCategory(int categoryId)
@@ -146,6 +125,51 @@ namespace WPFApp_LibraryManager.Repositories
             {
                 _sqlConnection.Close();
             }
+        }
+
+        public bool IsCategoryInUse(int categoryId)
+        {
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsCategoryInUseQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+            using (sqlDataAdapter)
+            {
+                sqlDataAdapter.Fill(resultTable);
+            }
+
+            if (resultTable.Rows.Count != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsCategoryNameInUse(Category category)
+        {
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsCategoryNameInUseQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@CategoryId", category.Id);
+            cmd.Parameters.AddWithValue("@CategoryName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category.Name.Trim()));
+
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+            using (sqlDataAdapter)
+            {
+                sqlDataAdapter.Fill(resultTable);
+            }
+
+            if (resultTable.Rows.Count != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

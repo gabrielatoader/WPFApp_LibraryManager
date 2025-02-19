@@ -56,16 +56,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _bookRepository.InsertBook(book);
+                    if (!_bookRepository.IsBookIsbnInUse(book))
+                    {
+                        _bookRepository.InsertBook(book);
+
+                        MessageBox.Show("Book added successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not insert book. Another book with the same ISBN already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not insert book: {ex.Message}");
                 }
-
-                MessageBox.Show("Book added successfully!");
-
-                return true;
             }
 
             return false;
@@ -77,16 +84,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _bookRepository.UpdateBook(book);
+                    if (!_bookRepository.IsBookIsbnInUse(book))
+                    {
+                        _bookRepository.UpdateBook(book);
+
+                        MessageBox.Show("Book updated successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not update book. Another book with the same ISBN already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not update book: {ex.Message}");
                 }
-
-                MessageBox.Show("Book updated successfully!");
-
-                return true;
             }
 
             return false;
