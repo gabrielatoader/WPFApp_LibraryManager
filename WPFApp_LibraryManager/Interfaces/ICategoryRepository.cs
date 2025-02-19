@@ -13,8 +13,10 @@ namespace WPFApp_LibraryManager.Interfaces
 
         void UpdateCategory(Category category);
 
+        void DeleteCategory(int categoryId);
+
         bool IsCategoryInUse(int categoryId);
 
-        void DeleteCategory(int categoryId);
+        bool IsCategoryNameInUse(Category category);
     }
 }

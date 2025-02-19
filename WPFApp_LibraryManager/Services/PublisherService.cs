@@ -77,16 +77,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _publisherRepository.InsertPublisher(publisher);
+                    if (!_publisherRepository.IsPublisherNameInUse(publisher))
+                    {
+                        _publisherRepository.InsertPublisher(publisher);
+
+                        MessageBox.Show("Publisher added successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not insert publisher. Another publisher with the same name already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not insert publisher: {ex.Message}");
                 }
-
-                MessageBox.Show("Publisher added successfully!");
-
-                return true;
             }
 
             return false;
@@ -98,16 +105,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _publisherRepository.UpdatePublisher(publisher);
+                    if (!_publisherRepository.IsPublisherNameInUse(publisher))
+                    {
+                        _publisherRepository.UpdatePublisher(publisher);
+
+                        MessageBox.Show("Publisher updated successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not update publisher. Another publisher with the same name already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not update publisher: {ex.Message}");
                 }
-
-                MessageBox.Show("Publisher updated successfully!");
-
-                return true;
             }
 
             return false;

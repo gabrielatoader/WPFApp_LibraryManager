@@ -77,16 +77,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _authorRepository.InsertAuthor(author);
+                    if (!_authorRepository.IsAuthorNameInUse(author))
+                    {
+                        _authorRepository.InsertAuthor(author);
+
+                        MessageBox.Show("Author added successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not insert author. Another author with the same full name already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not insert author: {ex.Message}");
                 }
-
-                MessageBox.Show("Author added successfully!");
-
-                return true;
             }
 
             return false;
@@ -98,16 +105,23 @@ namespace WPFApp_LibraryManager.Services
             {
                 try
                 {
-                    _authorRepository.UpdateAuthor(author);
+                    if (!_authorRepository.IsAuthorNameInUse(author))
+                    {
+                        _authorRepository.UpdateAuthor(author);
+
+                        MessageBox.Show("Author updated successfully!");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not update author. Another author with the same name already exists.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Could not update author: {ex.Message}");
                 }
-
-                MessageBox.Show("Author updated successfully!");
-
-                return true;
             }
 
             return false;

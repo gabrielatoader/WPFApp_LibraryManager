@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using WPFApp_LibraryManager.Interfaces;
 using WPFApp_LibraryManager.Models;
 using WPFApp_LibraryManager.Utils;
@@ -65,8 +66,8 @@ namespace WPFApp_LibraryManager.Repositories
 
                 SqlCommand cmd = new SqlCommand(SqlQueries.InsertPublisherQuery, _sqlConnection);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@PublisherName", publisher.Name);
-                cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description);
+                cmd.Parameters.AddWithValue("@PublisherName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(publisher.Name.Trim()));
+                cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description.Trim());
 
                 cmd.ExecuteNonQuery();
             }
@@ -89,8 +90,30 @@ namespace WPFApp_LibraryManager.Repositories
                 SqlCommand cmd = new SqlCommand(SqlQueries.UpdatePublisherQuery, _sqlConnection);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("@PublisherId", publisher.Id);
-                cmd.Parameters.AddWithValue("@PublisherName", publisher.Name);
-                cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description);
+                cmd.Parameters.AddWithValue("@PublisherName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(publisher.Name.Trim()));
+                cmd.Parameters.AddWithValue("@PublisherDescription", publisher.Description.Trim());
+
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
+        }
+
+        public void DeletePublisher(int publisherId)
+        {
+            try
+            {
+                _sqlConnection.Open();
+
+                SqlCommand cmd = new SqlCommand(SqlQueries.DeletePublisherQuery, _sqlConnection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@PublisherId", publisherId);
 
                 cmd.ExecuteNonQuery();
             }
@@ -126,26 +149,27 @@ namespace WPFApp_LibraryManager.Repositories
             return false;
         }
 
-        public void DeletePublisher(int publisherId)
+        public bool IsPublisherNameInUse(Publisher publisher)
         {
-            try
-            {
-                _sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand(SqlQueries.IsPublisherNameInUseQuery, _sqlConnection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PublisherId", publisher.Id);
+            cmd.Parameters.AddWithValue("@PublisherName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(publisher.Name.Trim()));
 
-                SqlCommand cmd = new SqlCommand(SqlQueries.DeletePublisherQuery, _sqlConnection);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@PublisherId", publisherId);
+            DataTable resultTable = new DataTable();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
 
-                cmd.ExecuteNonQuery();
-            }
-            catch
+            using (sqlDataAdapter)
             {
-                throw;
+                sqlDataAdapter.Fill(resultTable);
             }
-            finally
+
+            if (resultTable.Rows.Count != 0)
             {
-                _sqlConnection.Close();
+                return true;
             }
+
+            return false;
         }
     }
 }

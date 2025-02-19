@@ -15,7 +15,7 @@ namespace WPFApp_LibraryManager.Utils
 
                 return false;
             }
-            else if (!IsValidISBN(book.ISBN))
+            else if (!IsValidISBN(book.Isbn))
             {
                 MessageBox.Show("ISBN is not valid, it should have exactly 10 digits.");
 

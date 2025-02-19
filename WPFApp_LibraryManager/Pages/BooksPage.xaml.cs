@@ -83,7 +83,7 @@ namespace WPFApp_LibraryManager.Pages
         private void BindBookToBookDetails(Book book)
         {
             TargetBook_Title_Txt.Text = book.Title;
-            TargetBook_ISBN_Txt.Text = book.ISBN;
+            TargetBook_ISBN_Txt.Text = book.Isbn;
             TargetBook_PublishedYear_Txt.Text = book.PublishedYear.ToString();
             TargetBook_CoverURL_Txt.Text = book.CoverURL;
             TargetBook_Author_Cbo.SelectedValue = book.AuthorId;
@@ -218,7 +218,7 @@ namespace WPFApp_LibraryManager.Pages
             {
                 Book activeBook = (Book)BookList_Dtg.SelectedItem;
 
-                _bookService.DeleteBook(activeBook.BookId);
+                _bookService.DeleteBook(activeBook.Id);
 
                 Clear_Btn_Click(sender, e);
             }
@@ -228,7 +228,7 @@ namespace WPFApp_LibraryManager.Pages
         {
             Book targetBook = new Book();
             targetBook.Title = TargetBook_Title_Txt.Text;
-            targetBook.ISBN = TargetBook_ISBN_Txt.Text;
+            targetBook.Isbn = TargetBook_ISBN_Txt.Text;
             targetBook.AuthorName = TargetBook_Author_Cbo.Text;
             targetBook.AuthorId = Convert.ToInt32(TargetBook_Author_Cbo.SelectedValue);
             targetBook.CategoryName = TargetBook_Category_Cbo.Text;
@@ -247,7 +247,7 @@ namespace WPFApp_LibraryManager.Pages
             {
                 Book activeBook = (Book)BookList_Dtg.SelectedItem;
 
-                targetBook.BookId = activeBook.BookId;
+                targetBook.Id = activeBook.Id;
 
                 result = _bookService.UpdateBook(targetBook);
             }
